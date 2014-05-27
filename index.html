@@ -1,0 +1,105 @@
+<html ng-app="PlayerApp">
+	<head>
+		<link rel="stylesheet" href="style.css" />
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+		<script src="app.js"></script>
+		<script src="services/auth.js"></script>
+		<script src="services/api.js"></script>
+		<script src="services/playback.js"></script>
+		<script src="services/playqueue.js"></script>
+		<script src="controllers/player.js"></script>
+		<script src="controllers/login.js"></script>
+	</head>
+	<body ng-controller="AppController">
+		<div class="fullview playerview" ng-show="showplayer">
+		<div  ng-controller="PlayerController">
+			<div class="topgroup">
+				<div class="searchbox">
+					SEARCHBOX
+				</div>
+				<div class="titlebox">
+					SAMPLE PLAYER APPLICATION
+				</div>
+				<div class="userbox">
+					<a ng-click="logout()">Signed in as <b>{{username}}</b></a>
+				</div>
+			</div>
+			<div class="midgroup">
+				<div class="menuview">
+					<div class="scrollable">
+
+						<b>MAIN</b>
+
+						<ul>
+							<li><a href="#">Welcome</a></li>
+							<li><a href="#">Play queue</a></li>
+						</ul>
+
+						<br/>
+
+						<b>YOUR MUSIC</b>
+						<ul>
+							<li><a href="#">Playlist 1</a></li>
+							<li><a href="#">Playlist 2</a></li>
+							<li><a href="#">Playlist 3</a></li>
+							<li><a href="#">Playlist 4</a></li>
+						</ul>
+
+					</div>
+					<div class="preview">
+						current album cover<br/>
+						<br/>
+						current album name<br/>
+						current artist<br/>
+					</div>
+				</div>
+				<div class="mainview">
+				<h1>Welcome!</h1>
+				<p>main view placeholder</p>
+				<p>main view placeholder</p>
+				<p>main view placeholder</p>
+				<p><a ng-click="play('t1')">play track1</a></p>
+				<p><a ng-click="play('t2')">play track2</a></p>
+				<p><a ng-click="queue('t1')">queue track1</a></p>
+				<p><a ng-click="queue('t2')">queue track2</a></p>
+				<p><a ng-click="queue('t3')">queue track3</a></p>
+				</div>
+			</div>
+			<div class="midgroup">
+				<div class="playbarview">
+					<a ng-click="prev()">PREV</a>
+					&nbsp;
+					<a ng-click="play()">PLAY</a>
+					<a ng-click="pause()">PAUSE</a>
+					&nbsp;
+					<a ng-click="next()">NEXT</a>
+
+					&nbsp; - &nbsp;
+
+					<input type="range" ng-model="volume" />
+
+					&nbsp; - &nbsp;
+
+					<input type="range" style="width:400px;" ng-model="progress" />
+
+					<a ng-click="shuffle()">SHUF</a>
+					<a ng-click="repeat()">REP.</a>
+				</div>
+			</div>
+		</div>
+		</div>
+
+		<div class="fullview loginview" ng-show="showlogin">
+			<div ng-controller="LoginController">
+				<div class="centered">
+					<h1>Spotify Web API Demo</h1>
+					<p>
+						To view this demo you need to sign in with your spotify account.
+					</p>
+					<a ng-click="login()" class="button">login</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
