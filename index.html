@@ -30,20 +30,15 @@
 					<div class="scrollable">
 
 						<b>MAIN</b>
-
 						<ul>
-							<li><a href="#">Welcome</a></li>
-							<li><a href="#">Play queue</a></li>
+							<li><a ng-click="showhome()">Welcome</a></li>
+							<li><a ng-click="showplayqueue()">Play Queue</a></li>
 						</ul>
-
 						<br/>
 
 						<b>YOUR MUSIC</b>
 						<ul>
-							<li><a href="#">Playlist 1</a></li>
-							<li><a href="#">Playlist 2</a></li>
-							<li><a href="#">Playlist 3</a></li>
-							<li><a href="#">Playlist 4</a></li>
+							<li ng-repeat="pl in playlists track by pl.id"><a ng-click="showplaylist(pl.uri)">{{pl.name}}</a></li>
 						</ul>
 
 					</div>
@@ -66,7 +61,7 @@
 				<p><a ng-click="queue('t3')">queue track3</a></p>
 				</div>
 			</div>
-			<div class="midgroup">
+			<div class="bottomgroup">
 				<div class="playbarview">
 					<a ng-click="prev()">PREV</a>
 					&nbsp;
