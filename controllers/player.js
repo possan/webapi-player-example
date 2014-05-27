@@ -6,6 +6,7 @@
 		$scope.view = 'welcome';
 		$scope.username = Auth.getUsername();
 		$scope.playlists = [];
+		$scope.playing = false;
 
 		function updatePlaylists() {
 			if ($scope.username != '') {
@@ -29,11 +30,18 @@
 		$scope.logout = function() {
 			// do login!
 			console.log('do logout...');
+			Auth.setUsername('');
+			Auth.setAccessToken('', 0);
 			$scope.$emit('logout');
 		}
 
 		$scope.play = function(trackuri) {
 			PlayQueue.play(trackuri);
+			$scope.playing = true;
+		}
+
+		$scope.pause = function() {
+			$scope.playing = false;
 		}
 
 		$scope.queue = function(trackuri) {

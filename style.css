@@ -6,13 +6,16 @@ body {
 	border: 0;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
+	overflow: hidden;
 }
 
-.scrollable {
+div.scrollable {
 	overflow: auto;
+	width: 100%;
+	height: 100%;
 }
 
-.fullview {
+div.fullview {
 	width: 100%;
 	height: 100%;
 }
@@ -20,14 +23,163 @@ body {
 h1 {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 700;
+	margin: 0 0 15px 0;
 }
 
 h2 {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 700;
+	margin: 0 0 15px 0;
 }
 
 h3 {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 700;
+	margin: 0 0 15px 0;
+}
+
+p {
+	margin: 0 0 15px 0;
+}
+
+.topgroup {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	height: 60px;
+	width: 100%;
+	background-color: rgba(255,255,255,0.2);
+	overflow: hidden;
+}
+
+.topgroup .searchbox {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	padding: 20px;
+}
+
+.topgroup .searchbox input {
+}
+
+.topgroup .userbox {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	padding: 20px;
+	text-align: right;
+}
+
+.topgroup .titlebox {
+	position: absolute;
+	left: 200px;
+	right: 200px;
+	top: 0px;
+	text-align: center;
+	padding: 20px;
+}
+
+.midgroup {
+	position: absolute;
+	left: 0px;
+	top: 60px;
+	bottom: 60px;
+	width: 100%;
+	overflow: hidden;
+}
+
+.bottomgroup {
+	position: absolute;
+	left: 0px;
+	width: 100%;
+	height: 60px;
+	bottom: 0px;
+	background-color: rgba(255,255,255,0.2);
+	overflow: hidden;
+}
+
+.bottomgroup .leftcontrols {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 400px;
+	padding: 20px;
+}
+
+.bottomgroup .seekcontrols {
+	position: absolute;
+	top: 0px;
+	left: 400px;
+	right: 150px;
+	padding: 20px;
+}
+
+.bottomgroup .seekcontrols input {
+	width: 100%;
+}
+
+.bottomgroup .rightcontrols {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	text-align: right;
+	width: 110px;
+	padding: 20px;
+}
+
+.menuview {
+	overflow: hidden;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 250px;
+	background-color: rgba(255,255,255,0.1);
+	bottom: 0px;
+}
+
+.mainview {
+	position: absolute;
+	left: 250px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	padding: 20px;
+	overflow: auto;
+}
+
+ul.menuitems {
+	margin: 0 0 20px 0;
+	padding: 0;
+	list-style: none;
+}
+
+ul.menuitems li {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 2px 10px;
+	margin: 0;
+	cursor: pointer;
+}
+
+ul.menuitems li:hover {
+	background-color: #555;
+}
+
+div.centered {
+	width: 100%;
+}
+
+div.centered div.inner {
+	margin: 100px auto;
+	width: 400px;
+}
+
+a.button.big.green {
+	display: block;
+	text-align: center;
+	background-color: #070;
+	color: #fff;
+	padding: 10px 40px;
+	border-radius: 50px;
 }

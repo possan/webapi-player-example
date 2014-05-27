@@ -16,7 +16,7 @@
 		<div  ng-controller="PlayerController">
 			<div class="topgroup">
 				<div class="searchbox">
-					SEARCHBOX
+					<input type="text" ng-model="query" ng-change="loadsearch()" ng-keyup="querykey($event)" placeholder="Search..." />
 				</div>
 				<div class="titlebox">
 					SAMPLE PLAYER APPLICATION
@@ -30,14 +30,14 @@
 					<div class="scrollable">
 
 						<b>MAIN</b>
-						<ul>
+						<ul class="menuitems">
 							<li><a ng-click="showhome()">Welcome</a></li>
 							<li><a ng-click="showplayqueue()">Play Queue</a></li>
 						</ul>
 						<br/>
 
 						<b>YOUR MUSIC</b>
-						<ul>
+						<ul class="menuitems">
 							<li ng-repeat="pl in playlists track by pl.id"><a ng-click="showplaylist(pl.uri)">{{pl.name}}</a></li>
 						</ul>
 
@@ -50,34 +50,37 @@
 					</div>
 				</div>
 				<div class="mainview">
-				<h1>Welcome!</h1>
-				<p>main view placeholder</p>
-				<p>main view placeholder</p>
-				<p>main view placeholder</p>
-				<p><a ng-click="play('t1')">play track1</a></p>
-				<p><a ng-click="play('t2')">play track2</a></p>
-				<p><a ng-click="queue('t1')">queue track1</a></p>
-				<p><a ng-click="queue('t2')">queue track2</a></p>
-				<p><a ng-click="queue('t3')">queue track3</a></p>
+					<div>
+						<h1>Welcome!</h1>
+						<p>main view placeholder</p>
+						<p>main view placeholder</p>
+						<p>main view placeholder</p>
+						<p><a ng-click="play('t1')">play track1</a></p>
+						<p><a ng-click="play('t2')">play track2</a></p>
+						<p><a ng-click="queue('t1')">queue track1</a></p>
+						<p><a ng-click="queue('t2')">queue track2</a></p>
+						<p><a ng-click="queue('t3')">queue track3</a></p>
+					</div>
+					<div>
+						<h1>
+					</div>
 				</div>
 			</div>
 			<div class="bottomgroup">
-				<div class="playbarview">
-					<a ng-click="prev()">PREV</a>
+				<div class="leftcontrols">
+					<a ng-click="prev()">&lt;&lt;</a>
 					&nbsp;
-					<a ng-click="play()">PLAY</a>
-					<a ng-click="pause()">PAUSE</a>
+					<a ng-click="play()" ng-hide="playing">|&gt;</a>
+					<a ng-click="pause()" ng-show="playing">[ ]</a>
 					&nbsp;
-					<a ng-click="next()">NEXT</a>
-
+					<a ng-click="next()">&gt;&gt;</a>
 					&nbsp; - &nbsp;
-
-					<input type="range" ng-model="volume" />
-
-					&nbsp; - &nbsp;
-
-					<input type="range" style="width:400px;" ng-model="progress" />
-
+					<input type="range" style="width:100px;" ng-model="volume" />
+				</div>
+				<div class="seekcontrols">
+					<input type="range" ng-model="progress" />
+				</div>
+				<div class="rightcontrols">
 					<a ng-click="shuffle()">SHUF</a>
 					<a ng-click="repeat()">REP.</a>
 				</div>
@@ -88,11 +91,13 @@
 		<div class="fullview loginview" ng-show="showlogin">
 			<div ng-controller="LoginController">
 				<div class="centered">
-					<h1>Spotify Web API Demo</h1>
-					<p>
-						To view this demo you need to sign in with your spotify account.
-					</p>
-					<a ng-click="login()" class="button">login</a>
+					<div class="inner">
+						<h1>Spotify Web API Player Demo</h1>
+						<p>
+							To view this demo you need to sign in with your spotify account.
+						</p>
+						<a ng-click="login()" class="button big green">login</a>
+					</div>
 				</div>
 			</div>
 		</div>
