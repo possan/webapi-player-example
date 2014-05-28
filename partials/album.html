@@ -22,24 +22,35 @@
 	{{total_duration}} Total ms.
 </p>
 <hr/>
+<br/>
 
-<p># SONG TIME POPULARITY</p>
-<ul class="discs">
-	<li ng-repeat="d in discs">
-		DISC {{ d.disc_number }} / {{ num_discs }}
-		<ul class="tracks">
-			<li ng-repeat="t in d.tracks" ng-class="{ playing: (t.uri == currenttrack) }">
-				#{{t.track_number}}
+<div class="discs">
+	<div ng-repeat="d in discs">
+		<p ng-show="num_discs > 1">
+			CD {{ d.disc_number }}
+		</p>
+		<table class="tracks">
+			<thead>
+				<th>#</th>
+				<th>SONG</th>
+				<th>TIME</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="t in d.tracks" ng-class="{ playing: (t.uri == currenttrack) }">
+					<td>{{t.track_number}}</td>
+					<td>
+						<a ng-click="play(t.uri)">{{t.name}}</a>
+						<i>by <a href="#/artists/{{t.artists[0].id}}">{{t.artists[0].name}}</a></i>
+					</td>
+					<td>{{t.duration_ms}} ms.</td>
+				</tr>
+				</tbody>
+		</table>
+	</div>
+</div>
+<br/>
 
-				<a ng-click="play(t.uri)">{{t.name}}</a>
-				&nbsp;-&nbsp;
-				<a href="#/artists/{{t.artists[0].id}}">{{t.artists[0].name}}</a>
-
-				({{t.duration_ms}} ms. long)
-			</li>
-		</ul>
-	</li>
-</ul>
+<hr/>
 
 <!--
 

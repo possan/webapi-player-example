@@ -16,26 +16,41 @@
 <p>Created by: {{data.owner.id}} &middot; {{data.tracks.total}} songs &middot; {{total_duration}} duration.</p>
 <!-- p>{{data.followers.total}} Followers</p -->
 <hr/>
+<br/>
 
-<p>TRACK ARTIST TIME ALBUM ADDED USER</p>
-
-<ul>
-<li ng-repeat="t in tracks">
-<a ng-click="play(t.track.uri)">{{t.track.name}}</a>
-&nbsp;-&nbsp;
-<a href="#/artists/{{t.track.artists[0].id}}">{{t.track.artists[0].name}}</a>
-&nbsp;-&nbsp;
-{{t.track.duration_ms}} ms.
-&nbsp;-&nbsp;
-<a href="#/albums/{{t.track.album.id}}">{{t.track.album.name}}</a>
-&nbsp;
-{{t.added_at}}
-&nbsp;
-{{t.added_by.id}}
-&nbsp;
-<span ng-show="(t.track.uri == currenttrack)">*CURRENT*</span>
-</li>
-</ul>
+<table class="tracks">
+	<thead>
+		<th>TRACK</th>
+		<th>ARTIST</th>
+		<th>TIME</th>
+		<th>ALBUM</th>
+		<th>ADDED</th>
+		<th>USER</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="t in tracks" ng-class="{ playing: (t.track.uri == currenttrack) }">
+			<td>
+				<a ng-click="play(t.track.uri)">{{t.track.name}}</a>
+			</td>
+			<td>
+				<a href="#/artists/{{t.track.artists[0].id}}">{{t.track.artists[0].name}}</a>
+			</td>
+			<td class="nowrap">
+				{{t.track.duration_ms}} ms.
+			</td>
+			<td>
+				<a href="#/albums/{{t.track.album.id}}">{{t.track.album.name}}</a>
+			</td>
+			<td class="nowrap">
+				{{t.added_at}}
+			</td>
+			<td class="nowrap">
+				{{t.added_by.id}}
+			</td>
+		</tr>
+	</tbody>
+</table>
+<br/>
 
 <hr/>
 

@@ -325,3 +325,44 @@ header h1 {
 header h4 {
 	padding-left: 210px;
 }
+
+table.tracks {
+	width: 100%;
+	margin: 0 0px;
+	border-collapse: collapse;
+}
+
+table tr {
+}
+
+table tr:hover {
+	background-color: #222326;
+}
+
+table tr td {
+	font-size: 9pt;
+	border-top: 1px solid #393b40;
+	padding: 4px 10px 4px 0;
+}
+
+
+table tr td i {
+	font-style: normal;
+	color: #aaa;
+}
+
+table.tracks tr td i > a {
+	color: inherit;
+}
+
+table tr td.nowrap {
+	white-space: nowrap;
+}
+
+table tr th {
+	text-align: left;
+	font-weight: 300;
+	font-size: 9pt;
+	color: #fff;
+	padding: 4px 10px 4px 0;
+}

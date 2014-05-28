@@ -13,23 +13,27 @@
 </header>
 
 <hr/>
+<br/>
 
 <h3>Popular tracks</h3>
-<ul>
-	<li ng-repeat="t in toptracks">
-		#{{t.track_number}}
+<table class="tracks">
+	<thead>
+		<th>SONG</th>
+		<th>ALBUM</th>
+		<th>TIME</th>
+	</thead>
+	<tbody>
 
-		<a ng-click="playtoptrack(t.uri)">{{t.name}}</a>
-		&nbsp;-&nbsp;
-		<a href="#/artists/{{t.artists[0].id}}">{{t.artists[0].name}}</a>
-
-		({{t.duration_ms}} ms. long)
-
-		<span ng-show="(t.uri == currenttrack)">*CURRENT*</span>
-	</li>
-</ul>
+		<tr ng-repeat="t in toptracks" ng-class="{ playing: (t.uri == currenttrack) }">
+			<td><a ng-click="playtoptrack(t.uri)">{{t.name}}</a></td>
+			<td><a href="#/albums/{{t.album.id}}">{{t.album.name}}</a></td>
+			<td>{{t.duration_ms}} ms.</td>
+		</tr>
+	</tbody>
+</table>
 
 <hr/>
+<br/>
 
 <h3>Discography</h3>
 <ul class="albumblocks">
