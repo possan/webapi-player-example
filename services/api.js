@@ -68,6 +68,32 @@
 					ret.resolve(r);
 				});
 				return ret.promise;
+			},
+
+			getAlbum: function(albumid) {
+				var ret = $q.defer();
+				$http.get('https://api.spotify.com/v1/albums/' + albumid, {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got album', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			getAlbumTracks: function(albumid) {
+				var ret = $q.defer();
+				$http.get('https://api.spotify.com/v1/albums/' + albumid + '/tracks', {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got album tracks', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
 			}
 
 		}

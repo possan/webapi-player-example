@@ -76,15 +76,17 @@
 						<a ng-click="pause()" ng-show="playing">[ ]</a>
 						&nbsp;
 						<a ng-click="next()">&gt;&gt;</a>
-						&nbsp; - &nbsp;
+						&nbsp;
 						<input type="range" style="width:100px;" ng-change="changevolume()" min="0" max="100" ng-model="volume" />
 					</div>
 					<div class="seekcontrols">
 						<input type="range" ng-model="progress" ng-change="changeprogress()" min="0" max="{{duration}}" />
 					</div>
 					<div class="rightcontrols">
-						<a ng-click="shuffle()">SHUF</a>
-						<a ng-click="repeat()">REP.</a>
+						<!--
+						a ng-click="shuffle()">SHUF</a>
+						a ng-click="repeat()">REP.</a>
+						-->
 					</div>
 				</div>
 			</div>

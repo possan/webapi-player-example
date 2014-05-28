@@ -1,20 +1,42 @@
-playlist.html playlist={{playlist}} username={{username}}
-<hr/>
-tracks
+<h1>Playlist name</h1>
+
+<p>ID {{playlist}} BY USER {{username}}</p>
+
+<p>tracks</p>
+
+<p>TRACK ARTIST TIME ALBUM ADDED USER</p>
+
 <ul>
 <li ng-repeat="t in tracks">
-
 <a ng-click="play(t.track.uri)">{{t.track.name}}</a>
-
 &nbsp;-&nbsp;
-
 <a href="#/albums/{{t.track.album.id}}">{{t.track.album.name}}</a>
-
 &nbsp;-&nbsp;
-
-<a href="#/artists/{{t.track.artists[0].name}}">{{t.track.artists[0].name}}</a>
-
+<a href="#/artists/{{t.track.artists[0].id}}">{{t.track.artists[0].name}}</a>
 <span ng-show="(t.track.uri == currenttrack)">*CURRENT*</span>
-
 </li>
 </ul>
+
+<!--
+
+<hr/>
+
+<h2>Missing functionality</h2>
+
+<p>Image/Mosaic</p>
+
+<p>playlist type in title</p>
+
+<p>Created by </p>
+
+<p>Total time</p>
+
+<p>Number of tracks</p>
+
+<p>Followers</p>
+
+<p><a href="#">PLAY FIRSTT THING</a></p>
+
+<p><a href="#">FOLLOW/FOLLOWING</a></p>
+
+-->
