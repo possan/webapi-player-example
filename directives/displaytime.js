@@ -6,12 +6,9 @@
 		return {
 			restrict: 'E',
 			replace: 'true',
-			scope: {
-				// time: '@time'
-			},
+			scope: false,
 			template: '<span>{{displaytime}}</span>',
 			link: function(scope, element, attrs) {
-				console.log('displaytime', scope, element, attrs);
 
 				function twodigit(n) {
 					if (n < 10) {
@@ -33,11 +30,11 @@
 					else {
 						scope.displaytime = mins + ':' + twodigit(secs);
 					}
-					scope.$apply();
+					// scope.$apply();
 				}
 
 				scope.$parent.$watch(attrs.time, function(newvalue) {
-					console.log('displaytime time changed', newvalue);
+					// console.log('displaytime time changed', newvalue);
 					updateDisplay(newvalue);
 				});
 

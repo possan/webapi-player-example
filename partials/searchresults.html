@@ -1,2 +1,30 @@
-searchresults.html
-query={{query}}
+<h1>Showing results for {{query}}</h1>
+
+<hr/>
+<br/>
+
+<table class="tracks">
+	<thead>
+		<th>TRACK</th>
+		<th>ARTIST</th>
+		<th>TIME</th>
+		<th>ALBUM</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="t in tracks" ng-class="{ playing: (t.uri == currenttrack) }">
+			<td>
+				<a ng-click="play(t.uri)">{{t.name}}</a>
+			</td>
+			<td>
+				<a href="#/artists/{{t.artists[0].id}}">{{t.artists[0].name}}</a>
+			</td>
+			<td class="nowrap">
+				<displaytime time="{{t.duration_ms}}"></displaytime>
+			</td>
+			<td>
+				<a href="#/albums/{{t.album.id}}">{{t.album.name}}</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<br/>
