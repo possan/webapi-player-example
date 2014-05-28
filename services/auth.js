@@ -5,7 +5,6 @@
 	module.factory('Auth', function() {
 
 		var CLIENT_ID = '2e7b7dc36e1a424a84368e5cc74201ae';
-		// var client_secret = 'c60c8b5931894a94afd60a46a5bd2e4a';
 		var REDIRECT_URI = 'http://localhost:8000';
 
 		function getLoginURL(scopes) {

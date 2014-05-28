@@ -1,8 +1,43 @@
 (function() {
 
-	var module = angular.module('PlayerApp', []);
+	var module = angular.module('PlayerApp', ['ngRoute']);
 
-	module.controller('AppController', function($scope, Auth, API) {
+	module.config(function($routeProvider) {
+		$routeProvider.
+			when('/home', {
+				templateUrl: 'partials/home.html',
+				controller: 'HomeController'
+			}).
+			when('/playqueue', {
+				templateUrl: 'partials/playqueue.html',
+				controller: 'PlayQueueController'
+			}).
+			when('/users/:username', {
+				templateUrl: 'partials/user.html',
+				controller: 'UserController'
+			}).
+			when('/users/:username/playlists/:playlist', {
+				templateUrl: 'partials/playlist.html',
+				controller: 'PlaylistController'
+			}).
+			when('/artists/:artist', {
+				templateUrl: 'partials/artist.html',
+				controller: 'ArtistController'
+			}).
+			when('/albums/:album', {
+				templateUrl: 'partials/album.html',
+				controller: 'AlbumController'
+			}).
+			when('/search', {
+				templateUrl: 'partials/searchresults.html',
+				controller: 'SearchResultsController'
+			}).
+			otherwise({
+				redirectTo: '/'
+			});
+	});
+
+	module.controller('AppController', function($scope, Auth, API, $location) {
 		console.log('in AppController');
 
 		console.log(location);
@@ -10,7 +45,7 @@
 		// check for accesstoken redirect
 
 		var hash = {};
-		location.hash.replace(/^#/, '').split('&').forEach(function(kv) {
+		location.hash.replace(/^#\/?/, '').split('&').forEach(function(kv) {
 			var spl = kv.indexOf('=');
 			if (spl != -1) {
 				hash[kv.substring(0, spl)] = decodeURIComponent(kv.substring(spl+1));
@@ -27,7 +62,6 @@
 		}
 
 		$scope.isLoggedIn = (Auth.getAccessToken() != '');
-
 		$scope.showplayer = $scope.isLoggedIn;
 		$scope.showlogin = !$scope.isLoggedIn;
 

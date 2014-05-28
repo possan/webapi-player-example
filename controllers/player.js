@@ -2,7 +2,7 @@
 
 	var module = angular.module('PlayerApp');
 
-	module.controller('PlayerController', function($scope, Auth, API, PlayQueue) {
+	module.controller('PlayerController', function($scope, Auth, API, PlayQueue, $location) {
 		$scope.view = 'welcome';
 		$scope.username = Auth.getUsername();
 		$scope.playlists = [];
@@ -16,6 +16,7 @@
 							id: pl.id,
 							name: pl.name,
 							uri: pl.uri,
+							username: pl.owner.id,
 							collaborative: pl.collaborative,
 							'public': pl['public']
 						};
@@ -58,6 +59,13 @@
 
 		$scope.showplaylist = function(playlisturi) {
 			console.log('load playlist view', playlisturi);
+		}
+
+		$scope.query = '';
+
+		$scope.loadsearch = function() {
+			console.log('search for', $scope.query);
+			$location.path('/search').search({ q: $scope.query }).replace();
 		}
 
 		$scope.$on('login', function() {

@@ -147,13 +147,23 @@ p {
 	overflow: auto;
 }
 
-ul.menuitems {
-	margin: 0 0 20px 0;
+.menuview a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.menuview b {
+	display: block;
+	margin: 10px 0 5px 10px;
+}
+
+.menuview ul.menuitems {
+	margin: 10px 0 20px 10px;
 	padding: 0;
 	list-style: none;
 }
 
-ul.menuitems li {
+.menuview ul.menuitems li {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
