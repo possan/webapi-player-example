@@ -3,7 +3,9 @@
 		<img src="{{data.images[0].url}}" width="200" align="left" />
 	</div>
 
-	<h4>{{data.album_type}}</h4>
+	<h4 ng-show="data.album_type == 'single'">Single</h4>
+	<h4 ng-show="data.album_type == 'album'">Album</h4>
+	<h4 ng-show="data.album_type == 'compilation'">Compilation</h4>
 	<h1>{{data.name}}</h1>
 
 	<div class="buttons">
@@ -19,7 +21,7 @@
 	&middot;
 	{{data.tracks.total}} Songs
 	&middot;
-	{{total_duration}} Total ms.
+	Total <displaytime time="{{total_duration}}"></displaytime>
 </p>
 <hr/>
 <br/>
@@ -42,7 +44,7 @@
 						<a ng-click="play(t.uri)">{{t.name}}</a>
 						<i>by <a href="#/artists/{{t.artists[0].id}}">{{t.artists[0].name}}</a></i>
 					</td>
-					<td>{{t.duration_ms}} ms.</td>
+					<td><displaytime time="{{t.duration_ms}}"></displaytime></td>
 				</tr>
 				</tbody>
 		</table>

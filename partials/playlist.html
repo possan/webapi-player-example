@@ -13,7 +13,7 @@
 </header>
 
 <hr/>
-<p>Created by: {{data.owner.id}} &middot; {{data.tracks.total}} songs &middot; {{total_duration}} duration.</p>
+<p>Created by: {{data.owner.id}} &middot; {{data.tracks.total}} songs &middot; <displaytime time="{{total_duration}}"></displaytime></p>
 <!-- p>{{data.followers.total}} Followers</p -->
 <hr/>
 <br/>
@@ -36,7 +36,7 @@
 				<a href="#/artists/{{t.track.artists[0].id}}">{{t.track.artists[0].name}}</a>
 			</td>
 			<td class="nowrap">
-				{{t.track.duration_ms}} ms.
+				<displaytime time="{{t.track.duration_ms}}"></displaytime>
 			</td>
 			<td>
 				<a href="#/albums/{{t.track.album.id}}">{{t.track.album.name}}</a>

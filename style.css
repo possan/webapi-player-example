@@ -92,6 +92,8 @@ hr {
 	position: absolute;
 	left: 0px;
 	top: 0px;
+	width: 220px;
+	box-sizing: border-box;
 	padding: 7px;
 }
 
@@ -99,6 +101,8 @@ hr {
 	border: 0;
 	padding: 5px 10px;
 	border-radius: 20px;
+	background-color: #ddd;
+	width: 100%;
 	outline: none;
 }
 
@@ -157,7 +161,17 @@ hr {
 }
 
 .bottomgroup .seekcontrols input {
-	width: 100%;
+	position: absolute;
+	left: 60px;
+	right: 60px;
+}
+
+.bottomgroup .seekcontrols div.time {
+	width: 60px;
+}
+
+.bottomgroup .seekcontrols div.progress {
+	width: 60px;
 }
 
 .bottomgroup .rightcontrols {

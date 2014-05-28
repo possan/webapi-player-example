@@ -19,19 +19,19 @@
 			console.log('got playlist', list);
 			$scope.name = list.name;
 			$scope.data = list;
-			// $scope.tracks = list.tracks;
+			$scope.$apply();
 		});
 
 		API.getPlaylistTracks($scope.username, $scope.playlist).then(function(list) {
 			console.log('got playlist tracks', list);
-			$scope.tracks = list.items;
-
 			var tot = 0;
 			list.items.forEach(function(track) {
 				tot += track.track.duration_ms;
 			});
+			$scope.tracks = list.items;
+			console.log('tot', tot);
 			$scope.total_duration = tot;
-
+			$scope.$apply();
 		});
 
 		$scope.play = function(trackuri) {

@@ -9,6 +9,7 @@
 		<script src="services/api.js"></script>
 		<script src="services/playback.js"></script>
 		<script src="services/playqueue.js"></script>
+		<script src="directives/displaytime.js"></script>
 		<script src="controllers/player.js"></script>
 		<script src="controllers/login.js"></script>
 		<script src="controllers/playlist.js"></script>
@@ -66,16 +67,26 @@
 				</div>
 				<div class="bottomgroup">
 					<div class="leftcontrols">
-						<a ng-click="prev()">&lt;&lt;</a>
-						&nbsp;
-						<a ng-click="resume()" ng-hide="playing">|&gt;</a>
-						<a ng-click="pause()" ng-show="playing">[ ]</a>
-						&nbsp;
-						<a ng-click="next()">&gt;&gt;</a>
-						&nbsp;
-						<input type="range" style="width:100px;" ng-change="changevolume()" min="0" max="100" ng-model="volume" />
+						<div class="prevbutton">
+							<a ng-click="prev()">&lt;&lt;</a>
+						</div>
+
+						<div class="playbutton">
+							<a ng-click="resume()" ng-hide="playing">|&gt;</a>
+							<a ng-click="pause()" ng-show="playing">[ ]</a>
+						</div>
+
+						<div class="nextbutton">
+							<a ng-click="next()">&gt;&gt;</a>
+						</div>
+
+						<div class="volume">
+							<input type="range" style="width:100px;" ng-change="changevolume()" min="0" max="100" ng-model="volume" />
+						</div>
 					</div>
 					<div class="seekcontrols">
+						<div class="time"><displaytime time="progress"></displaytime></div>
+						<div class="duration"><displaytime time="duration"></displaytime></div>
 						<input type="range" ng-model="progress" ng-change="changeprogress()" min="0" max="{{duration}}" />
 					</div>
 					<div class="rightcontrols">
