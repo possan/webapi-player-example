@@ -42,20 +42,26 @@
 
 		console.log(location);
 
+		function checkUser() {
+			API.getMyUsername().then(function(username) {
+				Auth.setUsername(username);
+				$scope.$emit('login');
+				$scope.$apply();
+				$location.replace();
+			}, function(err) {
+				$scope.showplayer = false;
+				$scope.showlogin = true;
+				$scope.$apply();
+				$location.replace();
+			});
+		}
+
 		window.addEventListener("message", function(event) {
-			console.log('got message', event);
-			// if (event.origin !== "http://example.org:8080")
-			//  return;
-			// ...
+			console.log('got postmessage', event);
 			var hash = JSON.parse(event.data);
 			if (hash.type == 'access_token') {
 				Auth.setAccessToken(hash.access_token, hash.expires_in || 60);
-				API.getMyUsername().then(function(username) {
-					Auth.setUsername(username);
-					$scope.$emit('login');
-					$scope.$apply();
-					$location.path('/').replace();
-				});
+				checkUser();
 			}
   		}, false);
 
@@ -72,6 +78,8 @@
 			$scope.showplayer = false;
 			$scope.showlogin = true;
 		});
+
+		checkUser();
 	});
 
 })();

@@ -14,6 +14,9 @@
 				}).success(function(r) {
 					console.log('got userinfo', r);
 					ret.resolve(r.id);
+				}).error(function(err) {
+					console.log('failed to get userinfo', err);
+					ret.reject(err);
 				});
 				return ret.promise;
 			},
