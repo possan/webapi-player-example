@@ -18,14 +18,40 @@
 				return ret.promise;
 			},
 
-			getPlaylists: function() {
+			getPlaylists: function(username) {
 				var ret = $q.defer();
-				$http.get('https://api.spotify.com/v1/users/' + Auth.getUsername() + '/playlists', {
+				$http.get('https://api.spotify.com/v1/users/' + username + '/playlists', {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
 				}).success(function(r) {
 					console.log('got playlists',r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			getPlaylist: function(username, playlist) {
+				var ret = $q.defer();
+				$http.get('https://api.spotify.com/v1/users/' + username + '/playlists/' + playlist, {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got playlists',r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			getPlaylistTracks: function(username, playlist) {
+				var ret = $q.defer();
+				$http.get('https://api.spotify.com/v1/users/' + username + '/playlists/' + playlist + '/tracks', {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got playlist tracks',r);
 					ret.resolve(r);
 				});
 				return ret.promise;

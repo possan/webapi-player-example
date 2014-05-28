@@ -1,0 +1,12 @@
+playqueue.html current playqueue
+<hr/>
+
+position={{position}} current={{current}}
+<hr/>
+
+<ul>
+	<li ng-repeat="t in queue">
+		queued track {{ t }} <span ng-show="(t == current)">**CURRENT**</span>
+	</li>
+</ul>
+<br/>

@@ -2,15 +2,16 @@
 
 	var module = angular.module('PlayerApp');
 
-	module.controller('PlayerController', function($scope, Auth, API, PlayQueue, $location) {
+	module.controller('PlayerController', function($scope, $rootScope, Auth, API, PlayQueue, Playback, $location) {
 		$scope.view = 'welcome';
 		$scope.username = Auth.getUsername();
 		$scope.playlists = [];
 		$scope.playing = false;
+		$scope.progress = 0;
 
 		function updatePlaylists() {
 			if ($scope.username != '') {
-				API.getPlaylists().then(function(list) {
+				API.getPlaylists(Auth.getUsername()).then(function(list) {
 					$scope.playlists = list.items.map(function(pl) {
 						return {
 							id: pl.id,
@@ -36,13 +37,22 @@
 			$scope.$emit('logout');
 		}
 
-		$scope.play = function(trackuri) {
-			PlayQueue.play(trackuri);
-			$scope.playing = true;
+		$scope.resume = function() {
+			Playback.resume();
 		}
 
 		$scope.pause = function() {
-			$scope.playing = false;
+			Playback.pause();
+		}
+
+		$scope.next = function() {
+			PlayQueue.next();
+			Playback.startPlaying(PlayQueue.getCurrent());
+		}
+
+		$scope.prev = function() {
+			PlayQueue.prev();
+			Playback.startPlaying(PlayQueue.getCurrent());
 		}
 
 		$scope.queue = function(trackuri) {
@@ -73,12 +83,33 @@
 			updatePlaylists();
 		});
 
-		$scope.$on('playqueuechanged', function() {
+		$rootScope.$on('playqueuechanged', function() {
 			console.log('PlayerController: play queue changed.');
 		});
 
-		$scope.$on('playerchanged', function() {
+		$rootScope.$on('playerchanged', function() {
 			console.log('PlayerController: player changed.');
+			$scope.currenttrack = Playback.getTrack();
+			$scope.playing = Playback.isPlaying();
+			$scope.$apply(function() {
+			});
+		});
+
+		$rootScope.$on('endtrack', function() {
+			console.log('PlayerController: end track.');
+			$scope.currenttrack = Playback.getTrack();
+			$scope.playing = Playback.isPlaying();
+			PlayQueue.next();
+			Playback.startPlaying(PlayQueue.getCurrent());
+			$scope.$apply(function() {
+			});
+		});
+
+		$rootScope.$on('trackprogress', function() {
+			console.log('PlayerController: trackprogress.');
+			$scope.progress = Playback.getProgress();
+			$scope.$apply(function() {
+			});
 		});
 	});
 

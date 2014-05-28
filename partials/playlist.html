@@ -1,0 +1,20 @@
+playlist.html playlist={{playlist}} username={{username}}
+<hr/>
+tracks
+<ul>
+<li ng-repeat="t in tracks">
+
+<a ng-click="play(t.track.uri)">{{t.track.name}}</a>
+
+&nbsp;-&nbsp;
+
+<a href="#/albums/{{t.track.album.id}}">{{t.track.album.name}}</a>
+
+&nbsp;-&nbsp;
+
+<a href="#/artists/{{t.track.artists[0].name}}">{{t.track.artists[0].name}}</a>
+
+<span ng-show="(t.track.uri == currenttrack)">*CURRENT*</span>
+
+</li>
+</ul>
