@@ -1,4 +1,35 @@
-<h1>Sorry, no artist pages yet</h1>
+<img src="{{data.images[0].url}}" width="200" align="left" />
+
+<h4>ARTIST</h4>
+<h1>{{data.name}}</h1>
+
+<p>Popular tracks</p>
+
+<ul>
+	<li ng-repeat="t in toptracks">
+		#{{t.track_number}}
+
+		<a ng-click="playtoptrack(t.uri)">{{t.name}}</a>
+		&nbsp;-&nbsp;
+		<a href="#/artists/{{t.artists[0].id}}">{{t.artists[0].name}}</a>
+
+		({{t.duration_ms}} ms. long)
+
+		<span ng-show="(t.uri == currenttrack)">*CURRENT*</span>
+	</li>
+</ul>
+
+<p>Discography</p>
+
+<ul>
+	<li ng-repeat="t in discog">
+	<img src="{{t.images[0].url}}" width="50" />
+		<a href="#/albums/{{t.id}}">{{t.name}}</a>
+		&nbsp;-&nbsp;
+		<a href="#/artists/{{t.artists[0].id}}">{{t.artists[0].name}}</a>
+	</li>
+</ul>
+
 <!--
 
 <br/>

@@ -1,8 +1,20 @@
-<h1>Playlist name</h1>
+<img src="{{data.images[0].url}}" width="200" align="left" />
 
-<p>ID {{playlist}} BY USER {{username}}</p>
+<p ng-show="data.collaborative">COLLABORATIVE PLAYLIST</p>
+<p ng-hide="data.collaborative">PLAYLIST</p>
 
-<p>tracks</p>
+<h1>{{data.name}}</h1>
+
+<p>{{data.description}}</p>
+
+
+<p>Created by: {{data.owner.id}} &middot; {{data.tracks.total}} songs &middot; {{total_duration}} duration.</p>
+
+<!-- p>{{data.followers.total}} Followers</p -->
+
+<p><a ng-click="playall()">PLAY ALL</a></p>
+
+<hr/>
 
 <p>TRACK ARTIST TIME ALBUM ADDED USER</p>
 
@@ -10,9 +22,16 @@
 <li ng-repeat="t in tracks">
 <a ng-click="play(t.track.uri)">{{t.track.name}}</a>
 &nbsp;-&nbsp;
-<a href="#/albums/{{t.track.album.id}}">{{t.track.album.name}}</a>
-&nbsp;-&nbsp;
 <a href="#/artists/{{t.track.artists[0].id}}">{{t.track.artists[0].name}}</a>
+&nbsp;-&nbsp;
+{{t.track.duration_ms}} ms.
+&nbsp;-&nbsp;
+<a href="#/albums/{{t.track.album.id}}">{{t.track.album.name}}</a>
+&nbsp;
+{{t.added_at}}
+&nbsp;
+{{t.added_by.id}}
+&nbsp;
 <span ng-show="(t.track.uri == currenttrack)">*CURRENT*</span>
 </li>
 </ul>
@@ -23,17 +42,7 @@
 
 <h2>Missing functionality</h2>
 
-<p>Image/Mosaic</p>
-
-<p>playlist type in title</p>
-
-<p>Created by </p>
-
-<p>Total time</p>
-
-<p>Number of tracks</p>
-
-<p>Followers</p>
+<p>Mosaic</p>
 
 <p><a href="#">PLAY FIRSTT THING</a></p>
 

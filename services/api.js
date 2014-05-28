@@ -94,8 +94,46 @@
 					ret.resolve(r);
 				});
 				return ret.promise;
-			}
+			},
 
+			getArtist: function(artistid) {
+				var ret = $q.defer();
+				$http.get('https://api.spotify.com/v1/artists/' + artistid, {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got artist', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			getArtistAlbums: function(artistid) {
+				var ret = $q.defer();
+				$http.get('https://api.spotify.com/v1/artists/' + artistid + '/albums', {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got artist albums', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			getArtistTopTracks: function(artistid, country) {
+				var ret = $q.defer();
+				$http.get('https://api.spotify.com/v1/artists/' + artistid + '/top-tracks?country=' + country, {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got artist top tracks', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			}
 		}
 	});
 

@@ -64,6 +64,15 @@
 			PlayQueue.playFrom(trackuris.indexOf(trackuri));
 		}
 
+		$scope.playall = function() {
+			var trackuris = $scope.tracks.map(function(track) {
+				return track.uri;
+			});
+			PlayQueue.clear();
+			PlayQueue.enqueueList(trackuris);
+			PlayQueue.playFrom(0);
+		}
+
 	});
 
 })();
