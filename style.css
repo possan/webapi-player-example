@@ -339,6 +339,10 @@ table tr:hover {
 	background-color: #222326;
 }
 
+table tr.playing {
+	background-color: #393b40;
+}
+
 table tr td {
 	font-size: 9pt;
 	border-top: 1px solid #393b40;
@@ -366,3 +370,33 @@ table tr th {
 	color: #fff;
 	padding: 4px 10px 4px 0;
 }
+
+ul.albums {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	clear: both;
+}
+
+ul.albums li {
+	float: left;
+	position: relative;
+	width: 160px;
+	height: 220px;
+	margin: 0 10px 10px 0;
+	background-color: #393b40;
+}
+
+ul.albums li img {
+	width: 160px;
+	height: 160px;
+}
+
+ul.albums li p {
+	padding: 10px;
+}
+
+
+
+
+

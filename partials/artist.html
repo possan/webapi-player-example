@@ -35,16 +35,47 @@
 <hr/>
 <br/>
 
-<h3>Discography</h3>
-<ul class="albumblocks">
-	<li ng-repeat="t in discog">
-	<img src="{{t.images[0].url}}" width="50" />
-		<a href="#/albums/{{t.id}}">{{t.name}}</a>
-		&nbsp;-&nbsp;
-		<a href="#/artists/{{t.artists[0].id}}">{{t.artists[0].name}}</a>
-	</li>
-</ul>
-<hr/>
+<div ng-show="albums.length > 0">
+	<h3>Albums</h3>
+	<ul class="albums">
+		<li ng-repeat="t in albums">
+			<a href="#/albums/{{t.id}}"><img src="{{t.images[0].url}}" /></a>
+			<p>
+				<b><a href="#/albums/{{t.id}}">{{t.name}}</a></b>
+			</p>
+		</li>
+	</ul>
+	<hr/>
+	<br/>
+</div>
+
+<div ng-show="singles.length > 0">
+	<h3>Singles</h3>
+	<ul class="albums">
+		<li ng-repeat="t in singles">
+			<a href="#/albums/{{t.id}}"><img src="{{t.images[0].url}}" /></a>
+			<p>
+				<b><a href="#/albums/{{t.id}}">{{t.name}}</a></b>
+			</p>
+		</li>
+	</ul>
+	<hr/>
+	<br/>
+</div>
+
+<div ng-show="appearson.length > 0">
+	<h3>Appears on</h3>
+	<ul class="albums">
+		<li ng-repeat="t in appearson">
+			<a href="#/albums/{{t.id}}"><img src="{{t.images[0].url}}" /></a>
+			<p>
+				<b><a href="#/albums/{{t.id}}">{{t.name}}</a></p>
+			</p>
+		</li>
+	</ul>
+	<hr/>
+	<br/>
+</div>
 
 <!--
 

@@ -6,6 +6,9 @@
 		$scope.artist = $routeParams.artist;
 		$scope.data = null;
 		$scope.discog = [];
+		$scope.albums = [];
+		$scope.singles = [];
+		$scope.appearson = [];
 
 		$scope.currenttrack = PlayQueue.getCurrent();
 		$rootScope.$on('playqueuechanged', function() {
@@ -26,7 +29,21 @@
 
 		API.getArtistAlbums($scope.artist).then(function(albums) {
 			console.log('got artist albums', albums);
-			$scope.discog = albums.items;
+			$scope.albums = [];
+			$scope.singles = [];
+			$scope.appearson = [];
+			albums.items.forEach(function(album) {
+				console.log(album);
+				if (album.album_type == 'album') {
+					$scope.albums.push(album);
+				}
+				if (album.album_type == 'single') {
+					$scope.singles.push(album);
+				}
+				if (album.album_type == 'appears-on') {
+					$scope.appearson.push(album);
+				}
+			})
 			$scope.$apply();
 		});
 
