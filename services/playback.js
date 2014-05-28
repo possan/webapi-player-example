@@ -54,6 +54,7 @@
 			audiotag.addEventListener('loadedmetadata', function() {
 				console.log('audiotag loadedmetadata');
 				_duration = audiotag.duration * 1000.0;
+				audiotag.volume = _volume / 100.0;
 				audiotag.play();
 				callback();
 			}, false);
@@ -73,6 +74,7 @@
 			},
 			setVolume: function(v) {
 				_volume = v;
+				audiotag.volume = _volume / 100.0;
 			},
 			startPlaying: function(trackuri) {
 				console.log('Playback::startPlaying', trackuri);
