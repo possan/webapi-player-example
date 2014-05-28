@@ -1,10 +1,11 @@
 body {
-	background: #202428;
+	background: #121314;
 	color: #ddd;
 	margin: 0;
 	padding: 0;
 	border: 0;
 	font-family: 'Open Sans', sans-serif;
+	font-size: 8pt;
 	font-weight: 300;
 	overflow: hidden;
 }
@@ -22,41 +23,68 @@ div.fullview {
 
 h1 {
 	font-family: 'Open Sans', sans-serif;
-	font-weight: 700;
-	margin: 0 0 15px 0;
+	font-weight: 300;
+	font-size: 30pt;
+	padding: 0;
+	margin: 0 0 10px 0;
 }
 
 h2 {
 	font-family: 'Open Sans', sans-serif;
-	font-weight: 700;
-	margin: 0 0 15px 0;
+	font-weight: 300;
+	font-size: 20pt;
+	padding: 0;
+	margin: 0 0 10px 0;
 }
 
 h3 {
 	font-family: 'Open Sans', sans-serif;
-	font-weight: 700;
-	margin: 0 0 15px 0;
+	font-weight: 300;
+	font-size: 15pt;
+	padding: 0;
+	margin: 0 0 10px 0;
+}
+
+h4 {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	padding: 0;
+	margin: 0 0 0 0;
 }
 
 p {
-	margin: 0 0 15px 0;
+	margin: 0 0 10px 0;
 }
 
 a {
 	color: inherit;
+	cursor: pointer;
 	text-decoration: none;
 }
 
+b {
+	font-weight: inherit;
+	color: #fff;
+}
 
-
+hr {
+	display: block;
+	border: none;
+	border-top: 1px solid #222326;
+	background-color: transparent;
+	margin: 0 0 10px 0;
+	clear: both;
+}
 
 .topgroup {
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	height: 60px;
+	height: 40px;
 	width: 100%;
-	background-color: rgba(255,255,255,0.2);
+	background-color: #222326;
+	border-bottom: 1px solid #393b40;
+	box-sizing: border-box;
 	overflow: hidden;
 }
 
@@ -64,62 +92,68 @@ a {
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	padding: 20px;
+	padding: 7px;
 }
 
 .topgroup .searchbox input {
+	border: 0;
+	padding: 5px 10px;
+	border-radius: 20px;
+	outline: none;
 }
 
 .topgroup .userbox {
 	position: absolute;
 	right: 0px;
 	top: 0px;
-	padding: 20px;
+	padding: 12px;
 	text-align: right;
 }
 
 .topgroup .titlebox {
 	position: absolute;
-	left: 200px;
-	right: 200px;
+	left: 150px;
+	right: 150px;
 	top: 0px;
 	text-align: center;
-	padding: 20px;
+	padding: 12px;
 }
 
 .midgroup {
 	position: absolute;
 	left: 0px;
-	top: 60px;
-	bottom: 60px;
+	top: 40px;
+	bottom: 40px;
 	width: 100%;
 	overflow: hidden;
 }
 
 .bottomgroup {
 	position: absolute;
+	box-sizing: border-box;
 	left: 0px;
 	width: 100%;
-	height: 60px;
+	height: 40px;
 	bottom: 0px;
-	background-color: rgba(255,255,255,0.2);
+	background-color: #222326;
+	border-top: 1px solid #393b40;
 	overflow: hidden;
 }
 
 .bottomgroup .leftcontrols {
 	position: absolute;
-	left: 0px;
-	top: 0px;
+	left: 10px;
+	top: 5px;
 	width: 400px;
-	padding: 20px;
+	padding: 0px;
 }
 
 .bottomgroup .seekcontrols {
 	position: absolute;
-	top: 0px;
-	left: 400px;
+	top: 8px;
+	left: 250px;
 	right: 150px;
-	padding: 20px;
+	padding: 0px;
 }
 
 .bottomgroup .seekcontrols input {
@@ -140,26 +174,66 @@ a {
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	width: 250px;
-	background-color: rgba(255,255,255,0.1);
+	width: 220px;
+	background-color: #222326;
 	bottom: 0px;
+}
+
+.menuview .list {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: auto;
+	bottom: 260px;
+	padding: 0px;
+	overflow: auto;
 }
 
 .menuview .preview {
 	position: absolute;
 	left: 0px;
 	bottom: 0px;
-	background-color: rgba(0,0,0,0.8);
+	height: 260px;
+	background-color: #222326;
+}
+
+.menuview .preview > p {
+	display: block;
+	padding: 5px;
+}
+
+.menuview .preview > p b {
+	display: block;
+	font-weight: 300;
+}
+
+.menuview .preview > p a {
+	display: block;
+	font-size: 7pt;
+}
+
+.menuview .preview img {
+	width: 220px;
+	height: 220px;
+	border: 0;
+	outline: 0;
+	border-bottom: 1px solid #393b40;
 }
 
 .mainview {
 	position: absolute;
-	left: 250px;
+	left: 220px;
 	top: 0px;
 	right: 0px;
 	bottom: 0px;
 	padding: 20px;
 	overflow: auto;
+	color: #88898c;
+}
+
+.mainview a {
+	color: #fff;
 }
 
 .menuview a {
@@ -167,13 +241,13 @@ a {
 	text-decoration: none;
 }
 
-.menuview b {
+.menuview .list > b {
 	display: block;
 	margin: 10px 0 5px 10px;
 }
 
 .menuview ul.menuitems {
-	margin: 10px 0 20px 10px;
+	margin: 0px 0 20px 0px;
 	padding: 0;
 	list-style: none;
 }
@@ -182,7 +256,7 @@ a {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	padding: 2px 10px;
+	padding: 2px 15px;
 	margin: 0;
 	cursor: pointer;
 }
@@ -200,11 +274,54 @@ div.centered div.inner {
 	width: 400px;
 }
 
+a.button.green {
+	display: inline-block;
+	text-align: center;
+	background-color: #070;
+	color: #fff;
+	padding: 5px 20px;
+	border-radius: 50px;
+}
+
 a.button.big.green {
-	display: block;
+	display: inline-block;
 	text-align: center;
 	background-color: #070;
 	color: #fff;
 	padding: 10px 40px;
 	border-radius: 50px;
+}
+
+header {
+	position: relative;
+	height: 220px;
+}
+
+header div.cover {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 200px;
+	height: 200px;
+	background-color: #222326;
+	overflow: hidden;
+}
+
+header div.buttons {
+	position: absolute;
+	left: 210px;
+	bottom: 20px;
+}
+
+header p {
+	padding-left: 210px;
+}
+
+header h1 {
+	margin-top: -5px;
+	padding-left: 210px;
+}
+
+header h4 {
+	padding-left: 210px;
 }

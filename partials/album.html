@@ -1,29 +1,34 @@
-<img src="{{data.images[0].url}}" width="200" align="left" />
+<header>
+	<div class="cover">
+		<img src="{{data.images[0].url}}" width="200" align="left" />
+	</div>
 
-<h4>{{data.album_type}}</h4>
-<h1>{{data.name}}</h1>
+	<h4>{{data.album_type}}</h4>
+	<h1>{{data.name}}</h1>
 
-<p>By
+	<div class="buttons">
+		<a ng-click="playall()" class="button green">PLAY ALL</a>
+	</div>
+</header>
 
-<a href="#/artists/{{data.artists[0].id}}">{{data.artists[0].name}}</a>
-&middot;
-{{release_year}}
-&middot;
-{{data.tracks.total}} Songs
-&middot;
-{{total_duration}} Total ms.
+<hr/>
+<p>
+	By <a href="#/artists/{{data.artists[0].id}}">{{data.artists[0].name}}</a>
+	&middot;
+	{{release_year}}
+	&middot;
+	{{data.tracks.total}} Songs
+	&middot;
+	{{total_duration}} Total ms.
 </p>
-
-<p><a ng-click="playall()">PLAY ALL</a></p>
-
 <hr/>
 
 <p># SONG TIME POPULARITY</p>
-<ul>
+<ul class="discs">
 	<li ng-repeat="d in discs">
 		DISC {{ d.disc_number }} / {{ num_discs }}
-		<ul>
-			<li ng-repeat="t in d.tracks">
+		<ul class="tracks">
+			<li ng-repeat="t in d.tracks" ng-class="{ playing: (t.uri == currenttrack) }">
 				#{{t.track_number}}
 
 				<a ng-click="play(t.uri)">{{t.name}}</a>
@@ -31,8 +36,6 @@
 				<a href="#/artists/{{t.artists[0].id}}">{{t.artists[0].name}}</a>
 
 				({{t.duration_ms}} ms. long)
-
-				<span ng-show="(t.uri == currenttrack)">*CURRENT*</span>
 			</li>
 		</ul>
 	</li>
