@@ -6,7 +6,7 @@
 		return {
 			restrict: 'E',
 			replace: 'true',
-			scope: false,
+			scope: {},
 			template: '<span>{{displaytime}}</span>',
 			link: function(scope, element, attrs) {
 
@@ -19,23 +19,25 @@
 				}
 
 				function updateDisplay(input) {
-					var secs = Math.round((0 + input) / 1000);
-					var mins = Math.floor(secs / 60);
-					secs -= mins * 60;
-					var hours = Math.floor(mins / 60);
-					mins -= hours * 60;
-					if (hours > 0) {
-						scope.displaytime = hours + ':' + twodigit(mins) + ':' + twodigit(secs);
+					if (input) {
+						var secs = Math.round((0 + input) / 1000);
+						var mins = Math.floor(secs / 60);
+						secs -= mins * 60;
+						var hours = Math.floor(mins / 60);
+						mins -= hours * 60;
+						if (hours > 0) {
+							scope.displaytime = hours + ':' + twodigit(mins) + ':' + twodigit(secs);
+						}
+						else {
+							scope.displaytime = mins + ':' + twodigit(secs);
+						}
+					} else {
+						scope.displaytime = '';
 					}
-					else {
-						scope.displaytime = mins + ':' + twodigit(secs);
-					}
-					// scope.$apply();
 				}
 
 				scope.$parent.$watch(attrs.time, function(newvalue) {
-					// console.log('displaytime time changed', newvalue);
-					updateDisplay(newvalue);
+					updateDisplay(0 + newvalue);
 				});
 
 				setTimeout(function() {

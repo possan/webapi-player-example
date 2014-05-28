@@ -39,12 +39,6 @@
 				<div class="midgroup">
 					<div class="menuview">
 						<div class="list scrollable">
-
-							<b>MAIN</b>
-							<ul class="menuitems">
-								<li><a href="#/">Welcome</a></li>
-								<li><a href="#/playqueue">Play Queue</a></li>
-							</ul>
 							<b><a href="#/me">YOUR MUSIC</a></b>
 							<ul class="menuitems">
 								<li ng-repeat="pl in playlists track by pl.id"><a href="#/users/{{pl.username}}/playlists/{{pl.id}}">{{pl.name}}</a></li>
