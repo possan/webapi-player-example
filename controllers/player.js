@@ -92,9 +92,10 @@
 			Playback.setProgress($scope.progress);
 		}
 
-		$scope.$on('login', function() {
+		$rootScope.$on('login', function() {
 			$scope.username = Auth.getUsername();
 			updatePlaylists();
+			$scope.$apply();
 		});
 
 		$rootScope.$on('playqueuechanged', function() {

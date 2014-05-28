@@ -4,8 +4,16 @@
 
 	module.factory('Auth', function() {
 
-		var CLIENT_ID = '2e7b7dc36e1a424a84368e5cc74201ae';
-		var REDIRECT_URI = 'http://localhost:8000';
+		var CLIENT_ID = '';
+		var REDIRECT_URI = '';
+
+		if (location.host == 'localhost:8000') {
+			CLIENT_ID =	'409f070cb44945d9a85e9b4ad8fa3bf1';
+			REDIRECT_URI = 'http://localhost:8000/callback.html';
+		} else {
+			CLIENT_ID = '9714921402b84783b2a207f1b6e82612';
+			REDIRECT_URI = 'http://lab.possan.se/thirtify/callback.html';
+		}
 
 		function getLoginURL(scopes) {
 			return 'https://accounts.spotify.com/authorize?client_id=' + CLIENT_ID
@@ -17,8 +25,8 @@
 		return {
 			openLogin: function() {
 				var url = getLoginURL(['playlist-read-private','user-read-private','playlist-read'])
-				// var w = window.open(url, 'asdf', 'WIDTH=400,HEIGHT=500');
-				window.location = url;
+				var w = window.open(url, 'asdf', 'WIDTH=400,HEIGHT=500');
+				// window.location = url;
 			},
 			getAccessToken: function() {
 				var expires = 0 + localStorage.getItem('pa_expires', '0');

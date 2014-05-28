@@ -42,24 +42,22 @@
 
 		console.log(location);
 
-		// check for accesstoken redirect
-
-		var hash = {};
-		location.hash.replace(/^#\/?/, '').split('&').forEach(function(kv) {
-			var spl = kv.indexOf('=');
-			if (spl != -1) {
-				hash[kv.substring(0, spl)] = decodeURIComponent(kv.substring(spl+1));
+		window.addEventListener("message", function(event) {
+			console.log('got message', event);
+			// if (event.origin !== "http://example.org:8080")
+			//  return;
+			// ...
+			var hash = JSON.parse(event.data);
+			if (hash.type == 'access_token') {
+				Auth.setAccessToken(hash.access_token, hash.expires_in || 60);
+				API.getMyUsername().then(function(username) {
+					Auth.setUsername(username);
+					$scope.$emit('login');
+					$scope.$apply();
+					$location.path('/').replace();
+				});
 			}
-		});
-		console.log('initial hash', hash);
-		if (hash.access_token) {
-			Auth.setAccessToken(hash.access_token, hash.expires_in || 60);
-			API.getMyUsername().then(function(username) {
-				Auth.setUsername(username);
-				$scope.$emit('login');
-				location = '#'; // hide accesstoken
-			});
-		}
+  		}, false);
 
 		$scope.isLoggedIn = (Auth.getAccessToken() != '');
 		$scope.showplayer = $scope.isLoggedIn;
