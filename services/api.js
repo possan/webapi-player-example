@@ -12,7 +12,7 @@
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
 				}).success(function(r) {
-					console.log('got userinfo',r);
+					console.log('got userinfo', r);
 					ret.resolve(r.id);
 				});
 				return ret.promise;
@@ -25,7 +25,7 @@
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
 				}).success(function(r) {
-					console.log('got playlists',r);
+					console.log('got playlists', r);
 					ret.resolve(r);
 				});
 				return ret.promise;
@@ -38,7 +38,7 @@
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
 				}).success(function(r) {
-					console.log('got playlists',r);
+					console.log('got playlists', r);
 					ret.resolve(r);
 				});
 				return ret.promise;
@@ -51,7 +51,20 @@
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
 				}).success(function(r) {
-					console.log('got playlist tracks',r);
+					console.log('got playlist tracks', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			getTrack: function(trackid) {
+				var ret = $q.defer();
+				$http.get('https://api.spotify.com/v1/tracks/' + trackid, {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got track', r);
 					ret.resolve(r);
 				});
 				return ret.promise;

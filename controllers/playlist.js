@@ -2,14 +2,14 @@
 
 	var module = angular.module('PlayerApp');
 
-	module.controller('PlaylistController', function($scope, API, PlayQueue, $routeParams) {
+	module.controller('PlaylistController', function($scope, $rootScope, API, PlayQueue, $routeParams) {
 		$scope.playlist = $routeParams.playlist;
 		$scope.username = $routeParams.username;
 		$scope.name = '';
 		$scope.tracks = [];
 
 		$scope.currenttrack = PlayQueue.getCurrent();
-		$scope.$on('playqueuechanged', function() {
+		$rootScope.$on('playqueuechanged', function() {
 			$scope.currenttrack = PlayQueue.getCurrent();
 		});
 

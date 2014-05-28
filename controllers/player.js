@@ -8,6 +8,9 @@
 		$scope.playlists = [];
 		$scope.playing = false;
 		$scope.progress = 0;
+		$scope.duration = 4000;
+		$scope.trackdata = null;
+		$scope.currenttrack = '';
 
 		function updatePlaylists() {
 			if ($scope.username != '') {
@@ -78,6 +81,17 @@
 			$location.path('/search').search({ q: $scope.query }).replace();
 		}
 
+
+		$scope.volume = Playback.getVolume();
+
+		$scope.changevolume = function() {
+			Playback.setVolume($scope.volume);
+		}
+
+		$scope.changeprogress = function() {
+			Playback.setProgress($scope.progress);
+		}
+
 		$scope.$on('login', function() {
 			$scope.username = Auth.getUsername();
 			updatePlaylists();
@@ -85,12 +99,14 @@
 
 		$rootScope.$on('playqueuechanged', function() {
 			console.log('PlayerController: play queue changed.');
+			// $scope.duration = Playback.getDuration();
 		});
 
 		$rootScope.$on('playerchanged', function() {
 			console.log('PlayerController: player changed.');
 			$scope.currenttrack = Playback.getTrack();
 			$scope.playing = Playback.isPlaying();
+			$scope.trackdata = Playback.getTrackData();
 			$scope.$apply(function() {
 			});
 		});
@@ -98,9 +114,11 @@
 		$rootScope.$on('endtrack', function() {
 			console.log('PlayerController: end track.');
 			$scope.currenttrack = Playback.getTrack();
+			$scope.trackdata = Playback.getTrackData();
 			$scope.playing = Playback.isPlaying();
 			PlayQueue.next();
 			Playback.startPlaying(PlayQueue.getCurrent());
+			$scope.duration = Playback.getDuration();
 			$scope.$apply(function() {
 			});
 		});
@@ -108,6 +126,7 @@
 		$rootScope.$on('trackprogress', function() {
 			console.log('PlayerController: trackprogress.');
 			$scope.progress = Playback.getProgress();
+			$scope.duration = Playback.getDuration();
 			$scope.$apply(function() {
 			});
 		});
