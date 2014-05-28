@@ -147,31 +147,76 @@ hr {
 .bottomgroup .leftcontrols {
 	position: absolute;
 	left: 10px;
-	top: 5px;
+	top: 2px;
 	width: 400px;
 	padding: 0px;
+}
+
+.bottomgroup .leftcontrols .prevbutton {
+	position: absolute;
+	left: 5px;
+}
+
+.bottomgroup .leftcontrols .playbutton {
+	position: absolute;
+	left: 40px;
+}
+
+.bottomgroup .leftcontrols .nextbutton {
+	position: absolute;
+	left: 75px;
+}
+
+.bottomgroup .leftcontrols .prevbutton a img,
+.bottomgroup .leftcontrols .playbutton a img,
+.bottomgroup .leftcontrols .nextbutton a img {
+	width: 32px;
+}
+
+.bottomgroup .leftcontrols .volume {
+	position: absolute;
+	left: 120px;
+	top: 7px;
+	width: 80px;
+}
+
+.bottomgroup .leftcontrols .volume input {
+	width: 100%;
 }
 
 .bottomgroup .seekcontrols {
 	position: absolute;
 	top: 8px;
-	left: 250px;
-	right: 150px;
+	left: 220px;
+	right: 0px;
 	padding: 0px;
 }
 
-.bottomgroup .seekcontrols input {
+.bottomgroup .seekcontrols .slider {
 	position: absolute;
+	top: 1px;
 	left: 60px;
 	right: 60px;
 }
 
-.bottomgroup .seekcontrols div.time {
-	width: 60px;
+.bottomgroup .seekcontrols input {
+	width: 100%;
 }
 
 .bottomgroup .seekcontrols div.progress {
 	width: 60px;
+	position: absolute;
+	top: 3px;
+	left: 0px;
+	text-align: center;
+}
+
+.bottomgroup .seekcontrols div.duration {
+	position: absolute;
+	right: 0px;
+	top: 3px;
+	width: 60px;
+	text-align: center;
 }
 
 .bottomgroup .rightcontrols {

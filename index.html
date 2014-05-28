@@ -1,5 +1,6 @@
 <html ng-app="PlayerApp">
 	<head>
+		<title>Thirtify</title>
 		<link rel="stylesheet" href="style.css" />
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
 		<script src="bower_components/angular/angular.js"></script>
@@ -68,26 +69,28 @@
 				<div class="bottomgroup">
 					<div class="leftcontrols">
 						<div class="prevbutton">
-							<a ng-click="prev()">&lt;&lt;</a>
+							<a ng-click="prev()"><img src="images/btn-prev.png" /></a>
 						</div>
 
 						<div class="playbutton">
-							<a ng-click="resume()" ng-hide="playing">|&gt;</a>
-							<a ng-click="pause()" ng-show="playing">[ ]</a>
+							<a ng-click="resume()" ng-hide="playing"><img src="images/btn-play.png" /></a>
+							<a ng-click="pause()" ng-show="playing"><img src="images/btn-pause.png" /></a>
 						</div>
 
 						<div class="nextbutton">
-							<a ng-click="next()">&gt;&gt;</a>
+							<a ng-click="next()"><img src="images/btn-next.png" /></a>
 						</div>
 
 						<div class="volume">
-							<input type="range" style="width:100px;" ng-change="changevolume()" min="0" max="100" ng-model="volume" />
+							<input type="range" ng-change="changevolume()" min="0" max="100" ng-model="volume" />
 						</div>
 					</div>
 					<div class="seekcontrols">
-						<div class="time"><displaytime time="progress"></displaytime></div>
+						<div class="progress"><displaytime time="progress"></displaytime></div>
 						<div class="duration"><displaytime time="duration"></displaytime></div>
-						<input type="range" ng-model="progress" ng-change="changeprogress()" min="0" max="{{duration}}" />
+						<div class="slider">
+							<input type="range" ng-model="progress" ng-change="changeprogress()" min="0" max="{{duration}}" />
+						</div>
 					</div>
 					<div class="rightcontrols">
 						<!--
