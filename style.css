@@ -366,6 +366,37 @@ header div.cover {
 	overflow: hidden;
 }
 
+header .playlist-cover {
+	position: relative;
+}
+
+header .cover-component {
+	background-size: cover;
+	position: absolute;
+	width: 100px;
+	height: 100px;
+}
+
+header .cover-component:nth-child(1) {
+	top: 0;
+	left: 0;
+}
+
+header .cover-component:nth-child(2) {
+	top: 0;
+	left: 100px;
+}
+
+header .cover-component:nth-child(3) {
+	top: 100px;
+	left: 0px;
+}
+
+header .cover-component:nth-child(4) {
+	top: 100px;
+	left: 100px;
+}
+
 header div.buttons {
 	position: absolute;
 	left: 210px;
