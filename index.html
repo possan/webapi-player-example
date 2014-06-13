@@ -10,7 +10,7 @@
 		<script src="services/api.js"></script>
 		<script src="services/playback.js"></script>
 		<script src="services/playqueue.js"></script>
-		<script src="directives/displaytime.js"></script>
+		<script src="filters/displaytime.js"></script>
 		<script src="controllers/player.js"></script>
 		<script src="controllers/login.js"></script>
 		<script src="controllers/playlist.js"></script>
@@ -80,8 +80,8 @@
 						</div>
 					</div>
 					<div class="seekcontrols">
-						<div class="progress"><displaytime time="progress"></displaytime></div>
-						<div class="duration"><displaytime time="duration"></displaytime></div>
+						<div class="progress">{{ progress | displaytime }}</div>
+						<div class="duration">{{ duration | displaytime }}</div>
 						<div class="slider">
 							<input type="range" ng-model="progress" ng-change="changeprogress()" min="0" max="{{duration}}" />
 						</div>
