@@ -40,7 +40,6 @@
 				disc.tracks.push(track);
 			});
 			discs.push(disc);
-debugger;
 			console.log('discs', discs);
 			$scope.discs = discs;
 			$scope.tracks = tracks.items;
