@@ -26,7 +26,7 @@
 		<tr ng-repeat="t in toptracks" ng-class="{ playing: (t.uri == currenttrack) }">
 			<td><a ng-click="playtoptrack(t.uri)">{{t.name}}</a></td>
 			<td><a href="#/albums/{{t.album.id}}">{{t.album.name}}</a></td>
-			<td><displaytime time="{{t.duration_ms}}"></displaytime></td>
+			<td>{{t.duration_ms | displaytime}}</td>
 		</tr>
 	</tbody>
 </table>

@@ -21,7 +21,7 @@
 	&middot;
 	{{data.tracks.total}} Songs
 	&middot;
-	Total <displaytime time="{{total_duration}}"></displaytime>
+	Total {{total_duration | displaytime}}
 </p>
 <hr/>
 <br/>
@@ -44,7 +44,7 @@
 						<a ng-click="play(t.uri)">{{t.name}}</a>
 						<i>by <a href="#/artists/{{t.artists[0].id}}">{{t.artists[0].name}}</a></i>
 					</td>
-					<td><displaytime time="{{t.duration_ms}}"></displaytime></td>
+					<td>{{t.duration_ms | displaytime}}</td>
 				</tr>
 				</tbody>
 		</table>

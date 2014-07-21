@@ -19,7 +19,7 @@
 				<a href="#/artists/{{t.artists[0].id}}">{{t.artists[0].name}}</a>
 			</td>
 			<td class="nowrap">
-				<displaytime time="{{t.duration_ms}}"></displaytime>
+				{{ t.duration_ms | displaytime }}
 			</td>
 			<td>
 				<a href="#/albums/{{t.album.id}}">{{t.album.name}}</a>
