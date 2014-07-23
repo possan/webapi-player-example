@@ -48,6 +48,13 @@
 			},
 			setUsername: function(username) {
 				localStorage.setItem('pa_username', username);
+			},
+			getUserCountry: function() {
+				var userCountry = localStorage.getItem('pa_usercountry', 'US');
+				return userCountry;
+			},
+			setUserCountry: function(userCountry) {
+				localStorage.setItem('pa_usercountry', userCountry);
 			}
 		}
 	});

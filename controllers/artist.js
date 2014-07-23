@@ -2,7 +2,7 @@
 
 	var module = angular.module('PlayerApp');
 
-	module.controller('ArtistController', function($scope, $rootScope, API, PlayQueue, $routeParams) {
+	module.controller('ArtistController', function($scope, $rootScope, API, PlayQueue, $routeParams, Auth) {
 		$scope.artist = $routeParams.artist;
 		$scope.data = null;
 		$scope.discog = [];
@@ -20,12 +20,12 @@
 			$scope.data = artist;
 		});
 
-		API.getArtistTopTracks($scope.artist, 'SE').then(function(toptracks) {
+		API.getArtistTopTracks($scope.artist, Auth.getUserCountry()).then(function(toptracks) {
 			console.log('got artist', toptracks);
 			$scope.toptracks = toptracks.tracks;
 		});
 
-		API.getArtistAlbums($scope.artist).then(function(albums) {
+		API.getArtistAlbums($scope.artist, Auth.getUserCountry()).then(function(albums) {
 			console.log('got artist albums', albums);
 			$scope.albums = [];
 			$scope.singles = [];

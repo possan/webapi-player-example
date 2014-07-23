@@ -43,8 +43,9 @@
 		console.log(location);
 
 		function checkUser() {
-			API.getMyUsername().then(function(username) {
-				Auth.setUsername(username);
+			API.getMe().then(function(userInfo) {
+				Auth.setUsername(userInfo.id);
+				Auth.setUserCountry(userInfo.country);
 				$scope.$emit('login');
 				$scope.$apply();
 				$location.replace();

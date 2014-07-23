@@ -5,7 +5,7 @@
 	module.factory('API', function(Auth, $q, $http) {
 		return {
 
-			getMyUsername: function() {
+			getMe: function() {
 				var ret = $q.defer();
 				$http.get('https://api.spotify.com/v1/me', {
 					headers: {
@@ -13,7 +13,7 @@
 					}
 				}).success(function(r) {
 					console.log('got userinfo', r);
-					ret.resolve(r.id);
+					ret.resolve(r);
 				}).error(function(err) {
 					console.log('failed to get userinfo', err);
 					ret.reject(err);
@@ -112,9 +112,9 @@
 				return ret.promise;
 			},
 
-			getArtistAlbums: function(artistid) {
+			getArtistAlbums: function(artistid, country) {
 				var ret = $q.defer();
-				$http.get('https://api.spotify.com/v1/artists/' + encodeURIComponent(artistid) + '/albums', {
+				$http.get('https://api.spotify.com/v1/artists/' + encodeURIComponent(artistid) + '/albums?country=' + encodeURIComponent(country), {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
