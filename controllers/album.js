@@ -21,7 +21,6 @@
 				$scope.release_year = album.release_date.substring(0, 4); // så fult!
 			}
 
-			$scope.$apply();
 		});
 
 		API.getAlbumTracks($scope.album).then(function(tracks) {
@@ -46,7 +45,6 @@
 			$scope.num_discs = discs.length;
 			$scope.total_duration = tot;
 
-			$scope.$apply();
 		});
 
 		$scope.currenttrack = PlayQueue.getCurrent();
@@ -61,7 +59,7 @@
 			PlayQueue.clear();
 			PlayQueue.enqueueList(trackuris);
 			PlayQueue.playFrom(trackuris.indexOf(trackuri));
-		}
+		};
 
 		$scope.playall = function() {
 			var trackuris = $scope.tracks.map(function(track) {
@@ -70,7 +68,7 @@
 			PlayQueue.clear();
 			PlayQueue.enqueueList(trackuris);
 			PlayQueue.playFrom(0);
-		}
+		};
 
 	});
 

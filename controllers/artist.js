@@ -18,13 +18,11 @@
 		API.getArtist($scope.artist).then(function(artist) {
 			console.log('got artist', artist);
 			$scope.data = artist;
-			$scope.$apply();
 		});
 
 		API.getArtistTopTracks($scope.artist, 'SE').then(function(toptracks) {
 			console.log('got artist', toptracks);
 			$scope.toptracks = toptracks.tracks;
-			$scope.$apply();
 		});
 
 		API.getArtistAlbums($scope.artist).then(function(albums) {
@@ -44,7 +42,6 @@
 					$scope.appearson.push(album);
 				}
 			})
-			$scope.$apply();
 		});
 
 		$scope.playtoptrack = function(trackuri) {
@@ -54,7 +51,7 @@
 			PlayQueue.clear();
 			PlayQueue.enqueueList(trackuris);
 			PlayQueue.playFrom(trackuris.indexOf(trackuri));
-		}
+		};
 
 		$scope.playall = function(trackuri) {
 			var trackuris = $scope.toptracks.map(function(track) {
@@ -63,7 +60,7 @@
 			PlayQueue.clear();
 			PlayQueue.enqueueList(trackuris);
 			PlayQueue.playFrom(0);
-		}
+		};
 	});
 
 })();

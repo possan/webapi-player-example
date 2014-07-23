@@ -19,7 +19,6 @@
 			console.log('got playlist', list);
 			$scope.name = list.name;
 			$scope.data = list;
-			$scope.$apply();
 		});
 
 		API.getPlaylistTracks($scope.username, $scope.playlist).then(function(list) {
@@ -31,7 +30,6 @@
 			$scope.tracks = list.items;
 			console.log('tot', tot);
 			$scope.total_duration = tot;
-			$scope.$apply();
 		});
 
 		$scope.play = function(trackuri) {
@@ -41,7 +39,7 @@
 			PlayQueue.clear();
 			PlayQueue.enqueueList(trackuris);
 			PlayQueue.playFrom(trackuris.indexOf(trackuri));
-		}
+		};
 
 		$scope.playall = function() {
 			var trackuris = $scope.tracks.map(function(track) {
@@ -50,7 +48,7 @@
 			PlayQueue.clear();
 			PlayQueue.enqueueList(trackuris);
 			PlayQueue.playFrom(0);
-		}
+		};
 	});
 
 })();
