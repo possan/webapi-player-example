@@ -37,6 +37,8 @@
 					disc = { disc_number: track.disc_number, tracks: [] };
 				}
 				disc.tracks.push(track);
+
+				track.popularity = 0;
 			});
 			discs.push(disc);
 			console.log('discs', discs);
@@ -44,6 +46,24 @@
 			$scope.tracks = tracks.items;
 			$scope.num_discs = discs.length;
 			$scope.total_duration = tot;
+
+			// find out if they are in the user's collection
+			var ids = $scope.tracks.map(function(track) {
+				return track.id;
+			});
+
+
+			API.getTracks(ids).then(function(results) {
+				results.tracks.forEach(function(result, index) {
+					$scope.tracks[index].popularity = result.popularity;
+				});
+			});
+
+			API.containsUserTracks(ids).then(function(results) {
+				results.forEach(function(result, index) {
+					$scope.tracks[index].inYourMusic = result;
+				});
+			});
 
 		});
 
@@ -68,6 +88,18 @@
 			PlayQueue.clear();
 			PlayQueue.enqueueList(trackuris);
 			PlayQueue.playFrom(0);
+		};
+
+		$scope.toggleFromYourMusic = function(index) {
+			if ($scope.tracks[index].inYourMusic) {
+				API.removeFromMyTracks([$scope.tracks[index].id]).then(function(response) {
+					$scope.tracks[index].inYourMusic = false;
+				});
+			} else {
+				API.addToMyTracks([$scope.tracks[index].id]).then(function(response) {
+					$scope.tracks[index].inYourMusic = true;
+				});
+			}
 		};
 
 	});

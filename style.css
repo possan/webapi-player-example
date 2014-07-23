@@ -351,6 +351,43 @@ a.button.big.green {
 	border-radius: 50px;
 }
 
+.pop-meter {
+	width: 30px;
+	height: 9px;
+	position: relative;
+}
+
+.pop-meter-background, .pop-meter-overlay {
+	width: 100%;
+	position: absolute;
+	top: -1px;
+	height: 9px;
+	overflow-x: hidden;
+}
+
+.pop-meter-background:after, .pop-meter-overlay:after {
+	content: ' ';
+	display: block;
+	-webkit-transform: translate(0,.5px);
+	-moz-transform: translate(0,.5px);
+	-ms-transform: translate(0,.5px);
+	-o-transform: translate(0,.5px);
+	transform: translate(0,.5px);
+	position: absolute;
+	left: -4px;
+	width: 2px;
+	height: 8px;
+	top: 0;
+}
+
+.pop-meter-background:after {
+	box-shadow: 4px 0 0 0 #3e3e40,8px 0 0 0 #3e3e40,12px 0 0 0 #3e3e40,16px 0 0 0 #3e3e40,20px 0 0 0 #3e3e40,24px 0 0 0 #3e3e40,28px 0 0 0 #3e3e40,32px 0 0 0 #3e3e40
+}
+
+.pop-meter-overlay:after {
+	box-shadow: 4px 0 0 0 #88898c,8px 0 0 0 #88898c,12px 0 0 0 #88898c,16px 0 0 0 #88898c,20px 0 0 0 #88898c,24px 0 0 0 #88898c,28px 0 0 0 #88898c,32px 0 0 0 #88898c;
+}
+
 header {
 	position: relative;
 	height: 220px;

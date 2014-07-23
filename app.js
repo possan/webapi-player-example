@@ -16,6 +16,10 @@
 				templateUrl: 'partials/user.html',
 				controller: 'UserController'
 			}).
+			when('/users/:username/tracks', {
+				templateUrl: 'partials/usertracks.html',
+				controller: 'UserTracksController'
+			}).
 			when('/users/:username/playlists/:playlist', {
 				templateUrl: 'partials/playlist.html',
 				controller: 'PlaylistController'
@@ -77,6 +81,14 @@
 			$scope.showplayer = false;
 			$scope.showlogin = true;
 		});
+
+		$scope.getClass = function(path) {
+			if ($location.path().substr(0, path.length) == path) {
+				return 'active';
+			} else {
+				return '';
+			}
+		};
 
 		checkUser();
 	});

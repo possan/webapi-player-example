@@ -24,8 +24,15 @@
 
 		return {
 			openLogin: function() {
-				var url = getLoginURL(['playlist-read-private','user-read-private','playlist-read'])
-				var w = window.open(url, 'asdf', 'WIDTH=400,HEIGHT=500');
+				var url = getLoginURL([
+					'playlist-read-private',
+					'user-read-private',
+					'playlist-read',
+					'user-library-read',
+					'user-library-modify'
+				]);
+
+				var w = window.open(url, 'Spotify', 'WIDTH=400,HEIGHT=600');
 				// window.location = url;
 			},
 			getAccessToken: function() {

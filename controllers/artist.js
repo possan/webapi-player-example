@@ -23,6 +23,16 @@
 		API.getArtistTopTracks($scope.artist, Auth.getUserCountry()).then(function(toptracks) {
 			console.log('got artist', toptracks);
 			$scope.toptracks = toptracks.tracks;
+
+			var ids = $scope.toptracks.map(function(track) {
+				return track.id;
+			});
+
+			API.containsUserTracks(ids).then(function(results) {
+				results.forEach(function(result, index) {
+					$scope.toptracks[index].inYourMusic = result;
+				});
+			});
 		});
 
 		API.getArtistAlbums($scope.artist, Auth.getUserCountry()).then(function(albums) {
@@ -44,6 +54,8 @@
 			})
 		});
 
+
+
 		$scope.playtoptrack = function(trackuri) {
 			var trackuris = $scope.toptracks.map(function(track) {
 				return track.uri;
@@ -61,6 +73,19 @@
 			PlayQueue.enqueueList(trackuris);
 			PlayQueue.playFrom(0);
 		};
+
+		$scope.toggleFromYourMusic = function(index) {
+			if ($scope.toptracks[index].inYourMusic) {
+				API.removeFromMyTracks([$scope.toptracks[index].id]).then(function(response) {
+					$scope.toptracks[index].inYourMusic = false;
+				});
+			} else {
+				API.addToMyTracks([$scope.toptracks[index].id]).then(function(response) {
+					$scope.toptracks[index].inYourMusic = true;
+				});
+			}
+		};
+
 	});
 
 })();

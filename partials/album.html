@@ -34,19 +34,29 @@
 		<table class="tracks">
 			<thead>
 				<th>#</th>
-				<th>SONG</th>
+				<th></th>
+				<th>TRACK</th>
 				<th>TIME</th>
+				<th>POPULARITY</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="t in d.tracks" ng-class="{ playing: (t.uri == currenttrack) }">
+				<tr ng-repeat="t in tracks" ng-class="{ playing: (t.uri == currenttrack) }">
 					<td>{{t.track_number}}</td>
 					<td>
-						<a ng-click="play(t.uri)">{{t.name}}</a>
-						<i>by <a href="#/artists/{{t.artists[0].id}}">{{t.artists[0].name}}</a></i>
+						<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
 					</td>
-					<td>{{t.duration_ms | displaytime}}</td>
+					<td>
+						<a ng-click="play(t.uri)">{{t.name}}</a>
+					</td>
+					<td>{{t.duration_ms | displaytime}}</td>
+					<td>
+						<div class="pop-meter">
+							<div class="pop-meter-background"></div>
+							<div class="pop-meter-overlay" style="width: {{ t.popularity }}%;"></div>
+						</div>
+					</td>
 				</tr>
-				</tbody>
+			</tbody>
 		</table>
 	</div>
 </div>

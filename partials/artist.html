@@ -17,6 +17,8 @@
 <h3>Popular tracks</h3>
 <table class="tracks">
 	<thead>
+		<th>#</th>
+		<th></th>
 		<th>SONG</th>
 		<th>ALBUM</th>
 		<th>TIME</th>
@@ -24,6 +26,10 @@
 	<tbody>
 
 		<tr ng-repeat="t in toptracks" ng-class="{ playing: (t.uri == currenttrack) }">
+			<td>{{$index + 1}}</td>
+			<td>
+				<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
+			</td>
 			<td><a ng-click="playtoptrack(t.uri)">{{t.name}}</a></td>
 			<td><a href="#/albums/{{t.album.id}}">{{t.album.name}}</a></td>
 			<td>{{t.duration_ms | displaytime}}</td>
