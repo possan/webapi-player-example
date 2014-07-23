@@ -11,6 +11,7 @@
 		<script src="services/playback.js"></script>
 		<script src="services/playqueue.js"></script>
 		<script src="directives/playlistcover.js"></script>
+		<script src="directives/responsivecover.js"></script>
 		<script src="filters/displaytime.js"></script>
 		<script src="controllers/player.js"></script>
 		<script src="controllers/login.js"></script>
@@ -47,7 +48,7 @@
 						</div>
 						<div class="preview">
 							<a href="#/albums/{{trackdata.album.id}}">
-								<img ng-src="{{trackdata.album.images[0].url}}" width="200" height="200" />
+								<responsive-cover ng-model="trackdata.album.images"></responsive-cover>
 							</a>
 							<p>
 								<b>{{trackdata.name}}</b>

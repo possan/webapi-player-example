@@ -272,12 +272,12 @@ hr {
 	font-size: 7pt;
 }
 
-.menuview .preview img {
+.menuview .preview responsive-cover {
 	width: 220px;
 	height: 220px;
 	border: 0;
 	outline: 0;
-	border-bottom: 1px solid #393b40;
+	border: 1px solid #393b40;
 }
 
 .mainview {
@@ -477,7 +477,7 @@ ul.albums li {
 	background-color: #393b40;
 }
 
-ul.albums li img {
+ul.albums li responsive-cover{
 	width: 160px;
 	height: 160px;
 }
@@ -486,7 +486,11 @@ ul.albums li p {
 	padding: 10px;
 }
 
-
-
+responsive-cover {
+	display:block;
+	height:100%;
+	width:100%;
+	background-size: cover;
+}
 
 

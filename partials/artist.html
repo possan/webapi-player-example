@@ -1,6 +1,6 @@
 <header>
 	<div class="cover">
-		<img src="{{data.images[0].url}}" width="200" align="left" />
+		<responsive-cover ng-model="data.images"></responsive-cover>
 	</div>
 
 	<h4>ARTIST</h4>
@@ -38,7 +38,9 @@
 	<h3>Albums</h3>
 	<ul class="albums">
 		<li ng-repeat="t in albums">
-			<a href="#/albums/{{t.id}}"><img src="{{t.images[0].url}}" /></a>
+			<a href="#/albums/{{t.id}}">
+				<responsive-cover ng-model="t.images"></responsive-cover>
+			</a>
 			<p>
 				<b><a href="#/albums/{{t.id}}">{{t.name}}</a></b>
 			</p>
@@ -52,7 +54,9 @@
 	<h3>Singles</h3>
 	<ul class="albums">
 		<li ng-repeat="t in singles">
-			<a href="#/albums/{{t.id}}"><img src="{{t.images[0].url}}" /></a>
+			<a href="#/albums/{{t.id}}">
+				<responsive-cover ng-model="t.images"></responsive-cover>
+			</a>
 			<p>
 				<b><a href="#/albums/{{t.id}}">{{t.name}}</a></b>
 			</p>
@@ -66,7 +70,9 @@
 	<h3>Appears on</h3>
 	<ul class="albums">
 		<li ng-repeat="t in appearson">
-			<a href="#/albums/{{t.id}}"><img src="{{t.images[0].url}}" /></a>
+			<a href="#/albums/{{t.id}}">
+				<responsive-cover ng-model="t.images"></responsive-cover>
+			</a>
 			<p>
 				<b><a href="#/albums/{{t.id}}">{{t.name}}</a></p>
 			</p>
