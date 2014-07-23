@@ -47,12 +47,10 @@
 				Auth.setUsername(userInfo.id);
 				Auth.setUserCountry(userInfo.country);
 				$scope.$emit('login');
-				$scope.$apply();
 				$location.replace();
 			}, function(err) {
 				$scope.showplayer = false;
 				$scope.showlogin = true;
-				$scope.$apply();
 				$location.replace();
 			});
 		}

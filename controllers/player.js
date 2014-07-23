@@ -102,10 +102,12 @@
 		});
 
 		$rootScope.$on('playerchanged', function() {
-			console.log('PlayerController: player changed.');
-			$scope.currenttrack = Playback.getTrack();
-			$scope.playing = Playback.isPlaying();
-			$scope.trackdata = Playback.getTrackData();
+			$scope.$apply(function() {
+				console.log('PlayerController: player changed.');
+				$scope.currenttrack = Playback.getTrack();
+				$scope.playing = Playback.isPlaying();
+				$scope.trackdata = Playback.getTrackData();
+			});
 		});
 
 		$rootScope.$on('endtrack', function() {
