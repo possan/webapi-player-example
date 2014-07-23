@@ -2,7 +2,7 @@
 
 	var module = angular.module('PlayerApp');
 
-	module.controller('ArtistController', function($scope, $rootScope, API, PlayQueue, $routeParams) {
+	module.controller('ArtistController', function($scope, $rootScope, API, PlayQueue, $routeParams, Auth) {
 		$scope.artist = $routeParams.artist;
 		$scope.data = null;
 		$scope.discog = [];
@@ -18,16 +18,24 @@
 		API.getArtist($scope.artist).then(function(artist) {
 			console.log('got artist', artist);
 			$scope.data = artist;
-			$scope.$apply();
 		});
 
-		API.getArtistTopTracks($scope.artist, 'SE').then(function(toptracks) {
+		API.getArtistTopTracks($scope.artist, Auth.getUserCountry()).then(function(toptracks) {
 			console.log('got artist', toptracks);
 			$scope.toptracks = toptracks.tracks;
-			$scope.$apply();
+
+			var ids = $scope.toptracks.map(function(track) {
+				return track.id;
+			});
+
+			API.containsUserTracks(ids).then(function(results) {
+				results.forEach(function(result, index) {
+					$scope.toptracks[index].inYourMusic = result;
+				});
+			});
 		});
 
-		API.getArtistAlbums($scope.artist).then(function(albums) {
+		API.getArtistAlbums($scope.artist, Auth.getUserCountry()).then(function(albums) {
 			console.log('got artist albums', albums);
 			$scope.albums = [];
 			$scope.singles = [];
@@ -44,8 +52,9 @@
 					$scope.appearson.push(album);
 				}
 			})
-			$scope.$apply();
 		});
+
+
 
 		$scope.playtoptrack = function(trackuri) {
 			var trackuris = $scope.toptracks.map(function(track) {
@@ -54,7 +63,7 @@
 			PlayQueue.clear();
 			PlayQueue.enqueueList(trackuris);
 			PlayQueue.playFrom(trackuris.indexOf(trackuri));
-		}
+		};
 
 		$scope.playall = function(trackuri) {
 			var trackuris = $scope.toptracks.map(function(track) {
@@ -63,7 +72,20 @@
 			PlayQueue.clear();
 			PlayQueue.enqueueList(trackuris);
 			PlayQueue.playFrom(0);
-		}
+		};
+
+		$scope.toggleFromYourMusic = function(index) {
+			if ($scope.toptracks[index].inYourMusic) {
+				API.removeFromMyTracks([$scope.toptracks[index].id]).then(function(response) {
+					$scope.toptracks[index].inYourMusic = false;
+				});
+			} else {
+				API.addToMyTracks([$scope.toptracks[index].id]).then(function(response) {
+					$scope.toptracks[index].inYourMusic = true;
+				});
+			}
+		};
+
 	});
 
 })();

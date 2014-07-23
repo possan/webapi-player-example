@@ -11,6 +11,7 @@
 		<script src="services/playback.js"></script>
 		<script src="services/playqueue.js"></script>
 		<script src="directives/playlistcover.js"></script>
+		<script src="directives/responsivecover.js"></script>
 		<script src="filters/displaytime.js"></script>
 		<script src="controllers/player.js"></script>
 		<script src="controllers/login.js"></script>
@@ -19,6 +20,7 @@
 		<script src="controllers/artist.js"></script>
 		<script src="controllers/album.js"></script>
 		<script src="controllers/user.js"></script>
+		<script src="controllers/usertracks.js"></script>
 		<script src="controllers/playqueue.js"></script>
 		<script src="controllers/searchresults.js"></script>
 	</head>
@@ -42,12 +44,16 @@
 						<div class="list scrollable">
 							<b><a href="#/me">YOUR MUSIC</a></b>
 							<ul class="menuitems">
-								<li ng-repeat="pl in playlists track by pl.id"><a href="#/users/{{pl.username}}/playlists/{{pl.id}}">{{pl.name}}</a></li>
+								<li><a href="#/users/{{username}}/tracks" ng-class="getClass('/users/{{username}}/tracks')">Songs</a></li>
+							</ul>
+							<b><a href="#/me">PLAYLISTS</a></b>
+							<ul class="menuitems">
+								<li ng-repeat="pl in playlists track by pl.id"><a href="#/users/{{pl.username}}/playlists/{{pl.id}}" ng-class="getClass('/users/{{pl.username}}/playlists/{{pl.id}}')">{{pl.name}}</a></li>
 							</ul>
 						</div>
 						<div class="preview">
 							<a href="#/albums/{{trackdata.album.id}}">
-								<img ng-src="{{trackdata.album.images[0].url}}" width="200" height="200" />
+								<responsive-cover ng-model="trackdata.album.images"></responsive-cover>
 							</a>
 							<p>
 								<b>{{trackdata.name}}</b>

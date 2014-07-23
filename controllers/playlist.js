@@ -19,7 +19,6 @@
 			console.log('got playlist', list);
 			$scope.name = list.name;
 			$scope.data = list;
-			$scope.$apply();
 		});
 
 		API.getPlaylistTracks($scope.username, $scope.playlist).then(function(list) {
@@ -31,7 +30,25 @@
 			$scope.tracks = list.items;
 			console.log('tot', tot);
 			$scope.total_duration = tot;
-			$scope.$apply();
+
+			// find out if they are in the user's collection
+			var ids = $scope.tracks.map(function(track) {
+				return track.track.id;
+			});
+
+			var i, j, temparray, chunk = 20;
+			for (i = 0, j = ids.length; i < j; i += chunk) {
+					temparray = ids.slice(i, i + chunk);
+					var firstIndex = i;
+					(function(firstIndex){
+						API.containsUserTracks(temparray).then(function(results) {
+							results.forEach(function(result, index) {
+								$scope.tracks[firstIndex + index].track.inYourMusic = result;
+							});
+						});
+					})(firstIndex);
+			}
+
 		});
 
 		$scope.play = function(trackuri) {
@@ -41,7 +58,7 @@
 			PlayQueue.clear();
 			PlayQueue.enqueueList(trackuris);
 			PlayQueue.playFrom(trackuris.indexOf(trackuri));
-		}
+		};
 
 		$scope.playall = function() {
 			var trackuris = $scope.tracks.map(function(track) {
@@ -50,7 +67,19 @@
 			PlayQueue.clear();
 			PlayQueue.enqueueList(trackuris);
 			PlayQueue.playFrom(0);
-		}
+		};
+
+		$scope.toggleFromYourMusic = function(index) {
+			if ($scope.tracks[index].track.inYourMusic) {
+				API.removeFromMyTracks([$scope.tracks[index].track.id]).then(function(response) {
+					$scope.tracks[index].track.inYourMusic = false;
+				});
+			} else {
+				API.addToMyTracks([$scope.tracks[index].track.id]).then(function(response) {
+					$scope.tracks[index].track.inYourMusic = true;
+				});
+			}
+		};
 	});
 
 })();

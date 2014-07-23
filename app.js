@@ -16,6 +16,10 @@
 				templateUrl: 'partials/user.html',
 				controller: 'UserController'
 			}).
+			when('/users/:username/tracks', {
+				templateUrl: 'partials/usertracks.html',
+				controller: 'UserTracksController'
+			}).
 			when('/users/:username/playlists/:playlist', {
 				templateUrl: 'partials/playlist.html',
 				controller: 'PlaylistController'
@@ -43,15 +47,14 @@
 		console.log(location);
 
 		function checkUser() {
-			API.getMyUsername().then(function(username) {
-				Auth.setUsername(username);
+			API.getMe().then(function(userInfo) {
+				Auth.setUsername(userInfo.id);
+				Auth.setUserCountry(userInfo.country);
 				$scope.$emit('login');
-				$scope.$apply();
 				$location.replace();
 			}, function(err) {
 				$scope.showplayer = false;
 				$scope.showlogin = true;
-				$scope.$apply();
 				$location.replace();
 			});
 		}
@@ -78,6 +81,14 @@
 			$scope.showplayer = false;
 			$scope.showlogin = true;
 		});
+
+		$scope.getClass = function(path) {
+			if ($location.path().substr(0, path.length) == path) {
+				return 'active';
+			} else {
+				return '';
+			}
+		};
 
 		checkUser();
 	});

@@ -18,6 +18,7 @@
 
 <table class="tracks">
 	<thead>
+		<th></th>
 		<th>TRACK</th>
 		<th>ARTIST</th>
 		<th>TIME</th>
@@ -27,6 +28,9 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="t in tracks" ng-class="{ playing: (t.track.uri == currenttrack) }">
+			<td>
+				<button ng-click="toggleFromYourMusic($index)"> {{ t.track.inYourMusic ? '-' : '+' }} </button>
+			</td>
 			<td>
 				<a ng-click="play(t.track.uri)">{{t.track.name}}</a>
 			</td>

@@ -1,0 +1,30 @@
+<table class="tracks">
+	<thead>
+		<th></th>
+		<th>TRACK</th>
+		<th>ARTIST</th>
+		<th>TIME</th>
+		<th>ALBUM</th>
+		<th>ADDED</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="t in tracks" ng-class="{ playing: (t.track.uri == currenttrack) }">
+			<td>
+				<button ng-click="removeFromYourMusic($index)"> - </button>
+			</td>
+			<td>
+				<a ng-click="play(t.track.uri)">{{t.track.name}}</a>
+			</td>
+			<td>
+				<a href="#/artists/{{t.track.artists[0].id}}">{{t.track.artists[0].name}}</a>
+			</td>
+			<td>{{t.track.duration_ms | displaytime}}</td>
+			<td>
+				<a href="#/albums/{{t.track.album.id}}">{{t.track.album.name}}</a>
+			</td>
+			<td>
+				{{t.added_at}}
+			</td>
+		</tr>
+	</tbody>
+</table>

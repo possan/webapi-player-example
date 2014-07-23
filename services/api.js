@@ -3,17 +3,20 @@
 	var module = angular.module('PlayerApp');
 
 	module.factory('API', function(Auth, $q, $http) {
+
+		var baseUrl = 'https://api.spotify.com/v1';
+
 		return {
 
-			getMyUsername: function() {
+			getMe: function() {
 				var ret = $q.defer();
-				$http.get('https://api.spotify.com/v1/me', {
+				$http.get(baseUrl + '/me', {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
 				}).success(function(r) {
 					console.log('got userinfo', r);
-					ret.resolve(r.id);
+					ret.resolve(r);
 				}).error(function(err) {
 					console.log('failed to get userinfo', err);
 					ret.reject(err);
@@ -21,9 +24,80 @@
 				return ret.promise;
 			},
 
+			getMyUsername: function() {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/me', {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got userinfo', r);
+					//ret.resolve(r.id);
+					ret.resolve('test_1');
+				}).error(function(err) {
+					console.log('failed to get userinfo', err);
+					//ret.reject(err);
+					//
+					ret.resolve('test_1');
+				});
+				return ret.promise;
+			},
+
+			getMyTracks: function() {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/me/tracks', {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got user tracks', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			containsUserTracks: function(ids) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/me/tracks/contains?ids=' + encodeURIComponent(ids.join(',')), {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got contains user tracks', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			addToMyTracks: function(ids) {
+				var ret = $q.defer();
+				$http.put(baseUrl + '/me/tracks?ids=' + encodeURIComponent(ids.join(',')), {}, {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got response from adding to my albums', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			removeFromMyTracks: function(ids) {
+				var ret = $q.defer();
+				$http.delete(baseUrl + '/me/tracks?ids=' + encodeURIComponent(ids.join(',')), {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got response from removing from my tracks', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
 			getPlaylists: function(username) {
 				var ret = $q.defer();
-				$http.get('https://api.spotify.com/v1/users/' + encodeURIComponent(username) + '/playlists', {
+				$http.get(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists', {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
@@ -36,7 +110,7 @@
 
 			getPlaylist: function(username, playlist) {
 				var ret = $q.defer();
-				$http.get('https://api.spotify.com/v1/users/' + encodeURIComponent(username) + '/playlists/' + encodeURIComponent(playlist), {
+				$http.get(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists/' + encodeURIComponent(playlist), {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
@@ -49,7 +123,7 @@
 
 			getPlaylistTracks: function(username, playlist) {
 				var ret = $q.defer();
-				$http.get('https://api.spotify.com/v1/users/' + encodeURIComponent(username) + '/playlists/' + encodeURIComponent(playlist) + '/tracks', {
+				$http.get(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists/' + encodeURIComponent(playlist) + '/tracks', {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
@@ -62,7 +136,7 @@
 
 			getTrack: function(trackid) {
 				var ret = $q.defer();
-				$http.get('https://api.spotify.com/v1/tracks/' + encodeURIComponent(trackid), {
+				$http.get(baseUrl + '/tracks/' + encodeURIComponent(trackid), {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
@@ -73,9 +147,22 @@
 				return ret.promise;
 			},
 
+			getTracks: function(trackids) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/tracks/?ids=' + encodeURIComponent(trackids.join(',')), {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got tracks', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
 			getAlbum: function(albumid) {
 				var ret = $q.defer();
-				$http.get('https://api.spotify.com/v1/albums/' + encodeURIComponent(albumid), {
+				$http.get(baseUrl + '/albums/' + encodeURIComponent(albumid), {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
@@ -88,7 +175,7 @@
 
 			getAlbumTracks: function(albumid) {
 				var ret = $q.defer();
-				$http.get('https://api.spotify.com/v1/albums/' + encodeURIComponent(albumid) + '/tracks', {
+				$http.get(baseUrl + '/albums/' + encodeURIComponent(albumid) + '/tracks', {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
@@ -101,7 +188,7 @@
 
 			getArtist: function(artistid) {
 				var ret = $q.defer();
-				$http.get('https://api.spotify.com/v1/artists/' + encodeURIComponent(artistid), {
+				$http.get(baseUrl + '/artists/' + encodeURIComponent(artistid), {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
@@ -112,9 +199,9 @@
 				return ret.promise;
 			},
 
-			getArtistAlbums: function(artistid) {
+			getArtistAlbums: function(artistid, country) {
 				var ret = $q.defer();
-				$http.get('https://api.spotify.com/v1/artists/' + encodeURIComponent(artistid) + '/albums', {
+				$http.get(baseUrl + '/artists/' + encodeURIComponent(artistid) + '/albums?country=' + encodeURIComponent(country), {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
@@ -127,7 +214,7 @@
 
 			getArtistTopTracks: function(artistid, country) {
 				var ret = $q.defer();
-				$http.get('https://api.spotify.com/v1/artists/' + encodeURIComponent(artistid) + '/top-tracks?country=' + encodeURIComponent(country), {
+				$http.get(baseUrl + '/artists/' + encodeURIComponent(artistid) + '/top-tracks?country=' + encodeURIComponent(country), {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
@@ -140,7 +227,7 @@
 
 			getSearchResults: function(query) {
 				var ret = $q.defer();
-				$http.get('https://api.spotify.com/v1/search?type=track&q=' + encodeURIComponent(query), {
+				$http.get(baseUrl + '/search?type=track&q=' + encodeURIComponent(query), {
 				}).success(function(r) {
 					console.log('got search results', r);
 					ret.resolve(r);
