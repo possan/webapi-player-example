@@ -25,9 +25,10 @@
 		return {
 			openLogin: function() {
 				var url = getLoginURL([
-					'playlist-read-private',
 					'user-read-private',
-					'playlist-read',
+					'playlist-read-private',
+					'playlist-modify-public',
+					'playlist-modify-private',
 					'user-library-read',
 					'user-library-modify'
 				]);

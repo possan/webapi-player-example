@@ -134,6 +134,19 @@
 				return ret.promise;
 			},
 
+			changePlaylistDetails: function(username, playlist, options) {
+				var ret = $q.defer();
+				$http.put(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists/' + encodeURIComponent(playlist), options, {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got response after changing playlist details', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
 			getTrack: function(trackid) {
 				var ret = $q.defer();
 				$http.get(baseUrl + '/tracks/' + encodeURIComponent(trackid), {

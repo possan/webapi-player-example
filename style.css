@@ -530,4 +530,63 @@ responsive-cover {
 	background-size: cover;
 }
 
+.position-fixed {
+	position: fixed;
+}
+
+.context-menu {
+	padding: 5px 0;
+	position: absolute;
+	display: none;
+	width: auto;
+	min-width: 160px;
+	max-width: 460px;
+	color: #c8c8c8;
+	background-color: #333;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.context-menu .item {
+	position: relative;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.context-menu .item:hover {
+	background-color: #444;
+	cursor: default;
+}
+
+.context-menu .item a {
+	padding: 4px 25px 4px 25px;
+	display: block;
+}
+
+.context-menu .sep {
+	display: block;
+	margin: 4px 0;
+	height: 1px;
+	background-color: #444;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #1c1c1f;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #1c1c1f;
+}
+::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  border: 1px solid #1c1c1f;
+  border-radius: 10px;
+  background-color: #323438;
+}
+::-webkit-scrollbar-corner {
+  background-color: #1c1c1f;
+}
+
 
