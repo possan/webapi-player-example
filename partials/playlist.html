@@ -44,7 +44,7 @@
 				<a href="#/albums/{{t.track.album.id}}">{{t.track.album.name}}</a>
 			</td>
 			<td class="nowrap">
-				{{t.added_at}}
+				{{t.added_at | timeago}}
 			</td>
 			<td class="nowrap">
 				{{t.added_by.id}}
