@@ -2,7 +2,7 @@
 
 	var module = angular.module('PlayerApp');
 
-	module.factory('Playback', function($rootScope, API) {
+	module.factory('Playback', function($rootScope, API, $interval) {
 		var _playing = false;
 		var _track = '';
 		var _volume = 100;
@@ -32,12 +32,12 @@
 
 		function enableTick() {
 			disableTick();
-			ticktimer = setInterval(tick, 100);
+			ticktimer = $interval(tick, 100);
 		}
 
 		function disableTick() {
 			if (ticktimer != 0) {
-				clearInterval(ticktimer);
+				$interval.cancel(ticktimer);
 			}
 		}
 
