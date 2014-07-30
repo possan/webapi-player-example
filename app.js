@@ -90,6 +90,55 @@
 			}
 		};
 
+		$scope.focusInput = false;
+		$scope.menuOptions = function(playlist) {
+
+			var visibilityEntry = [playlist.public ? 'Make secret' : 'Make public', function ($itemScope) {
+				API.changePlaylistDetails(playlist.username, playlist.id, {public: !playlist.public})
+					.then(function() {
+						playlist.public = !playlist.public;
+					});
+			}];
+
+			var own = playlist.username === Auth.getUsername();
+			if (own) {
+				return [
+					visibilityEntry,
+					null,
+					['Rename', function ($itemScope) {
+						playlist.editing = true;
+						$scope.focusInput = true;
+				}]
+				];
+			} else {
+				return [ visibilityEntry ];
+			}
+		};
+
+		$scope.playlistNameKeyUp = function(event, playlist) {
+			if (event.which === 13) {
+				// enter
+				var newName = event.target.value;
+				API.changePlaylistDetails(playlist.username, playlist.id, {name: newName})
+					.then(function() {
+						playlist.name = newName;
+						playlist.editing = false;
+						$scope.focusInput = false;
+					});
+			}
+
+			if (event.which === 27) {
+				// escape
+				playlist.editing = false;
+				$scope.focusInput = false;
+			}
+		};
+
+		$scope.playlistNameBlur = function(playlist) {
+			playlist.editing = false;
+			$scope.focusInput = false;
+		};
+
 		checkUser();
 	});
 

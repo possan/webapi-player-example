@@ -12,6 +12,8 @@
 		<script src="services/playqueue.js"></script>
 		<script src="directives/playlistcover.js"></script>
 		<script src="directives/responsivecover.js"></script>
+		<script src="directives/contextmenu.js"></script>
+		<script src="directives/focusme.js"></script>
 		<script src="filters/displaytime.js"></script>
 		<script src="filters/timeago.js"></script>
 		<script src="controllers/player.js"></script>
@@ -49,7 +51,12 @@
 							</ul>
 							<b><a href="#/me">PLAYLISTS</a></b>
 							<ul class="menuitems">
-								<li ng-repeat="pl in playlists track by pl.id"><a href="#/users/{{pl.username}}/playlists/{{pl.id}}" ng-class="getClass('/users/{{pl.username}}/playlists/{{pl.id}}')">{{pl.name}}</a></li>
+								<li ng-repeat="pl in playlists track by pl.id" ng-context-menu="menuOptions(pl)" ng-class="getClass('/users/{{pl.username}}/playlists/{{pl.id}}')">
+									<a href="#/users/{{pl.username}}/playlists/{{pl.id}}" ng-if="!pl.editing">
+										{{pl.name}}
+									</a>
+									<input focus-me="focusInput" ng-blur="playlistNameBlur(pl)" ng-if="pl.editing" class="edit" type="text" value="{{pl.name}}" name="title" ng-keyup="playlistNameKeyUp($event, pl)">
+								</li>
 							</ul>
 						</div>
 						<div class="preview">
