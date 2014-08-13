@@ -46,6 +46,7 @@
 					$contextMenu.on("click", function (e) {
 							$(event.target).removeClass('context');
 							$contextMenu.remove();
+							e.preventDefault();
 					}).on('contextmenu', function (event) {
 							$(event.target).removeClass('context');
 							event.preventDefault();
@@ -57,6 +58,7 @@
 							$scope.$apply(function () {
 									event.preventDefault();
 									var options = $scope.$eval(attrs.ngContextMenu);
+									if (options === null) return;
 									if (options instanceof Array) {
 											renderContextMenu($scope, event, options);
 									} else {

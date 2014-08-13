@@ -2,7 +2,7 @@
 
 	var module = angular.module('PlayerApp');
 
-	module.controller('PlaylistController', function($scope, $rootScope, API, PlayQueue, $routeParams) {
+	module.controller('PlaylistController', function($scope, $rootScope, API, PlayQueue, $routeParams, Auth) {
 		$scope.playlist = $routeParams.playlist;
 		$scope.username = $routeParams.username;
 		$scope.name = '';
@@ -78,6 +78,24 @@
 				API.addToMyTracks([$scope.tracks[index].track.id]).then(function(response) {
 					$scope.tracks[index].track.inYourMusic = true;
 				});
+			}
+		};
+
+		$scope.menuOptionsPlaylistTrack = function() {
+			if ($scope.username === Auth.getUsername()) {
+				return [[
+					'Delete',
+					function ($itemScope) {
+						var position = $itemScope.$index;
+						API.removeTrackFromPlaylist(
+							$scope.username,
+							$scope.playlist,
+							$itemScope.t.track, position).then(function() {
+								$scope.tracks.splice(position, 1);
+							});
+					}]]
+			} else {
+				return null;
 			}
 		};
 	});
