@@ -27,7 +27,7 @@
 		<th>USER</th>
 	</thead>
 	<tbody>
-		<tr ng-repeat="t in tracks" ng-class="{ playing: (t.track.uri == currenttrack) }">
+		<tr ng-repeat="t in tracks" ng-class="{ playing: (t.track.uri == currenttrack) }" ng-context-menu="menuOptionsPlaylistTrack(t, $index)">
 			<td>
 				<button ng-click="toggleFromYourMusic($index)"> {{ t.track.inYourMusic ? '-' : '+' }} </button>
 			</td>

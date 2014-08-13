@@ -147,6 +147,26 @@
 				return ret.promise;
 			},
 
+			removeTrackFromPlaylist: function(username, playlist, track, position) {
+				var ret = $q.defer();
+				$http.delete(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists/' + encodeURIComponent(playlist) + '/tracks',
+					{
+						data: {
+							tracks: [{
+								uri: track.uri,
+								position: position
+							}]
+						},
+						headers: {
+							'Authorization': 'Bearer ' + Auth.getAccessToken()
+						}
+				}).success(function(r) {
+					console.log('remove track from playlist', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
 			getTrack: function(trackid) {
 				var ret = $q.defer();
 				$http.get(baseUrl + '/tracks/' + encodeURIComponent(trackid), {
