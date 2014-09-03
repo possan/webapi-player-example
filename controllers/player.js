@@ -14,8 +14,8 @@
 
 		function updatePlaylists() {
 			if ($scope.username != '') {
-				API.getPlaylists(Auth.getUsername()).then(function(list) {
-					$scope.playlists = list.items.map(function(pl) {
+				API.getPlaylists(Auth.getUsername()).then(function(items) {
+					$scope.playlists = items.map(function(pl) {
 						return {
 							id: pl.id,
 							name: pl.name,
