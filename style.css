@@ -453,6 +453,10 @@ header h4 {
 	padding-left: 210px;
 }
 
+header .follower-count {
+	padding-left: 210px;
+}
+
 table.tracks {
 	width: 100%;
 	margin: 0 0px;
