@@ -41,16 +41,15 @@
 			}
 		}
 
-		var audiotag = null;
+		var audiotag = new Audio();
 
 		function createAndPlayAudio(url, callback, endcallback) {
 			console.log('createAndPlayAudio', url);
-			if (audiotag != null) {
+			if (audiotag.src != null) {
 				audiotag.pause();
-				delete(audiotag);
-				audiotag = null;
+				audiotag.src = null;
 			}
-			audiotag = new Audio(url);
+			audiotag.src = url;
 			audiotag.addEventListener('loadedmetadata', function() {
 				console.log('audiotag loadedmetadata');
 				_duration = audiotag.duration * 1000.0;
@@ -83,6 +82,15 @@
 				_playing = true;
 				_progress = 0;
 				var trackid = trackuri.split(':')[2];
+
+				// workaround to be able to play on mobile
+				// we need to play as a response to a touch event
+				// play + immediate pause of an empty song does the trick
+				// see http://stackoverflow.com/questions/12517000/no-sound-on-ios-6-web-audio-api
+				audiotag.src='';
+				audiotag.play();
+				audiotag.pause();
+
 				API.getTrack(trackid).then(function(trackdata) {
 					console.log('playback got track', trackdata);
 					createAndPlayAudio(trackdata.preview_url, function() {

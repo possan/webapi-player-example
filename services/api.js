@@ -96,14 +96,47 @@
 			},
 
 			getPlaylists: function(username) {
+				var limit = 50;
 				var ret = $q.defer();
+				var playlists = [];
+
 				$http.get(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists', {
+					params: {
+						limit: limit
+					},
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
 				}).success(function(r) {
-					console.log('got playlists', r);
-					ret.resolve(r);
+					playlists = playlists.concat(r.items);
+
+					var promises = [],
+							total = r.total,
+							offset = r.offset;
+
+					while (total > limit + offset) {
+						promises.push(
+							$http.get(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists', {
+								params: {
+									limit: limit,
+									offset: offset + limit
+								},
+								headers: {
+									'Authorization': 'Bearer ' + Auth.getAccessToken()
+								}
+							})
+						);
+						offset += limit;
+					};
+
+					$q.all(promises).then(function(results) {
+						results.forEach(function(result) {
+							playlists = playlists.concat(result.data.items);
+						})
+						console.log('got playlists', playlists);
+						ret.resolve(playlists);
+					});
+
 				});
 				return ret.promise;
 			},
