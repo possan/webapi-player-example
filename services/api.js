@@ -293,9 +293,35 @@
 
 			getSearchResults: function(query) {
 				var ret = $q.defer();
-				$http.get(baseUrl + '/search?type=track&q=' + encodeURIComponent(query), {
+				$http.get(baseUrl + '/search?type=track&q=' + encodeURIComponent(query) + '&market=from_token', {
 				}).success(function(r) {
 					console.log('got search results', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			getNewReleases: function(country) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/browse/new-releases?country=' + encodeURIComponent(country), {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got new releases results', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			getFeaturedPlaylists: function(country) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/browse/featured-playlists?country=' + encodeURIComponent(country), {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got featured playlists results', r);
 					ret.resolve(r);
 				});
 				return ret.promise;

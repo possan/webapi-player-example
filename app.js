@@ -5,8 +5,8 @@
 	module.config(function($routeProvider) {
 		$routeProvider.
 			when('/', {
-				templateUrl: 'partials/home.html',
-				controller: 'HomeController'
+				templateUrl: 'partials/browse.html',
+				controller: 'BrowseController'
 			}).
 			when('/playqueue', {
 				templateUrl: 'partials/playqueue.html',

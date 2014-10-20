@@ -1,0 +1,31 @@
+<div ng-show="featuredPlaylists.length > 0">
+  <h2>{{message}}</h2>
+  <ul class="playlists">
+    <li ng-repeat="t in featuredPlaylists">
+      <a href="#/users/{{t.owner.id}}/playlists/{{t.id}}">
+        <responsive-cover ng-model="t.images"></responsive-cover>
+      </a>
+      <p>
+        <b><a href="#/users/playlists/{{t.id}}">{{t.name}}</a></b>
+      </p>
+    </li>
+  </ul>
+  <hr/>
+  <br/>
+</div>
+
+<div ng-show="newReleases.length > 0">
+  <h3>New releases</h3>
+  <ul class="albums">
+    <li ng-repeat="t in newReleases">
+      <a href="#/albums/{{t.id}}">
+        <responsive-cover ng-model="t.images"></responsive-cover>
+      </a>
+      <p>
+        <b><a href="#/albums/{{t.id}}">{{t.name}}</a></b>
+      </p>
+    </li>
+  </ul>
+  <hr/>
+  <br/>
+</div>

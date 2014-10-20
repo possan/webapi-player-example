@@ -400,6 +400,7 @@ header div.cover {
 	width: 200px;
 	height: 200px;
 	background-color: #222326;
+	background-size: cover;
 	overflow: hidden;
 }
 
@@ -502,14 +503,14 @@ table tr th {
 	padding: 4px 10px 4px 0;
 }
 
-ul.albums {
+ul.albums, ul.playlists {
 	margin: 0;
 	padding: 0;
 	border: 0;
 	clear: both;
 }
 
-ul.albums li {
+ul.albums li, ul.playlists li {
 	float: left;
 	position: relative;
 	width: 160px;
@@ -518,12 +519,12 @@ ul.albums li {
 	background-color: #393b40;
 }
 
-ul.albums li responsive-cover{
+ul.albums li responsive-cover,  ul.playlists li responsive-cover{
 	width: 160px;
 	height: 160px;
 }
 
-ul.albums li p {
+ul.albums li p, ul.playlists li p {
 	padding: 10px;
 }
 
