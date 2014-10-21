@@ -14,7 +14,7 @@
 					$scope.$watch('playlistData', function() {
 						if ($scope.playlistData) {
 							if ($scope.playlistData.images.length) {
-								tElem.append('<div class="cover" style="background-image:url(' + $scope.playlistData.images[0].url + ')"></div>');tElem.append('<div class="cover" style="background-image:url({{playlistData.images[0].url}})"></div>');
+								tElem.append('<div class="cover" style="background-image:url(' + $scope.playlistData.images[0].url + ')"></div>');
 							} else {
 
 								var selectedAlbums = [],

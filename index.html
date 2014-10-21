@@ -26,6 +26,7 @@
 		<script src="controllers/usertracks.js"></script>
 		<script src="controllers/playqueue.js"></script>
 		<script src="controllers/searchresults.js"></script>
+		<script src="controllers/browse.js"></script>
 	</head>
 	<body ng-controller="AppController">
 		<div class="fullview playerview" ng-show="showplayer">
@@ -45,6 +46,10 @@
 				<div class="midgroup">
 					<div class="menuview">
 						<div class="list scrollable">
+							<b><a href="#/">MAIN</a></b>
+							<ul class="menuitems">
+								<li><a href="#/" ng-class="getClass('/')">Browse</a></li>
+							</ul>
 							<b><a href="#/me">YOUR MUSIC</a></b>
 							<ul class="menuitems">
 								<li><a href="#/users/{{username}}/tracks" ng-class="getClass('/users/{{username}}/tracks')">Songs</a></li>
