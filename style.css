@@ -535,6 +535,10 @@ responsive-cover {
 	background-size: cover;
 }
 
+responsive-cover.responsive-cover-playlist {
+       background-image: url('images/placeholder-playlist.png');
+}
+
 .position-fixed {
 	position: fixed;
 }

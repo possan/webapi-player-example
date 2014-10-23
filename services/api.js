@@ -137,6 +137,8 @@
 						ret.resolve(playlists);
 					});
 
+				}).error(function(data, status, headers, config) {
+					ret.reject(status);
 				});
 				return ret.promise;
 			},
@@ -330,8 +332,25 @@
 					ret.resolve(r);
 				});
 				return ret.promise;
+			},
+
+			getUser: function(username) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/users/' +
+					encodeURIComponent(username), {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got userinfo', r);
+					ret.resolve(r);
+				}).error(function(err) {
+					console.log('failed to get userinfo', err);
+					ret.reject(err);
+				});
+				return ret.promise;
 			}
-		}
+		};
 	});
 
 })();

@@ -13,7 +13,7 @@
 				var linkFunction = function($scope, element, attributes) {
 					$scope.$watch('playlistData', function() {
 						if ($scope.playlistData) {
-							if ($scope.playlistData.images.length) {
+							if ($scope.playlistData.images.length && $scope.playlistData.images[0]) {
 								tElem.append('<div class="cover" style="background-image:url(' + $scope.playlistData.images[0].url + ')"></div>');
 							} else {
 
@@ -25,7 +25,7 @@
 									$scope.playlistData.tracks.items.some(function(t) {
 										if (selectedAlbums.indexOf(t.track.album.id) === -1) {
 											selectedAlbums.push(t.track.album.id);
-											selectedImages.push(t.track.album.images[1].url);
+											selectedImages.push(t.track.album.images[0].url);
 											if (selectedAlbums.length === 4) {
 												return true;
 											}
@@ -44,7 +44,7 @@
 								} else {
 									if ($scope.playlistData.tracks.items.length) {
 										var images = $scope.playlistData.tracks.items[0].track.album.images;
-										tElem.append('<div class="cover" style="background-image:url(' + images[1].url + ')"></div>');
+										tElem.append('<div class="cover" style="background-image:url(' + images[0].url + ')"></div>');
 									}
 								}
 							}

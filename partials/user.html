@@ -1,7 +1,32 @@
+<header>
+	<div class="cover">
+		<responsive-cover ng-model="data.images"></responsive-cover>
+	</div>
 
-<h1>Username</h1>
+	<h4>USER</h4>
+	<h1>{{data.display_name}}</h1>
+	<div class="follower-count">{{data.followers.total | number}} followers</div>
+</header>
 
-<p>ID {{username}}</p>
+<div ng-show="userplaylists.length > 0">
+  <h2>Public Playlists</h2>
+  <ul class="playlists">
+    <li ng-repeat="t in userplaylists">
+      <a href="#/users/{{t.owner.id}}/playlists/{{t.id}}">
+        <responsive-cover ng-model="t.images" class="responsive-cover-playlist"></responsive-cover>
+      </a>
+      <p>
+        <b><a href="#/users/{{t.owner.id}}/playlists/{{t.id}}">{{t.name}}</a></b>
+      </p>
+    </li>
+  </ul>
+  <hr/>
+  <br/>
+</div>
+<div ng-show="playlistError !== null">
+	<h2>There was an error retrieving playlists</h2>
+	<div>Please try again later</div>
+</div>
 
 <!--
 <hr/>
