@@ -294,6 +294,9 @@
 			getSearchResults: function(query) {
 				var ret = $q.defer();
 				$http.get(baseUrl + '/search?type=track&q=' + encodeURIComponent(query) + '&market=from_token', {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
 				}).success(function(r) {
 					console.log('got search results', r);
 					ret.resolve(r);
