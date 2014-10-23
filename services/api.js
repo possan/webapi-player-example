@@ -317,9 +317,11 @@
 				return ret.promise;
 			},
 
-			getFeaturedPlaylists: function(country) {
+			getFeaturedPlaylists: function(country, timestamp) {
 				var ret = $q.defer();
-				$http.get(baseUrl + '/browse/featured-playlists?country=' + encodeURIComponent(country), {
+				$http.get(baseUrl + '/browse/featured-playlists?country=' +
+					encodeURIComponent(country) +
+					'&timestamp=' + encodeURIComponent(timestamp), {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
