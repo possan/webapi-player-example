@@ -75,6 +75,7 @@
 		$scope.$on('login', function() {
 			$scope.showplayer = true;
 			$scope.showlogin = false;
+			$location.path('/').replace();
 		});
 
 		$scope.$on('logout', function() {
