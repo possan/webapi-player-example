@@ -4,7 +4,29 @@
 
   module.controller('BrowseController', function($scope, API, Auth, $routeParams) {
 
-    API.getFeaturedPlaylists(Auth.getUserCountry()).then(function(results) {
+    function pad(number) {
+      if ( number < 10 ) {
+        return '0' + number;
+      }
+      return number;
+    }
+
+    /**
+     * Returns an ISO string containing the local time for the user,
+     * clearing minutes and seconds to improve caching
+     * @param  Date date The date to format
+     * @return string The formatted date
+     */
+    function isoString(date) {
+      return date.getUTCFullYear() +
+        '-' + pad( date.getUTCMonth() + 1 ) +
+        '-' + pad( date.getUTCDate() ) +
+        'T' + pad( date.getHours() ) +
+        ':' + pad( 0 ) +
+        ':' + pad( 0 )
+    }
+
+    API.getFeaturedPlaylists(Auth.getUserCountry(), isoString(new Date())).then(function(results) {
       $scope.featuredPlaylists = results.playlists.items;
       $scope.message = results.message;
     });
