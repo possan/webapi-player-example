@@ -30,7 +30,9 @@
 					'playlist-modify-public',
 					'playlist-modify-private',
 					'user-library-read',
-					'user-library-modify'
+					'user-library-modify',
+					'user-follow-read',
+					'user-follow-modify'
 				]);
 
 				var w = window.open(url, 'Spotify', 'WIDTH=400,HEIGHT=600');
