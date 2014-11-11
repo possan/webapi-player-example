@@ -388,6 +388,11 @@ a.button.big.green {
 	box-shadow: 4px 0 0 0 #88898c,8px 0 0 0 #88898c,12px 0 0 0 #88898c,16px 0 0 0 #88898c,20px 0 0 0 #88898c,24px 0 0 0 #88898c,28px 0 0 0 #88898c,32px 0 0 0 #88898c;
 }
 
+.searchresult-image {
+	width: 100px;
+	height: 100px;
+}
+
 header {
 	position: relative;
 	height: 220px;
@@ -536,7 +541,11 @@ responsive-cover {
 }
 
 responsive-cover.responsive-cover-playlist {
-       background-image: url('images/placeholder-playlist.png');
+  background-image: url('images/placeholder-playlist.png');
+}
+
+.searchresult {
+	overflow: hidden;
 }
 
 .position-fixed {

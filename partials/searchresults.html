@@ -3,6 +3,20 @@
 <hr/>
 <br/>
 
+<ul class="playlists" ng-show="playlists.length > 0">
+	<h4>PLAYLISTS</h4>
+  <li class="searchresult" ng-repeat="p in playlists">
+    <a href="#/users/{{p.owner.id}}/playlists/{{p.id}}">
+      <responsive-cover ng-model="p.images" class="responsive-cover-playlist"></responsiveplaylist-cover>
+    </a>
+    <p>
+      <a href="#/users/{{p.owner.id}}/playlists/{{p.id}}">{{p.name}}</a>
+    </p>
+  </li>
+  <hr/>
+</ul>
+
+<h4>TRACKS</h4>
 <table class="tracks">
 	<thead>
 		<th></th>
@@ -38,4 +52,5 @@
 		</tr>
 	</tbody>
 </table>
+
 <br/>
