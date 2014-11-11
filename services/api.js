@@ -295,7 +295,7 @@
 
 			getSearchResults: function(query) {
 				var ret = $q.defer();
-				$http.get(baseUrl + '/search?type=track&q=' + encodeURIComponent(query) + '&market=from_token', {
+				$http.get(baseUrl + '/search?type=track,playlist&q=' + encodeURIComponent(query) + '&market=from_token', {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
