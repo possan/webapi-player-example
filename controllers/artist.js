@@ -11,6 +11,8 @@
 		$scope.appearson = [];
 
 		$scope.currenttrack = PlayQueue.getCurrent();
+		$scope.isFollowing = false;
+		$scope.isFollowHovered = false;
 		$rootScope.$on('playqueuechanged', function() {
 			$scope.currenttrack = PlayQueue.getCurrent();
 		});
@@ -81,10 +83,12 @@
 			if (isFollowing) {
 				API.unfollow($scope.artist, "artist").then(function() {
 					$scope.isFollowing = false;
+					$scope.data.followers.total--;
 				});
 			} else {
 				API.follow($scope.artist, "artist").then(function() {
 					$scope.isFollowing = true;
+					$scope.data.followers.total++;
 				});
 			}
 		};

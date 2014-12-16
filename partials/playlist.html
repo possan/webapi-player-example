@@ -24,7 +24,7 @@
 		<th>TIME</th>
 		<th>ALBUM</th>
 		<th>ADDED</th>
-		<th>USER</th>
+		<th ng-if="data.collaborative">USER</th>
 	</thead>
 	<tbody>
 		<tr ng-repeat="t in tracks" ng-class="{ playing: (t.track.uri == currenttrack) }" ng-context-menu="menuOptionsPlaylistTrack(t, $index)">
@@ -46,8 +46,8 @@
 			<td class="nowrap">
 				{{t.added_at | timeago}}
 			</td>
-			<td class="nowrap">
-				{{t.added_by.id}}
+			<td class="nowrap" ng-if="data.collaborative">
+				<a href="#/users/{{t.added_by.id}}">{{t.added_by.id}}</a>
 			</td>
 		</tr>
 	</tbody>

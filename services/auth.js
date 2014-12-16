@@ -35,8 +35,15 @@
 					'user-follow-modify'
 				]);
 
-				var w = window.open(url, 'Spotify', 'WIDTH=400,HEIGHT=600');
-				// window.location = url;
+				var width = 450,
+						height = 730,
+						left = (screen.width / 2) - (width / 2),
+						top = (screen.height / 2) - (height / 2);
+
+				var w = window.open(url,
+						'Spotify',
+						'menubar=no,location=no,resizable=no,scrollbars=no,status=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left
+				);
 			},
 			getAccessToken: function() {
 				var expires = 0 + localStorage.getItem('pa_expires', '0');

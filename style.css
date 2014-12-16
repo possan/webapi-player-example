@@ -333,13 +333,17 @@ div.centered div.inner {
 	width: 400px;
 }
 
-a.button.green {
+a.button {
 	display: inline-block;
 	text-align: center;
-	background-color: #070;
-	color: #fff;
 	padding: 5px 20px;
 	border-radius: 50px;
+}
+
+a.button.green {
+	background-color: #070;
+	color: #fff;
+	border: 1px solid #070;
 }
 
 a.button.big.green {
@@ -349,6 +353,12 @@ a.button.big.green {
 	color: #fff;
 	padding: 10px 40px;
 	border-radius: 50px;
+}
+
+a.button.button-add {
+	background-color: rgba(0, 0, 0, 0.2);
+	color: #fff;
+	border: 1px solid #070;
 }
 
 .pop-meter {
