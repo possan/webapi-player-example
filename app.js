@@ -1,8 +1,8 @@
 (function() {
 
-	var module = angular.module('PlayerApp', ['ngRoute']);
+	var app = angular.module('PlayerApp', ['ngRoute']);
 
-	module.config(function($routeProvider) {
+	app.config(function($routeProvider) {
 		$routeProvider.
 			when('/', {
 				templateUrl: 'partials/browse.html',
@@ -41,17 +41,19 @@
 			});
 	});
 
-	module.controller('AppController', function($scope, Auth, API, $location) {
+	app.controller('AppController', function($scope, Auth, API, $location) {
 		console.log('in AppController');
 
 		console.log(location);
 
-		function checkUser() {
+		function checkUser(redirectToLogin) {
 			API.getMe().then(function(userInfo) {
 				Auth.setUsername(userInfo.id);
 				Auth.setUserCountry(userInfo.country);
-				$scope.$emit('login');
-				$location.replace();
+				if (redirectToLogin) {
+					$scope.$emit('login');
+					$location.replace();
+				}
 			}, function(err) {
 				$scope.showplayer = false;
 				$scope.showlogin = true;
@@ -64,7 +66,7 @@
 			var hash = JSON.parse(event.data);
 			if (hash.type == 'access_token') {
 				Auth.setAccessToken(hash.access_token, hash.expires_in || 60);
-				checkUser();
+				checkUser(true);
 			}
   		}, false);
 
@@ -73,6 +75,7 @@
 		$scope.showlogin = !$scope.isLoggedIn;
 
 		$scope.$on('login', function() {
+			debugger;
 			$scope.showplayer = true;
 			$scope.showlogin = false;
 			$location.path('/').replace();

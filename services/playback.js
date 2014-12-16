@@ -63,7 +63,6 @@
 				_track = '';
 				disableTick();
 				$rootScope.$emit('endtrack');
-				audiotag = null;
 			}, false);
 		}
 

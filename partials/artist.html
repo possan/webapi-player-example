@@ -9,7 +9,7 @@
 
 	<div class="buttons">
 		<a ng-click="playall()" class="button green">PLAY ALL</a>
-		<a ng-click="follow(isFollowing)" class="button green"><span>{{ isFollowing ? 'UNFOLLOW' : 'FOLLOW' }}</span></a>
+		<a ng-click="follow(isFollowing)" ng-mouseover="isFollowHovered=true" ng-mouseout="isFollowHovered=false" class="button button-add"><span>{{ isFollowing ? (isFollowHovered ? 'UNFOLLOW' : 'FOLLOWING') : 'FOLLOW' }}</span></a>
 	</div>
 </header>
 
