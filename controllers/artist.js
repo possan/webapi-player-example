@@ -54,7 +54,10 @@
 			})
 		});
 
-
+		API.isFollowing($scope.artist, "artist").then(function(booleans) {
+			console.log("Got following status for artist: " + booleans[0]);
+			$scope.isFollowing = booleans[0];
+		});
 
 		$scope.playtoptrack = function(trackuri) {
 			var trackuris = $scope.toptracks.map(function(track) {
@@ -72,6 +75,18 @@
 			PlayQueue.clear();
 			PlayQueue.enqueueList(trackuris);
 			PlayQueue.playFrom(0);
+		};
+
+		$scope.follow = function(isFollowing) {
+			if (isFollowing) {
+				API.unfollow($scope.artist, "artist").then(function() {
+					$scope.isFollowing = false;
+				});
+			} else {
+				API.follow($scope.artist, "artist").then(function() {
+					$scope.isFollowing = true;
+				});
+			}
 		};
 
 		$scope.toggleFromYourMusic = function(index) {

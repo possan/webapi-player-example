@@ -337,7 +337,8 @@
 			getUser: function(username) {
 				var ret = $q.defer();
 				$http.get(baseUrl + '/users/' +
-					encodeURIComponent(username), {
+					encodeURIComponent(username),
+        {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
@@ -349,8 +350,67 @@
 					ret.reject(err);
 				});
 				return ret.promise;
-			}
-		};
-	});
+			},
+
+			isFollowing: function(id, type) {
+        var ret = $q.defer();
+        $http.get(baseUrl + '/me/following/contains?' +
+          'type=' + encodeURIComponent(type) +
+          '&ids=' + encodeURIComponent(id),
+        {
+          headers: {
+            'Authorization': 'Bearer ' + Auth.getAccessToken()
+          }
+        }).success(function(r) {
+          console.log('got following', r);
+          ret.resolve(r);
+        }).error(function(err) {
+          console.log('failed to get following', err);
+          ret.reject(err);
+        });
+
+        return ret.promise;
+		  },
+
+      follow: function(id, type) {
+        var ret = $q.defer();
+        $http.put(baseUrl + '/me/following?' +
+          'type=' + encodeURIComponent(type),
+        { ids : [ id ] },
+        { headers: { 'Authorization': 'Bearer ' + Auth.getAccessToken() }
+        }).success(function(r) {
+          console.log('followed', r);
+          ret.resolve(r);
+        }).error(function(err) {
+          console.log('failed to follow', err);
+          ret.reject(err);
+        });
+
+        return ret.promise;
+      },
+
+      unfollow: function(id, type) {
+        var ret = $q.defer();
+        $http.delete(baseUrl + '/me/following?' +
+          'type=' + encodeURIComponent(type),
+        { data: {
+            ids: [ id ]
+        },
+        headers: {
+          'Authorization': 'Bearer ' + Auth.getAccessToken()
+        }
+        }).success(function(r) {
+          console.log('unfollowed', r);
+          ret.resolve(r);
+        }).error(function(err) {
+          console.log('failed to unfollow', err);
+          ret.reject(err);
+        });
+
+        return ret.promise;
+      }
+
+    };
+  });
 
 })();

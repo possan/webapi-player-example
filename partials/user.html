@@ -6,6 +6,11 @@
 	<h4>USER</h4>
 	<h1>{{data.display_name}}</h1>
 	<div class="follower-count">{{data.followers.total | number}} followers</div>
+
+  <div class="buttons">
+    <a ng-click="follow(isFollowing)" class="button green"><span>{{ isFollowing ? 'UNFOLLOW' : 'FOLLOW' }}</span></a>
+  </div>
+
 </header>
 
 <div ng-show="userplaylists.length > 0">

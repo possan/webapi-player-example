@@ -20,6 +20,22 @@
 			$scope.playlistError = true;
 		});
 
+		API.isFollowing($scope.username, "user").then(function(booleans) {
+			console.log("Got following status for user: " + booleans[0]);
+			$scope.isFollowing = booleans[0];
+		});
+
+		$scope.follow = function(isFollowing) {
+			if (isFollowing) {
+				API.unfollow($scope.username, "user").then(function() {
+					$scope.isFollowing = false;
+				});
+			} else {
+				API.follow($scope.username, "user").then(function() {
+					$scope.isFollowing = true;
+				});
+			}
+		};
 
 	});
 
