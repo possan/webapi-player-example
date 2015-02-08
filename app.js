@@ -75,7 +75,6 @@
 		$scope.showlogin = !$scope.isLoggedIn;
 
 		$scope.$on('login', function() {
-			debugger;
 			$scope.showplayer = true;
 			$scope.showlogin = false;
 			$location.path('/').replace();
