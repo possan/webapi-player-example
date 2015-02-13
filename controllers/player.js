@@ -31,6 +31,11 @@
 
 		updatePlaylists();
 
+		// subscribe to an event
+		$rootScope.$on('playlistsubscriptionchange', function() {
+			updatePlaylists();
+		});
+
 		$scope.logout = function() {
 			// do login!
 			console.log('do logout...');

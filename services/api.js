@@ -338,7 +338,7 @@
 				var ret = $q.defer();
 				$http.get(baseUrl + '/users/' +
 					encodeURIComponent(username),
-        {
+				{
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
@@ -353,64 +353,116 @@
 			},
 
 			isFollowing: function(id, type) {
-        var ret = $q.defer();
-        $http.get(baseUrl + '/me/following/contains?' +
-          'type=' + encodeURIComponent(type) +
-          '&ids=' + encodeURIComponent(id),
-        {
-          headers: {
-            'Authorization': 'Bearer ' + Auth.getAccessToken()
-          }
-        }).success(function(r) {
-          console.log('got following', r);
-          ret.resolve(r);
-        }).error(function(err) {
-          console.log('failed to get following', err);
-          ret.reject(err);
-        });
+				var ret = $q.defer();
+				$http.get(baseUrl + '/me/following/contains?' +
+					'type=' + encodeURIComponent(type) +
+					'&ids=' + encodeURIComponent(id),
+				{
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got following', r);
+					ret.resolve(r);
+				}).error(function(err) {
+					console.log('failed to get following', err);
+					ret.reject(err);
+				});
 
-        return ret.promise;
-		  },
+				return ret.promise;
+			},
 
-      follow: function(id, type) {
-        var ret = $q.defer();
-        $http.put(baseUrl + '/me/following?' +
-          'type=' + encodeURIComponent(type),
-        { ids : [ id ] },
-        { headers: { 'Authorization': 'Bearer ' + Auth.getAccessToken() }
-        }).success(function(r) {
-          console.log('followed', r);
-          ret.resolve(r);
-        }).error(function(err) {
-          console.log('failed to follow', err);
-          ret.reject(err);
-        });
+			follow: function(id, type) {
+				var ret = $q.defer();
+				$http.put(baseUrl + '/me/following?' +
+					'type=' + encodeURIComponent(type),
+				{ ids : [ id ] },
+				{ headers: { 'Authorization': 'Bearer ' + Auth.getAccessToken() }
+				}).success(function(r) {
+					console.log('followed', r);
+					ret.resolve(r);
+				}).error(function(err) {
+					console.log('failed to follow', err);
+					ret.reject(err);
+				});
 
-        return ret.promise;
-      },
+				return ret.promise;
+			},
 
-      unfollow: function(id, type) {
-        var ret = $q.defer();
-        $http.delete(baseUrl + '/me/following?' +
-          'type=' + encodeURIComponent(type),
-        { data: {
-            ids: [ id ]
-        },
-        headers: {
-          'Authorization': 'Bearer ' + Auth.getAccessToken()
-        }
-        }).success(function(r) {
-          console.log('unfollowed', r);
-          ret.resolve(r);
-        }).error(function(err) {
-          console.log('failed to unfollow', err);
-          ret.reject(err);
-        });
+			unfollow: function(id, type) {
+				var ret = $q.defer();
+				$http.delete(baseUrl + '/me/following?' +
+					'type=' + encodeURIComponent(type),
+				{ data: {
+						ids: [ id ]
+				},
+				headers: {
+					'Authorization': 'Bearer ' + Auth.getAccessToken()
+				}
+				}).success(function(r) {
+					console.log('unfollowed', r);
+					ret.resolve(r);
+				}).error(function(err) {
+					console.log('failed to unfollow', err);
+					ret.reject(err);
+				});
 
-        return ret.promise;
-      }
+				return ret.promise;
+			},
 
-    };
-  });
+			followPlaylist: function(username, playlist) {
+				var ret = $q.defer();
+				$http.put(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists/' +
+					encodeURIComponent(playlist) + '/followers',
+				{},
+				{ headers: { 'Authorization': 'Bearer ' + Auth.getAccessToken() }
+				}).success(function(r) {
+					console.log('followed playlist', r);
+					ret.resolve(r);
+				}).error(function(err) {
+					console.log('failed to follow playlist', err);
+					ret.reject(err);
+				});
+
+				return ret.promise;
+			},
+
+			unfollowPlaylist: function(username, playlist) {
+				var ret = $q.defer();
+				$http.delete(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists/' +
+					encodeURIComponent(playlist) + '/followers',
+				{ headers: { 'Authorization': 'Bearer ' + Auth.getAccessToken() }
+				}).success(function(r) {
+					console.log('unfollowed playlist', r);
+					ret.resolve(r);
+				}).error(function(err) {
+					console.log('failed to unfollow playlist', err);
+					ret.reject(err);
+				});
+
+				return ret.promise;
+			},
+
+			isFollowingPlaylist: function(username, playlist) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists/' +
+					encodeURIComponent(playlist) + '/followers/contains', {
+						params: {
+							ids: [Auth.getUsername()]
+						},
+						headers: { 'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('check if playlist is followed', r);
+					ret.resolve(r);
+				}).error(function(err) {
+					console.log('failed to check if playlist is followed', err);
+					ret.reject(err);
+				});
+
+				return ret.promise;
+			}
+		};
+	});
 
 })();

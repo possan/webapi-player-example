@@ -11,6 +11,9 @@
 		$scope.total_duration = 0;
 
 		$scope.currenttrack = PlayQueue.getCurrent();
+		$scope.isFollowing = false;
+		$scope.isFollowHovered = false;
+
 		$rootScope.$on('playqueuechanged', function() {
 			$scope.currenttrack = PlayQueue.getCurrent();
 		});
@@ -48,8 +51,26 @@
 						});
 					})(firstIndex);
 			}
-
 		});
+
+		API.isFollowingPlaylist($scope.username, $scope.playlist).then(function(booleans) {
+			console.log("Got following status for playlist: " + booleans[0]);
+			$scope.isFollowing = booleans[0];
+		});
+
+		$scope.follow = function(isFollowing) {
+			if (isFollowing) {
+				API.unfollowPlaylist($scope.username, $scope.playlist).then(function() {
+					$scope.isFollowing = false;
+					$rootScope.$emit('playlistsubscriptionchange');
+				});
+			} else {
+				API.followPlaylist($scope.username, $scope.playlist).then(function() {
+					$scope.isFollowing = true;
+					$rootScope.$emit('playlistsubscriptionchange');
+				});
+			}
+		};
 
 		$scope.play = function(trackuri) {
 			var trackuris = $scope.tracks.map(function(track) {
