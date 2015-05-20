@@ -36,6 +36,10 @@
 				templateUrl: 'partials/searchresults.html',
 				controller: 'SearchResultsController'
 			}).
+			when('/category/:categoryid', {
+				templateUrl: 'partials/browsecategory.html',
+				controller: 'BrowseCategoryController'
+			}).
 			otherwise({
 				redirectTo: '/'
 			});

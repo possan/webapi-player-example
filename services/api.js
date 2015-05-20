@@ -461,7 +461,50 @@
 				});
 
 				return ret.promise;
-			}
+			},
+
+			getBrowseCategories: function() {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/browse/categories', {
+					headers: { 'Authorization': 'Bearer ' + Auth.getAccessToken() }
+				}).success(function(r) {
+					console.log('got browse categories', r);
+					ret.resolve(r);
+				}).error(function(err) {
+					console.log('failed to get browse categories', err);
+					ret.reject(err);
+				});
+				return ret.promise;
+			},
+
+			getBrowseCategory: function(categoryId) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/browse/categories/' + categoryId, {
+					headers: { 'Authorization': 'Bearer ' + Auth.getAccessToken() }
+				}).success(function(r) {
+					console.log('got browse category', r);
+					ret.resolve(r);
+				}).error(function(err) {
+					console.log('failed to get browse category', err);
+					ret.reject(err);
+				});
+				return ret.promise;
+			},
+
+			getBrowseCategoryPlaylists: function(categoryId, country) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/browse/categories/' + categoryId + '/playlists?country=' + encodeURIComponent(country), {
+					headers: { 'Authorization': 'Bearer ' + Auth.getAccessToken() }
+				}).success(function(r) {
+					console.log('got browse category playlists', r);
+					ret.resolve(r);
+				}).error(function(err) {
+					console.log('failed to get category playlists', err);
+					ret.reject(err);
+				});
+				return ret.promise;
+			},
+
 		};
 	});
 

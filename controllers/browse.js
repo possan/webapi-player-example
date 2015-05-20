@@ -32,21 +32,13 @@
     });
 
     API.getNewReleases(Auth.getUserCountry()).then(function(results) {
+      // @todo: description, follower count
       $scope.newReleases = results.albums.items;
-
-      // find out if they are in the user's collection
-     /* var ids = $scope.tracks.map(function(track) {
-        return track.id;
-      });
-
-      API.containsUserTracks(ids).then(function(results) {
-        results.forEach(function(result, index) {
-          $scope.tracks[index].inYourMusic = result;
-        });
-      });*/
-
     });
 
+    API.getBrowseCategories().then(function(results) {
+      $scope.genresMoods = results.categories.items;
+    });
   });
 
 })();
