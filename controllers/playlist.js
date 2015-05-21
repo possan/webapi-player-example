@@ -2,7 +2,7 @@
 
 	var module = angular.module('PlayerApp');
 
-	module.controller('PlaylistController', function($scope, $rootScope, API, PlayQueue, $routeParams, Auth) {
+	module.controller('PlaylistController', function($scope, $rootScope, API, PlayQueue, $routeParams, Auth, $sce) {
 		$scope.playlist = $routeParams.playlist;
 		$scope.username = $routeParams.username;
 		$scope.name = '';
@@ -22,6 +22,7 @@
 			console.log('got playlist', list);
 			$scope.name = list.name;
 			$scope.data = list;
+			$scope.playlistDescription = $sce.trustAsHtml(list.description);
 		});
 
 		API.getPlaylistTracks($scope.username, $scope.playlist).then(function(list) {
@@ -119,6 +120,7 @@
 				return null;
 			}
 		};
+
 	});
 
 })();

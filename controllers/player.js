@@ -4,7 +4,7 @@
 
 	module.controller('PlayerController', function($scope, $rootScope, Auth, API, PlayQueue, Playback, $location) {
 		$scope.view = 'welcome';
-		$scope.username = Auth.getUsername();
+		$scope.profileUsername = Auth.getUsername();
 		$scope.playlists = [];
 		$scope.playing = false;
 		$scope.progress = 0;
@@ -13,7 +13,7 @@
 		$scope.currenttrack = '';
 
 		function updatePlaylists() {
-			if ($scope.username != '') {
+			if ($scope.profileUsername != '') {
 				API.getPlaylists(Auth.getUsername()).then(function(items) {
 					$scope.playlists = items.map(function(pl) {
 						return {
@@ -97,7 +97,7 @@
 		};
 
 		$rootScope.$on('login', function() {
-			$scope.username = Auth.getUsername();
+			$scope.profileUsername = Auth.getUsername();
 			updatePlaylists();
 		});
 

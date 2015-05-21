@@ -36,6 +36,10 @@
 				templateUrl: 'partials/searchresults.html',
 				controller: 'SearchResultsController'
 			}).
+			when('/category/:categoryid', {
+				templateUrl: 'partials/browsecategory.html',
+				controller: 'BrowseCategoryController'
+			}).
 			otherwise({
 				redirectTo: '/'
 			});
@@ -77,7 +81,7 @@
 		$scope.$on('login', function() {
 			$scope.showplayer = true;
 			$scope.showlogin = false;
-			$location.path('/').replace();
+			$location.path('/').replace().reload();
 		});
 
 		$scope.$on('logout', function() {

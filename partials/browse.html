@@ -1,3 +1,5 @@
+<h1>Browse</h1>
+<h2>Overview</h2>
 <div ng-show="featuredPlaylists.length > 0">
   <h2>{{message}}</h2>
   <ul class="playlists">
@@ -7,6 +9,22 @@
       </a>
       <p>
         <b><a href="#/users/{{t.owner.id}}/playlists/{{t.id}}">{{t.name}}</a></b>
+      </p>
+    </li>
+  </ul>
+  <hr/>
+  <br/>
+</div>
+
+<div ng-show="genresMoods.length > 0">
+  <h3>Genres &amp; Moods</h3>
+  <ul class="genres">
+    <li ng-repeat="t in genresMoods">
+      <a href="#/category/{{t.id}}">
+        <img ng-src="{{t.icons[0].url}}" />
+      </a>
+      <p>
+        <b><a href="#/category/{{t.id}}">{{t.name}}</a></b>
       </p>
     </li>
   </ul>

@@ -27,6 +27,7 @@
 		<script src="controllers/playqueue.js"></script>
 		<script src="controllers/searchresults.js"></script>
 		<script src="controllers/browse.js"></script>
+		<script src="controllers/browsecategory.js"></script>
 	</head>
 	<body ng-controller="AppController">
 		<div class="fullview playerview" ng-show="showplayer">
@@ -39,7 +40,7 @@
 						<a href="#/home">SAMPLE PLAYER APPLICATION</a>
 					</div>
 					<div class="userbox">
-						Signed in as <b><a href="#/users/{{username}}">{{username}}</a></b>
+						Signed in as <b><a href="#/users/{{profileUsername}}">{{profileUsername}}</a></b>
 						<a ng-click="logout()">Log out</a>
 					</div>
 				</div>
