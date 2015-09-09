@@ -2,7 +2,10 @@
 
 	var module = angular.module('PlayerApp');
 
-	module.controller('PlayerController', function($scope, $rootScope, Auth, API, PlayQueue, Playback, $location) {
+	module.controller('PlayerController', function($scope, $rootScope, Auth, API, PlayQueue, Playback, $location, $timeout) {
+		var searchTimeoutId;
+		var searchDelay = 1000;
+		
 		$scope.view = 'welcome';
 		$scope.profileUsername = Auth.getUsername();
 		$scope.playlists = [];
@@ -11,6 +14,7 @@
 		$scope.duration = 4000;
 		$scope.trackdata = null;
 		$scope.currenttrack = '';
+		$scope.isSearching = false;
 
 		function updatePlaylists() {
 			if ($scope.profileUsername != '') {
@@ -81,8 +85,14 @@
 		$scope.query = '';
 
 		$scope.loadsearch = function() {
-			console.log('search for', $scope.query);
-			$location.path('/search').search({ q: $scope.query }).replace();
+			$timeout.cancel(searchTimeoutId);
+			$scope.isSearching = true;
+
+			searchTimeoutId = $timeout(function() {
+				console.log('search for', $scope.query);
+				$scope.isSearching = false;
+				$location.path('/search').search({ q: $scope.query }).replace();
+			}, searchDelay)
 		};
 
 

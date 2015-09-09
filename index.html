@@ -34,7 +34,8 @@
 			<div ng-controller="PlayerController">
 				<div class="topgroup">
 					<div class="searchbox">
-						<input type="text" ng-model="query" ng-change="loadsearch()" ng-keyup="loadsearch()" placeholder="Search..." />
+						<input type="search" ng-model="query" ng-change="loadsearch()" ng-keyup="loadsearch()" placeholder="Search..." /> 
+						<span ng-hide="!isSearching">Searching...</span>
 					</div>
 					<div class="titlebox">
 						<a href="#/home">SAMPLE PLAYER APPLICATION</a>

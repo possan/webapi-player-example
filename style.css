@@ -92,7 +92,7 @@ hr {
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	width: 220px;
+	width: 300px;
 	box-sizing: border-box;
 	padding: 7px;
 }
@@ -102,7 +102,7 @@ hr {
 	padding: 5px 10px;
 	border-radius: 20px;
 	background-color: #ddd;
-	width: 100%;
+	width: 200px;
 	outline: none;
 }
 
