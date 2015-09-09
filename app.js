@@ -45,7 +45,7 @@
 			});
 	});
 
-	app.controller('AppController', function($scope, Auth, API, $location) {
+	app.controller('AppController', function($scope, Auth, API, $location, $route) {
 		console.log('in AppController');
 
 		console.log(location);
@@ -81,7 +81,8 @@
 		$scope.$on('login', function() {
 			$scope.showplayer = true;
 			$scope.showlogin = false;
-			$location.path('/').replace().reload();
+			$location.path('/').replace();
+			$route.reload();
 		});
 
 		$scope.$on('logout', function() {
