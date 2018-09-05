@@ -82,7 +82,13 @@
 
 		$scope.loadsearch = function() {
 			console.log('search for', $scope.query);
-			$location.path('/search').search({ q: $scope.query }).replace();
+			if ($scope.query.indexOf('spotify:') == 0) {
+				let path = '/' + $scope.query.substr('spotify:'.length).replace(/\:/, '/')
+				console.log(path)
+				$location.path(path)
+			} else {
+				$location.path('/search').search({ q: $scope.query }).replace();
+			}
 		};
 
 

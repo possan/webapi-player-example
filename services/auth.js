@@ -32,7 +32,11 @@
 					'user-library-read',
 					'user-library-modify',
 					'user-follow-read',
-					'user-follow-modify'
+					'user-follow-modify',
+					"streaming", 
+					"user-read-birthdate", 
+					"user-read-email", 
+					"user-read-private"
 				]);
 
 				var width = 450,

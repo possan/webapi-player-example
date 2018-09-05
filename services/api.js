@@ -1,11 +1,48 @@
 (function() {
+	
+	window.spotifyDeviceId = null
+	window.spotifyDevices = []
+
+	window.player = null
 
 	var module = angular.module('PlayerApp');
 
 	module.factory('API', function(Auth, $q, $http) {
 
 		var baseUrl = 'https://api.spotify.com/v1';
+		
+		window.onSpotifyWebPlaybackSDKReady = () => {
+	   		const token = Auth.getAccessToken();
+		  	const player = new Spotify.Player({
+		    	name: 'Thirtify',
+		    	getOAuthToken: cb => { cb(token); }
+		  	});
 
+		  	// Error handling
+		  	player.addListener('initialization_error', ({ message }) => { console.error(message); });
+		  	player.addListener('authentication_error', ({ message }) => { console.error(message); });
+		  	player.addListener('account_error', ({ message }) => { console.error(message); });
+		  	player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+		  	// Playback status updates
+		  	player.addListener('player_state_changed', state => { console.log(state); });
+
+		  	// Ready
+		  	player.addListener('ready', ({ device_id }) => {
+		  		window.currentSpotifyDeviceId = device_id
+
+		  		console.log('Ready with Device ID', window.currentSpotifyDeviceId);
+		  	});
+
+		  	// Not Ready
+		  	player.addListener('not_ready', ({ device_id }) => {
+		   	 	console.log('Device ID has gone offline', window.currentSpotifyDeviceId);
+		  	});
+
+		  	// Connect to the player!
+		  	player.connect();
+		  	window.player = player
+		}
 		return {
 
 			getMe: function() {
@@ -142,6 +179,18 @@
 				});
 				return ret.promise;
 			},
+			getPlaylistById: function (identifier) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/playlists/' + encodeURIComponent(identifier), {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got playlists', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
 
 			getPlaylist: function(username, playlist) {
 				var ret = $q.defer();
@@ -151,6 +200,19 @@
 					}
 				}).success(function(r) {
 					console.log('got playlists', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			getShow: function(identifier) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/shows/' + encodeURIComponent(identifier), {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got show', r);
 					ret.resolve(r);
 				});
 				return ret.promise;
@@ -169,6 +231,45 @@
 				return ret.promise;
 			},
 
+
+			getShowEpisodes: function(identifier) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/shows/' + encodeURIComponent(identifier) + '/episodes', {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got show episodes', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			getTracksInPlaylistById: function(identifier) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/playlists/' + encodeURIComponent(identifier) + '/tracks', {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got playlist tracks', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+			getEpisodesInShow: function(identifier) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/shows/' + encodeURIComponent(identifier) + '/episodes', {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got episodes in show', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
 			changePlaylistDetails: function(username, playlist, options) {
 				var ret = $q.defer();
 				$http.put(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists/' + encodeURIComponent(playlist), options, {
@@ -182,9 +283,42 @@
 				return ret.promise;
 			},
 
+			changeDetailsOfPlaylistById: function(playlist, options) {
+				var ret = $q.defer();
+				$http.put(baseUrl + '/playlists/' + encodeURIComponent(playlist), options, {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got response after changing playlist details', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
 			removeTrackFromPlaylist: function(username, playlist, track, position) {
 				var ret = $q.defer();
 				$http.delete(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists/' + encodeURIComponent(playlist) + '/tracks',
+					{
+						data: {
+							tracks: [{
+								uri: track.uri,
+								position: position
+							}]
+						},
+						headers: {
+							'Authorization': 'Bearer ' + Auth.getAccessToken()
+						}
+				}).success(function(r) {
+					console.log('remove track from playlist', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			removeTrackFromPlaylistById: function(playlist, track, position) {
+				var ret = $q.defer();
+				$http.delete(baseUrl + '/playlists/' + encodeURIComponent(playlist) + '/tracks',
 					{
 						data: {
 							tracks: [{
@@ -239,6 +373,43 @@
 					ret.resolve(r);
 				});
 				return ret.promise;
+			},
+
+			playTracks: function (uris) {
+				var ret = $q.defer();
+				$http.put(baseUrl + '/me/player/player/play?device_id=' + window.currentSpotifyDeviceId + '/tracks', {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					},
+					body: JSON.stringify({
+						uris: [uris]
+					})
+				}).success(function(r) {
+					console.log('got album tracks', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			seekPlayback(pos) {
+				var ret = $q.defer();
+				player.seek(pos * 1000);
+				return ret.promise
+				ret.resolve()
+			},
+
+			resumePlayback() {				
+				var ret = $q.defer();
+				player.resume().then(() => {});
+				return ret.promise
+				ret.resolve()
+			},
+
+			pausePlayback() {		
+				var ret = $q.defer();
+				player.pause().then(() => {});
+				return ret.promise
+				ret.resolve()				
 			},
 
 			getAlbumTracks: function(albumid) {
@@ -301,6 +472,32 @@
 					}
 				}).success(function(r) {
 					console.log('got search results', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			findShows: function(query) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/search?type=show&q=' + encodeURIComponent(query) + '&market=from_token', {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got search results for shows', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			findEpisodes: function(query) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/search?type=episode&q=' + encodeURIComponent(query) + '&market=from_token', {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got search results for episodes', r);
 					ret.resolve(r);
 				});
 				return ret.promise;

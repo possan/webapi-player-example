@@ -1,6 +1,14 @@
+:root {
+	--background-color: #121314;
+	--color: #fefefe;  
+	--primary-color: #1db954;
+}
+
+
+
 body {
-	background: #121314;
-	color: #ddd;
+	background: var(--background-color);
+	color: var(--color);
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -19,6 +27,15 @@ div.scrollable {
 div.fullview {
 	width: 100%;
 	height: 100%;
+}
+
+.episodes td {
+	padding-top: 20pt;
+	padding-bottom: 20pt;
+}
+
+th {
+	opacity: 0.5;
 }
 
 h1 {
@@ -70,7 +87,7 @@ b {
 hr {
 	display: block;
 	border: none;
-	border-top: 1px solid #222326;
+	border-top: 1px solid #22232622;
 	background-color: transparent;
 	margin: 0 0 10px 0;
 	clear: both;
@@ -248,6 +265,9 @@ hr {
 	padding: 0px;
 	overflow: auto;
 }
+.menuview .list a {
+	color: white;
+}
 
 .menuview .preview {
 	position: absolute;
@@ -279,19 +299,45 @@ hr {
 	outline: 0;
 	border: 1px solid #393b40;
 }
-
+h1 {
+	color: var(--color);
+	font-weight: bold;
+}
+generic-header {
+	padding: 20pt;
+}
 .mainview {
 	position: absolute;
 	left: 220px;
 	top: 0px;
 	right: 0px;
 	bottom: 0px;
-	padding: 20px;
+	padding: 0px;
 	overflow: auto;
 	color: #88898c;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0.25+0,0+100 */
 }
 
+.mainview > .ng-scope > * {
+	margin: 20pt;
+}
+.mainview > .ng-scope > generic-header {
+	margin: 0pt !important;
+}
+
+.mainview > .ng-scope a {
+	color: var(--color);
+}
+
+.mainview > .ng-scope {
+	background: -moz-linear-gradient(top, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 20%); /* FF3.6-15 */
+background: var(--background-color), -webkit-linear-gradient(top, rgba(255,255,255,0.15) 0%,rgba(255,255,255,0) 10%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%,rgba(255,255,255,0) 8%), var(--background-color); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#40ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+
+}
 .mainview a {
+	padding: 0pt;
 	color: #fff;
 }
 
@@ -341,15 +387,15 @@ a.button {
 }
 
 a.button.green {
-	background-color: #070;
+	background-color: var(--primary-color);
 	color: #fff;
-	border: 1px solid #070;
+	border: 1px solid var(--primary-color);
 }
 
 a.button.big.green {
 	display: inline-block;
 	text-align: center;
-	background-color: #070;
+	background-color: var(--primary-color);
 	color: #fff;
 	padding: 10px 40px;
 	border-radius: 50px;
@@ -357,7 +403,7 @@ a.button.big.green {
 
 a.button.button-add {
 	color: #fff;
-	border: 1px solid #070;
+	border: 1px solid var(--primary-color);
 }
 
 .pop-meter {
@@ -404,11 +450,10 @@ a.button.button-add {
 
 header {
 	position: relative;
-	height: 220px;
+	height: 230px;
 }
 
 header div.cover {
-	position: absolute;
 	left: 0px;
 	top: 0px;
 	width: 200px;
@@ -418,13 +463,10 @@ header div.cover {
 	overflow: hidden;
 }
 
-header .playlist-cover {
-	position: relative;
-}
+
 
 header .cover-component {
 	background-size: cover;
-	position: absolute;
 	width: 100px;
 	height: 100px;
 }
@@ -450,26 +492,21 @@ header .cover-component:nth-child(4) {
 }
 
 header div.buttons {
-	position: absolute;
 	left: 210px;
 	bottom: 20px;
 }
 
 header p {
-	padding-left: 210px;
 }
 
 header h1 {
 	margin-top: -5px;
-	padding-left: 210px;
 }
 
 header h4 {
-	padding-left: 210px;
 }
 
 header .follower-count {
-	padding-left: 210px;
 }
 
 table.tracks {
@@ -512,9 +549,13 @@ table tr th {
 	text-align: left;
 	font-weight: 300;
 	font-size: 9pt;
-	color: #fff;
+	color: var(--color);
 	padding: 4px 10px 4px 0;
 }
+td, th {
+	border-bottom: 1pt solid rgba(0, 0, 0, .1);
+}
+
 
 ul.albums, ul.playlists, ul.genres {
 	margin: 0;
@@ -529,7 +570,7 @@ ul.albums li, ul.playlists li, ul.genres li {
 	width: 160px;
 	height: 220px;
 	margin: 0 10px 10px 0;
-	background-color: #393b40;
+	/*background-color: #393b40;*/
 }
 
 ul.albums li responsive-cover,  ul.playlists li responsive-cover, ul.genres li img {

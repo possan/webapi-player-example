@@ -2,20 +2,27 @@
 
 	var module = angular.module('PlayerApp');
 
-	module.controller('AlbumController', function($scope, $rootScope, API, PlayQueue, $routeParams) {
+	module.controller('AudiobookController', function($scope, $rootScope, API, PlayQueue, $routeParams) {
 		$scope.album = $routeParams.album;
+		console.log($scope.album)
 		$scope.data = null;
 		$scope.release_year = '';
 		$scope.total_duration = 0;
 		$scope.num_discs = 0;
 		$scope.tracks = [];
-
+	
 		API.getAlbum($scope.album).then(function(album) {
 			console.log('got album', album);
+			album.authors = album.artists.map(r => {
+				return {
+					id: r.id,
+					name: r.name,
+					type: 'author'
+				}
+			})
+			console.log("ALBUM", album)
 			$scope.data = album;
-			$scope.type = album.album_type
-
-			album.authors = album.artists
+			$scope.data.type = 'audiobook'
 
 
 			$scope.release_year = '';

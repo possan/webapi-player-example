@@ -37,7 +37,10 @@
           years = days / 365,
           separator = strings.wordSeparator === undefined ?  " " : strings.wordSeparator,
           suffix = strings.suffixAgo;
-
+        if (days > 15) {
+          var time = new Date(input)
+          return time.getFullYear() + '-' + time.getMonth() + '-' + time.getDate()
+        }
         words = seconds < 45 && substitute(strings.seconds, Math.round(seconds), strings) ||
         seconds < 90 && substitute(strings.minute, 1, strings) ||
         minutes < 45 && substitute(strings.minutes, Math.round(minutes), strings) ||

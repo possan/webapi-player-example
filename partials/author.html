@@ -1,12 +1,12 @@
 <generic-header ng-model="data"></generic-header>
 
-<h3>Popular tracks</h3>
+<h3>Popular chapters</h3>
 <table class="tracks">
 	<thead>
 		<th>#</th>
 		<th></th>
-		<th>SONG</th>
-		<th>ALBUM</th>
+		<th>CHAPTER</th>
+		<th>BOOK</th>
 		<th>TIME</th>
 	</thead>
 	<tbody>
@@ -17,7 +17,7 @@
 				<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
 			</td>
 			<td><a ng-click="playtoptrack(t.uri)">{{t.name}}</a></td>
-			<td><a href="#/albums/{{t.album.id}}">{{t.album.name}}</a></td>
+			<td><a href="#/audiobooks/{{t.album.id}}">{{t.album.name}}</a></td>
 			<td>{{t.duration_ms | displaytime}}</td>
 		</tr>
 	</tbody>
@@ -27,10 +27,10 @@
 <br/>
 
 <div ng-show="albums.length > 0">
-	<h3>Albums</h3>
+	<h3>Books</h3>
 	<ul class="albums">
 		<li ng-repeat="t in albums">
-			<a href="#/albums/{{t.id}}">
+			<a href="#/audiobooks/{{t.id}}">
 				<responsive-cover ng-model="t.images"></responsive-cover>
 			</a>
 			<p>
@@ -43,10 +43,10 @@
 </div>
 
 <div ng-show="singles.length > 0">
-	<h3>Singles</h3>
+	<h3>Books</h3>
 	<ul class="albums">
 		<li ng-repeat="t in singles">
-			<a href="#/albums/{{t.id}}">
+			<a href="#/audiobooks/{{t.id}}">
 				<responsive-cover ng-model="t.images"></responsive-cover>
 			</a>
 			<p>
@@ -59,10 +59,10 @@
 </div>
 
 <div ng-show="appearson.length > 0">
-	<h3>Appears on</h3>
+	<h3>Featured on</h3>
 	<ul class="albums">
 		<li ng-repeat="t in appearson">
-			<a href="#/albums/{{t.id}}">
+			<a href="#/audiobooks/{{t.id}}">
 				<responsive-cover ng-model="t.images"></responsive-cover>
 			</a>
 			<p>

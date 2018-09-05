@@ -17,15 +17,17 @@
 		$rootScope.$on('playqueuechanged', function() {
 			$scope.currenttrack = PlayQueue.getCurrent();
 		});
-
-		API.getPlaylist($scope.username, $scope.playlist).then(function(list) {
+		let promise = $scope.username ? API.getPlaylist($scope.username, $scope.playlist) : API.getPlaylistById($scope.playlist) 
+		promise.then(function(list) {
 			console.log('got playlist', list);
 			$scope.name = list.name;
 			$scope.data = list;
+			$scope.username = list.owner.id
 			$scope.playlistDescription = $sce.trustAsHtml(list.description);
 		});
-
-		API.getPlaylistTracks($scope.username, $scope.playlist).then(function(list) {
+		promise = $scope.username ? API.getPlaylistTracks($scope.username, $scope.playlist) : API.getTracksInPlaylistById($scope.playlist)
+		
+		promise.then(function(list) {
 			console.log('got playlist tracks', list);
 			var tot = 0;
 			list.items.forEach(function(track) {
@@ -54,6 +56,8 @@
 			}
 		});
 
+		promise = $scope.username ? API.isFollowingPlaylist($scope.username, $scope.playlist) : API.isFollowingPlaylistById($scope.playlist)
+		
 		API.isFollowingPlaylist($scope.username, $scope.playlist).then(function(booleans) {
 			console.log("Got following status for playlist: " + booleans[0]);
 			$scope.isFollowing = booleans[0];
@@ -61,12 +65,14 @@
 
 		$scope.follow = function(isFollowing) {
 			if (isFollowing) {
-				API.unfollowPlaylist($scope.username, $scope.playlist).then(function() {
+				let promise = $scope.username ? API.unfollowPlaylist($scope.username, $scope.playlist) : API.unfollowPlaylistById($scope.playlist)
+				promise.then(function() {
 					$scope.isFollowing = false;
 					$rootScope.$emit('playlistsubscriptionchange');
 				});
 			} else {
-				API.followPlaylist($scope.username, $scope.playlist).then(function() {
+				let promise = $scope.username ? API.followPlaylist($scope.username, $scope.playlist) : API.followPlaylistById($scope.playlist)
+				promise.then(function () {
 					$scope.isFollowing = true;
 					$rootScope.$emit('playlistsubscriptionchange');
 				});
@@ -109,12 +115,17 @@
 					'Delete',
 					function ($itemScope) {
 						var position = $itemScope.$index;
-						API.removeTrackFromPlaylist(
+						let promise = $scope.username ? API.removeTrackFromPlaylist(
 							$scope.username,
 							$scope.playlist,
-							$itemScope.t.track, position).then(function() {
-								$scope.tracks.splice(position, 1);
-							});
+							$itemScope.t.track, position) :
+							API.removeTrackFromPlaylistById(
+								$scope.playlist,
+								$itemScope.t.track, position)
+
+						promise.then(function() {
+							$scope.tracks.splice(position, 1);
+						});
 					}]]
 			} else {
 				return null;

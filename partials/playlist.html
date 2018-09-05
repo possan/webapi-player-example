@@ -1,22 +1,6 @@
-<header>
-	<playlist-cover ng-model="data" width="200"></playlist-cover>
-	<h4 ng-show="data.collaborative">COLLABORATIVE PLAYLIST</h4>
-	<h4 ng-hide="data.collaborative">PLAYLIST</h4>
-	<h1>{{data.name}}</h1>
-	<p ng-bind-html="playlistDescription"></p>
-	<div class="follower-count">{{data.followers.total | number}} followers</div>
+<generic-header ng-model="data">
+</generic-header>
 
-	<div class="buttons">
-		<a ng-click="playall()" class="button green">PLAY ALL</a>
-		<a ng-if="username !== profileUsername" ng-click="follow(isFollowing)" ng-mouseover="isFollowHovered=true" ng-mouseout="isFollowHovered=false" class="button button-add"><span>{{ isFollowing ? (isFollowHovered ? 'UNFOLLOW' : 'FOLLOWING') : 'FOLLOW' }}</span></a>
-	</div>
-</header>
-
-<hr/>
-<p>Created by: <a href="#/users/{{data.owner.id}}">{{data.owner.id}}</a> &middot; {{data.tracks.total}} songs &middot; {{ total_duration | displaytime }}</p>
-<!-- p>{{data.followers.total}} Followers</p -->
-<hr/>
-<br/>
 
 <table class="tracks">
 	<thead>

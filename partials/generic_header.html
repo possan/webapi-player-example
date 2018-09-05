@@ -1,0 +1,34 @@
+<div>
+<header style="margin-bottom: 12pt; width: 100%;  display: flex; flex-direction: row">
+	<div style="flex: 0 0 210px; padding: 22pt">
+		<playlist-cover ng-model="data" width="200"></playlist-cover>
+	</div>
+	<div style="display: flex; flex: 1; flex-direction: column; align-items: stretch; justify-content: flex-end;  height: 100%">
+			<h4 ng-show="data.collaborative">COLLABORATIVE PLAYLIST</h4>
+			<h4 ng-hide="data.collaborative">{{data.type.toUpperCase()}}</h4>
+			<h1 style="padding-top: 2pt;">{{data.name}}</h1>
+			<p ng-bind-html="data.description"></p>
+			<p ng-if="data.authors"  ng-repeat="author in data.authors">by <a href="#/{{author.type}}s/{{author.id}}">{{author.name || author.id}}</a>
+			</p>
+
+			<div class="buttons">
+				<a ng-click="playall()" class="button green">PLAY ALL</a>
+				<a ng-if="username !== profileUsername" ng-click="follow(isFollowing)" ng-mouseover="isFollowHovered=true" ng-mouseout="isFollowHovered=false" class="button button-add"><span>{{ isFollowing ? (isFollowHovered ? 'UNFOLLOW' : 'FOLLOWING') : 'FOLLOW' }}</span></a>
+				<div class="follower-count" style="float: right">{{data.followers.total | number}} followers</div>
+
+			</div>
+			
+	</div>	
+</header>
+
+<div ng-if="data.tracks" style="padding-left: 22pt">
+	
+	<span ng-if="data.type === 'album'">
+	{{release_year}}
+	&middot;
+	
+	</span>
+	<span >
+	Total {{total_duration | displaytime}} &middot; {{data.tracks.total}} songs &middot; {{ total_duration | displaytime }}</span>
+<!-- p>{{data.followers.total}} Followers</p -->
+</div>

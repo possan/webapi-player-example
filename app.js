@@ -12,23 +12,39 @@
 				templateUrl: 'partials/playqueue.html',
 				controller: 'PlayQueueController'
 			}).
-			when('/users/:username', {
+			when('/users?/:username', {
 				templateUrl: 'partials/user.html',
 				controller: 'UserController'
 			}).
-			when('/users/:username/tracks', {
+			when('/users?/:username/tracks', {
 				templateUrl: 'partials/usertracks.html',
 				controller: 'UserTracksController'
 			}).
-			when('/users/:username/playlists/:playlist', {
+			when('/users?/:username/playlists/:playlist', {
 				templateUrl: 'partials/playlist.html',
 				controller: 'PlaylistController'
 			}).
-			when('/artists/:artist', {
+			when('/playlists?/:playlist', {
+				templateUrl: 'partials/playlist.html',
+				controller: 'PlaylistController'
+			}).
+			when('/shows?/:show', {
+				templateUrl: 'partials/show.html',
+				controller: 'ShowController'
+			}).
+			when('/artists?/:artist', {
 				templateUrl: 'partials/artist.html',
 				controller: 'ArtistController'
 			}).
-			when('/albums/:album', {
+			when('/authors?/:artist', {
+				templateUrl: 'partials/author.html',
+				controller: 'AuthorController'
+			}).
+			when('/audiobooks?/:album', {
+				templateUrl: 'partials/audiobook.html',
+				controller: 'AudiobookController'
+			}).
+			when('/albums?/:album', {
 				templateUrl: 'partials/album.html',
 				controller: 'AlbumController'
 			}).
@@ -39,6 +55,10 @@
 			when('/category/:categoryid', {
 				templateUrl: 'partials/browsecategory.html',
 				controller: 'BrowseCategoryController'
+			}).
+			when('/publishers?/:identifier', {
+				templateUrl: 'partials/publisher.html',
+				controller: 'PublisherController'
 			}).
 			otherwise({
 				redirectTo: '/'
