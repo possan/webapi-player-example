@@ -304,7 +304,8 @@ h1 {
 	font-weight: bold;
 }
 generic-header {
-	padding: 20pt;
+	padding-top: 0pt !important;
+	display: block;
 }
 .mainview {
 	position: absolute;
@@ -319,10 +320,8 @@ generic-header {
 }
 
 .mainview > .ng-scope > * {
-	margin: 20pt;
 }
 .mainview > .ng-scope > generic-header {
-	margin: 0pt !important;
 }
 
 .mainview > .ng-scope a {
@@ -334,7 +333,7 @@ generic-header {
 
 }
 
-generic-header > div {
+generic-header {
 	background: -moz-linear-gradient(top, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 20%); /* FF3.6-15 */
 background: var(--background-color), -webkit-linear-gradient(top, rgba(255,255,255,0.15) 0%,rgba(255,255,255,0) 10%); /* Chrome10-25,Safari5.1-6 */
 background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%,rgba(255,255,255,0) 100%), var(--background-color); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
@@ -557,7 +556,7 @@ table tr th {
 	padding: 4px 10px 4px 0;
 }
 td, th {
-	border-bottom: 1pt solid rgba(0, 0, 0, .1);
+	border-bottom: 1pt solid rgba(255, 255, 255, .1);
 }
 
 
@@ -588,8 +587,8 @@ ul.albums li p, ul.playlists li p, ul.genres li p {
 
 responsive-cover {
 	display:block;
-	height:100%;
-	width:100%;
+	height:200px;
+	width:200px;
 	background-size: cover;
 }
 

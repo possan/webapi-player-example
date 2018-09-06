@@ -663,6 +663,26 @@
 				return ret.promise;
 			},
 
+			isFollowingPlaylistById: function(playlist) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/playlists/' +
+					encodeURIComponent(playlist) + '/followers/contains', {
+						params: {
+							ids: [Auth.getUsername()]
+						},
+						headers: { 'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('check if playlist is followed', r);
+					ret.resolve(r);
+				}).error(function(err) {
+					console.log('failed to check if playlist is followed', err);
+					ret.reject(err);
+				});
+
+				return ret.promise;
+			},
+
 			getBrowseCategories: function() {
 				var ret = $q.defer();
 				$http.get(baseUrl + '/browse/categories', {

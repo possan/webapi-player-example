@@ -8,11 +8,9 @@
 		var REDIRECT_URI = '';
 
 		if (location.host == 'localhost:8000') {
-			CLIENT_ID =	'409f070cb44945d9a85e9b4ad8fa3bf1';
+			CLIENT_ID =	'9cae232f0ddd4ba3b55b7e54ca6e76f0';
 			REDIRECT_URI = 'http://localhost:8000/callback.html';
 		} else {
-			CLIENT_ID = '9714921402b84783b2a207f1b6e82612';
-			REDIRECT_URI = 'http://lab.possan.se/thirtify/callback.html';
 		}
 
 		function getLoginURL(scopes) {

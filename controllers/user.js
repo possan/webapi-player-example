@@ -12,10 +12,12 @@
 		API.getUser($scope.profileUsername).then(function(user) {
 			console.log('got user', user);
 			$scope.data = user;
+			$scope.data.name = user.username
 		});
 
 		API.getPlaylists($scope.profileUsername).then(function(userplaylists){
 			console.log('got user playlists', userplaylists);
+			userplaylists = userplaylists.slice(0, 28)
 			$scope.userplaylists = userplaylists;
 		}, function(reason){
 			console.log("got error", reason);

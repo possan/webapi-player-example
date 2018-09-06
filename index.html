@@ -41,7 +41,11 @@
 		<div class="fullview playerview" ng-show="showplayer">
 			<div ng-controller="PlayerController">
 				<div class="topgroup">
-					<div class="searchbox">
+					<div class="buttons">
+						<button style="padding: 8pt" onclick="history.back()">&lt;</button>
+						<button style="padding: 8pt" href="#" onclick="history.forward()">&gt;</button>
+					</div>
+					<div class="searchbox" style="left: 60pt">
 						<form novalidate ng-submit="loadsearch()">
 							<input type="text" ng-model="query" placeholder="Search..." />
 						</form>

@@ -23,7 +23,8 @@
 			$scope.name = list.name;
 			$scope.data = list;
 			$scope.username = list.owner.id
-			$scope.playlistDescription = $sce.trustAsHtml(list.description);
+			$scope.data.authors = [list.owner]
+			$scope.data.description = $sce.trustAsHtml(list.description);
 		});
 		promise = $scope.username ? API.getPlaylistTracks($scope.username, $scope.playlist) : API.getTracksInPlaylistById($scope.playlist)
 		
