@@ -52,6 +52,11 @@
 				templateUrl: 'partials/searchresults.html',
 				controller: 'SearchResultsController'
 			}).
+			when('/app/:identifier', {
+				templateUrl: 'partials/app.html',
+				controller: 'HTMLAppController'
+			}).
+
 			when('/category/:categoryid', {
 				templateUrl: 'partials/browsecategory.html',
 				controller: 'BrowseCategoryController'
@@ -168,5 +173,10 @@
 
 		checkUser();
 	});
+	app.filter('trustThisUrl', ["$sce", function ($sce) {
+        return function (val) {
+            return $sce.trustAsResourceUrl(val);
+        };
+    }]);
 
 })();
