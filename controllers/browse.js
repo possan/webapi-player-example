@@ -10,7 +10,9 @@
       }
       return number;
     }
-
+    $scope.data = {
+      name: 'Browse'
+    }
     /**
      * Returns an ISO string containing the local time for the user,
      * clearing minutes and seconds to improve caching

@@ -25,6 +25,29 @@
 			$scope.username = list.owner.id
 			$scope.data.authors = [list.owner]
 			$scope.data.description = $sce.trustAsHtml(list.description);
+			let img = document.createElement('img')
+			img.crossOrigin = "Anonymous";
+			img.src = $scope.data.images && $scope.data.images.length > 0 ? $scope.data.images[0].url : ''
+			img.addEventListener('load', function() {
+	   			var vibrant = new Vibrant(img);
+
+	   			var swatches = vibrant.swatches()
+	   			let i = 0;
+
+			    for (var swatch in swatches) {
+			        if (i == 1) {
+			        	if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
+				        	let hex = swatches[swatch].getHex()
+				            console.log(swatch, hex)
+				            document.documentElement.style.setProperty('--vibrant-color', hex + '55')
+				            console.log(hex)
+	
+				         	break;   
+				        }
+				    }
+			        i++
+			    }
+			});
 		});
 		promise = $scope.username ? API.getPlaylistTracks($scope.username, $scope.playlist) : API.getTracksInPlaylistById($scope.playlist)
 		

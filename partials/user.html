@@ -4,11 +4,11 @@
   <h2>Public Playlists</h2>
   <div class="row playlists ">
     <div class="col-md-3" ng-repeat="t in userplaylists">
-      <a href="#/playlists/{{t.id}}">
+      <a href="/playlists/{{t.id}}">
         <responsive-cover ng-model="t.images" class="responsive-cover-playlist"></responsive-cover>
       </a>
       <p>
-        <b><a href="#/playlists/{{t.id}}">{{t.name}}</a></b>
+        <b><a href="/playlists/{{t.id}}">{{t.name}}</a></b>
       </p>
     </div>
   </div>

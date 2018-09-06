@@ -1,4 +1,5 @@
-<generic-header ng-model="data"></generic-header>
+<generic-header ng-model="data" followable="true" playable="true"></generic-header>
+<div class="container">
 <h3>Episodes</h3>
 <table class="tracks episodes">
 	<thead>
@@ -9,7 +10,7 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="t in episodes" ng-class="{ playing: (t.track.uri == currenttrack) }" ng-context-menu="menuOptionsPlaylistTrack(t, $index)">
-			<td width="96">
+			<td width="96" valign="top" style="padding-right: 20pt">
 				<div ng-if="t.episode.images && t.episodes.images.length > 0">
 					<img src="{{t.episode.images[0].url}}" width="96" />
 				</div>
@@ -18,14 +19,13 @@
 				</div>
 			</td>
 			<td>
-				<a ng-click="play(t.track.uri)">
+				<h3 ng-click="play(t.track.uri)">
 				{{t.name}}
-				</a>
-				<p style="opacity: 0.3">Published <a>{{t.release_date | timeago}}</a></p>
+				</h3>
 				<p style="opacity: 0.5">{{t.description}}</p>
 			</td>
 			<td width="30%"></td>
-			<td width="200pt">
+			<td width="200pt" valign="top">
 				<p style="opacity: 0.3">Published <a>{{t.release_date | timeago}}</a></p>
 			</td>
 		</tr>
@@ -34,6 +34,7 @@
 <br/>
 
 <hr/>
+</div>
 
 <!--
 

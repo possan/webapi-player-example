@@ -1,0 +1,42 @@
+<table class="tracks" ng-if="recommendedTracks && recommendedTracks.length > 0">
+	<thead>
+		<th></th>
+		<th>TRACK</th>
+		<th>ARTIST</th>
+		<th>TIME</th>
+		<th>ALBUM</th>
+		<th>ADDED</th>
+		<th ng-if="data.collaborative">USER</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="t in recommendedTracks track by $index" ng-class="{ playing: (t.uri == currenttrack) }" ng-context-menu="menuOptionsPlaylistTrack(t, $index)">
+			<td>
+				<img src="{{t.album.images[0].url}}" width="32">
+			</td>
+			<td>
+				<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
+			</td>
+			<td>
+				<a ng-click="play(track.uri)">{{t.name}}</a>
+			</td>
+			<td>
+				<a href="/artists/{{track.artists[0].id}}">{{t.artists[0].name}}</a>
+			</td>
+			<td>
+				<a href="/albums/{{track.album.id}}">{{t.album.name}}</a>
+			</td>
+			<td class="nowrap" style="opacity: 0.5">
+				{{ t.track.duration_ms | displaytime }}
+			</td>
+			<td>
+				<a href="/albums/{{track.album.id}}">{{t.track.album.name}}</a>
+			</td>
+			<td class="nowrap" style="opacity: 0.5">
+				{{t.added_at | timeago}}
+			</td>
+			<td class="nowrap" ng-if="data.collaborative">
+				<a href="/users/{{added_by.id}}">{{t.added_by.id}}</a>
+			</td>
+		</tr>
+	</tbody>
+</table>

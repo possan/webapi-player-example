@@ -2,7 +2,8 @@
 
 	var app = angular.module('PlayerApp', ['ngRoute']);
 
-	app.config(function($routeProvider) {
+	app.config(function($routeProvider, $locationProvider) {
+		$locationProvider.html5Mode(true)
 		$routeProvider.
 			when('/', {
 				templateUrl: 'partials/browse.html',
@@ -61,6 +62,18 @@
 				templateUrl: 'partials/browsecategory.html',
 				controller: 'BrowseCategoryController'
 			}).
+			when('/genres?/:identifier', {
+				templateUrl: 'partials/genre.html',
+				controller: 'GenreController'
+			}).
+			when('/labels?/:identifier', {
+				templateUrl: 'partials/label.html',
+				controller: 'LabelController'
+			}).
+			when('/tracks?/:identifier', {
+				templateUrl: 'partials/track.html',
+				controller: 'TrackController'
+			}).
 			when('/publishers?/:identifier', {
 				templateUrl: 'partials/publisher.html',
 				controller: 'PublisherController'
@@ -74,7 +87,6 @@
 		console.log('in AppController');
 
 		console.log(location);
-
 		function checkUser(redirectToLogin) {
 			API.getMe().then(function(userInfo) {
 				Auth.setUsername(userInfo.id);

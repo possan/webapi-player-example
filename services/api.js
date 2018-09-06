@@ -609,6 +609,39 @@
 
 				return ret.promise;
 			},
+			getRecommendations(input) {
+				console.log(input)
+				var ret = $q.defer();
+				$http.get(
+					baseUrl + '/recommendations?' + $.param(input),
+					{ 
+						headers: { 'Authorization': 'Bearer ' + Auth.getAccessToken() 
+					}
+				}).success(function(r) {
+					console.log('followed playlist', r);
+					ret.resolve(r);
+				}).error(function(err) {
+					console.log('failed to follow playlist', err);
+					ret.reject(err);
+				});
+
+				return ret.promise;
+			},
+			getAudioAnalysisForTrack(identifier) {
+				var ret = $q.defer();
+				$http.get(
+					baseUrl + '/audio-analysis/' + encodeURIComponent(identifier),
+					{ headers: { 'Authorization': 'Bearer ' + Auth.getAccessToken() }
+				}).success(function(r) {
+					console.log('followed playlist', r);
+					ret.resolve(r);
+				}).error(function(err) {
+					console.log('failed to follow playlist', err);
+					ret.reject(err);
+				});
+
+				return ret.promise;
+			},
 
 			followPlaylist: function(username, playlist) {
 				var ret = $q.defer();
@@ -724,7 +757,6 @@
 				});
 				return ret.promise;
 			},
-
 		};
 	});
 

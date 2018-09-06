@@ -30,7 +30,27 @@
 			if (album.release_date) {
 				$scope.release_year = album.release_date.substring(0, 4); // så fult!
 			}
+			let img = document.createElement('img');
+			img.crossOrigin = "Anonymous";
+			img.src = $scope.data.images && $scope.data.images.length > 0 ? $scope.data.images[0].url : ''
 
+			img.addEventListener('load', function() {
+	   			var vibrant = new Vibrant(img);
+
+	   			var swatches = vibrant.swatches()
+	   			let i = 0;
+			    for (var swatch in swatches) {
+			        if (i == 1) {
+			        	if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
+				        	let hex = swatches[swatch].getHex()
+				            console.log(swatch, hex)
+				            document.documentElement.style.setProperty('--vibrant-color', hex + '88')
+				         	break;   
+				        }
+				    }
+			        i++
+			    }
+			});
 		});
 
 		API.getAlbumTracks($scope.album).then(function(tracks) {

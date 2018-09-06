@@ -1,7 +1,7 @@
-<generic-header ng-model="data">
+<generic-header ng-model="data" playable="true">
 
 </generic-header>
-
+<div class="container">
 <div class="discs">
 	<div ng-repeat="d in discs">
 		<p ng-show="num_discs > 1">
@@ -15,18 +15,19 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="t in tracks" ng-class="{ playing: (t.uri == currenttrack) }">
-					<td>{{t.track_number}}</td>
+					<td style="opacity: 0.5">{{t.track_number}}</td>
 					
 					<td>
 						<a ng-click="play(t.uri)">{{t.name}}</a>
 					</td>
-					<td>{{t.duration_ms | displaytime}}</td>
+					<td style="opacity: 0.5; text-align: right">{{t.duration_ms | displaytime}}</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </div>
 <hr/>
+</div>
 
 
 

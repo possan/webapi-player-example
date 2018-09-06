@@ -6,11 +6,18 @@
 		$scope.query = $location.search().q || '';
 		$scope.type = $location.search().type || null;
 		$scope.tracks = [];
-
+		$scope.data = {
+			type: 'search',
+			name: 'Search results for \'' + $scope.query + '\''
+		}
 		API.getSearchResults($scope.query).then(function(results) {
 			console.log('got search results', results);
 			if ($scope.type) {
 				$scope.objects = results[$scope.type + 's'].items;
+				$scope.data = {
+					type: 'search',
+					name: 'Search results for \'' + $scope.query + '\' in \'' + $scope.type + '\''
+				}
 			}
 			$scope.tracks = results.tracks.items.slice(0, 5);
 			$scope.playlists = results.playlists.items.slice(0, 5);

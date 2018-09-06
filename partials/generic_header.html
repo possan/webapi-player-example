@@ -1,23 +1,24 @@
 <div class="container">
 	<header style="margin-bottom: 12pt; width: 100%;  display: flex; flex-direction: row">
-		<div style="flex: 0 0 210px; padding-top: 20pt; padding-right: 20pt">
+		<div ng-show="data.images && data.images.length > 0" style="flex: 0 0 210px; padding-top: 20pt; padding-right: 20pt">
 			<playlist-cover ng-model="data" width="200"></playlist-cover>
 		</div>
 		<div style="display: flex; flex: 1; flex-direction: column; align-items: stretch; justify-content: flex-end;  height: 100%">
-				<h4 ng-show="data.collaborative">COLLABORATIVE PLAYLIST</h4>
-				<h4 ng-hide="data.collaborative">{{data.type.toUpperCase()}}</h4>
-				<h1 style="padding-top: 2pt;">{{data.name}}</h1>
-				<p ng-bind-html="data.description"></p>
-				<p ng-if="data.authors"  ng-repeat="author in data.authors">by <a href="#/{{author.type}}s/{{author.id}}">{{author.name || author.id}}</a>
-				</p>
+			<h4 ng-show="data.collaborative">COLLABORATIVE PLAYLIST</h4>
+			<h4 ng-hide="data.collaborative">{{data.type.toUpperCase()}}</h4>
+			<h1 style="padding-top: 2pt;">{{data.name}}</h1>
+			<p ng-bind-html="data.description"></p>
+			<p ng-if="data.authors"  ng-repeat="author in data.authors">by <a href="/{{author.type}}s/{{author.id}}">{{author.name || author.id}}</a>
+			</p>
+			<p ng-if="data.album">from <a href="/albums/{{data.album.id}}">{{data.album.name}}</a> by  <span ng-if="data.album.authors"  ng-repeat="author in data.album.authors"><a href="/{{author.type}}s/{{author.id}}">{{author.name || author.id}}</span>
+			</p>
+			<div class="buttons">
+				<a ng-if="isPlayable" ng-click="playall()" class="button green">PLAY ALL</a>
+				<a ng-if="isFollowable" ng-if="username !== profileUsername" ng-click="follow(isFollowing)" ng-mouseover="isFollowHovered=true" ng-mouseout="isFollowHovered=false" class="button button-add"><span>{{ isFollowing ? (isFollowHovered ? 'UNFOLLOW' : 'FOLLOWING') : 'FOLLOW' }}</span></a>
+				<div ng-if="isFollowable" class="follower-count" style="float: right">{{data.followers.total | number}} followers</div>
 
-				<div class="buttons">
-					<a ng-click="playall()" class="button green">PLAY ALL</a>
-					<a ng-if="username !== profileUsername" ng-click="follow(isFollowing)" ng-mouseover="isFollowHovered=true" ng-mouseout="isFollowHovered=false" class="button button-add"><span>{{ isFollowing ? (isFollowHovered ? 'UNFOLLOW' : 'FOLLOWING') : 'FOLLOW' }}</span></a>
-					<div class="follower-count" style="float: right">{{data.followers.total | number}} followers</div>
-
-				</div>
-				
+			</div>
+			
 		</div>	
 	</header>
 

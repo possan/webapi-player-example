@@ -1,49 +1,89 @@
-<h1>Browse</h1>
-<h2>Overview</h2>
-<div ng-show="featuredPlaylists.length > 0">
-  <h2>{{message}}</h2>
-  <ul class="playlists">
-    <li ng-repeat="t in featuredPlaylists">
-      <a href="#/users/{{t.owner.id}}/playlists/{{t.id}}">
-        <responsive-cover ng-model="t.images"></responsive-cover>
-      </a>
-      <p>
-        <b><a href="#/users/{{t.owner.id}}/playlists/{{t.id}}">{{t.name}}</a></b>
-      </p>
-    </li>
-  </ul>
-  <hr/>
-  <br/>
+<generic-header ng-model="data"></generic-header>
+<div class="container">
+  <tab-bar>
+    <tabbar-tab section="overview" label="Overview"></tabbar-tab>
+    <tabbar-tab section="categories" label="Categories"></tabbar-tab>
+    <tabbar-tab section="newreleases" label="NewReleases"></tabbar-tab>
+    <tabbar-tab section="shows" label="Shows"></tabbar-tab>
+  </tab-bar>
 </div>
-
-<div ng-show="genresMoods.length > 0">
+<div class="container" tab-content section="overview">
+  <div ng-show="featuredPlaylists.length > 0">
+    <h3>{{message}}</h3>
+    <ul class="playlists">
+      <li ng-repeat="t in featuredPlaylists.slice(0,5)">
+        <a href="/users/{{t.owner.id}}/playlists/{{t.id}}">
+          <responsive-cover ng-model="t.images"></responsive-cover>
+        </a>
+        <p>
+          <b><a href="/users/{{t.owner.id}}/playlists/{{t.id}}">{{t.name}}</a></b>
+        </p>
+      </li>
+    </ul>
+    <hr/>
+    <br/>
+  </div>
   <h3>Genres &amp; Moods</h3>
-  <ul class="genres">
-    <li ng-repeat="t in genresMoods">
-      <a href="#/category/{{t.id}}">
-        <img ng-src="{{t.icons[0].url}}" />
-      </a>
-      <p>
-        <b><a href="#/category/{{t.id}}">{{t.name}}</a></b>
-      </p>
-    </li>
-  </ul>
-  <hr/>
-  <br/>
+  <div ng-show="genresMoods.length > 0">
+    <ul class="genres">
+      <li ng-repeat="t in genresMoods">
+        <a href="/category/{{t.id}}">
+          <img ng-src="{{t.icons[0].url}}" />
+        </a>
+        <p>
+          <b><a href="/category/{{t.id}}">{{t.name}}</a></b>
+        </p>
+      </li>
+    </ul>
+    <hr/>
+    <br/>
+  </div>
 </div>
-
-<div ng-show="newReleases.length > 0">
-  <h3>New releases</h3>
-  <ul class="albums">
-    <li ng-repeat="t in newReleases">
-      <a href="#/albums/{{t.id}}">
-        <responsive-cover ng-model="t.images"></responsive-cover>
-      </a>
-      <p>
-        <b><a href="#/albums/{{t.id}}">{{t.name}}</a></b>
-      </p>
-    </li>
-  </ul>
-  <hr/>
-  <br/>
+<div class="container" tab-content section="categories">
+  <div ng-show="genresMoods.length > 0">
+    <ul class="genres">
+      <li ng-repeat="t in genresMoods">
+        <a href="/category/{{t.id}}">
+          <img ng-src="{{t.icons[0].url}}" />
+        </a>
+        <p>
+          <b><a href="/category/{{t.id}}">{{t.name}}</a></b>
+        </p>
+      </li>
+    </ul>
+    <hr/>
+    <br/>
+  </div>
+</div>
+<div class="container" section="newreleases" tab-content>
+  <div ng-show="newReleases.length > 0">
+    <ul class="albums">
+      <li ng-repeat="t in newReleases">
+        <a href="/albums/{{t.id}}">
+          <responsive-cover ng-model="t.images"></responsive-cover>
+        </a>
+        <p>
+          <b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
+        </p>
+      </li>
+    </ul>
+    <hr/>
+    <br/>
+  </div>
+</div>
+<div class="container" section="shows" tab-content>
+  <div ng-show="shows.length > 0">
+    <ul class="albums">
+      <li ng-repeat="t in hows">
+        <a href="/shows/{{t.id}}">
+          <responsive-cover ng-model="t.images"></responsive-cover>
+        </a>
+        <p>
+          <b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
+        </p>
+      </li>
+    </ul>
+    <hr/>
+    <br/>
+  </div>
 </div>

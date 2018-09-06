@@ -1,44 +1,66 @@
 <generic-header ng-model="data">
 
 </generic-header>
-
-<div class="discs">
-	<div ng-repeat="d in discs">
-		<p ng-show="num_discs > 1">
-			CD {{ d.disc_number }}
-		</p>
-		<table class="tracks">
-			<thead>
-				<th>#</th>
-				<th></th>
-				<th>TRACK</th>
-				<th>TIME</th>
-				<th>POPULARITY</th>
-			</thead>
-			<tbody>
-				<tr ng-dblclick="play(t.uri)" ng-repeat="t in tracks" ng-class="{ playing: (t.uri == currenttrack) }">
-					<td>{{t.track_number}}</td>
-					<td>
-						<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
-					</td>
-					<td>
-						<a ng-click="play(t.uri)">{{t.name}}</a>
-					</td>
-					<td>{{t.duration_ms | displaytime}}</td>
-					<td>
-						<div class="pop-meter">
-							<div class="pop-meter-background"></div>
-							<div class="pop-meter-overlay" style="width: {{ t.popularity }}%;"></div>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+<div class="container">
+	<div class="discs">
+		<div ng-repeat="d in discs">
+			<p ng-show="num_discs > 1">
+				CD {{ d.disc_number }}
+			</p>
+			<table class="tracks">
+				<thead>
+					<th>#</th>
+					<th></th>
+					<th>TRACK</th>
+					<th>TIME</th>
+					<th>POPULARITY</th>
+				</thead>
+				<tbody>
+					<tr ng-dblclick="play(t.uri)" ng-repeat="t in tracks" ng-class="{ playing: (t.uri == currenttrack) }">
+						<td>{{t.track_number}}</td>
+						<td>
+							<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
+						</td>
+						<td>
+							<a ng-click="play(t.uri)">{{t.name}}</a>
+						</td>
+						<td style="opacity: 0.5">{{t.duration_ms | displaytime}}</td>
+						<td>
+							<div class="pop-meter">
+								<div class="pop-meter-background"></div>
+								<div class="pop-meter-overlay" style="width: {{ t.popularity }}%;"></div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
-</div>
-<br/>
+	<br/>
 
-<hr/>
+	<hr/>
+</div>
+
+<div class="container" ng-if="albums && albums.length > 0">
+	<h3>More by '{{data.artists[0].name}}'</h3>
+	<ul class="playlists">
+      <li ng-repeat="t in albums" style="padding: 0pt" >
+        <a href="/albums/{{t.id}}" >
+          <responsive-cover ng-model="t.images"></responsive-cover>
+        </a>
+        <p>
+          <b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
+        </p>
+      </li>
+    </ul>
+</div>
+
+<div class="container">
+	<details>
+		<summary>Recommended tracks</summary>
+		<recommended-tracks tracks="{{data.id}}" artists="{{data.authorIds}}" genres="pop"></recommended-tracks>
+	</details>
+</div>
 
 <!--
 

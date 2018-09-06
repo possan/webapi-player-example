@@ -7,20 +7,15 @@
 		$scope.tracks = [];
 
 		$scope.data = {
-			id: $scope.query,
 			type: 'publisher',
-			name: $scope.query,
-			uri: 'spotify:publisher:' + $scope.query,
-			images: [{
-
-			}]
+			name: $scope.query
 		}
 
 		API.findShows($scope.query).then(function(results) {
 			console.log('got search results', results);
 			$scope.shows = results.shows.items;
 			if ($scope.shows.length > 0) {
-				$scope.data.images = $scope.shows[0].images
+				//$scope.data.images = $scope.shows[0].images
 			}
 			$scope.digest()
 		});

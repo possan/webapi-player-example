@@ -1,4 +1,4 @@
-<generic-header ng-model="data" followable="true" playable="true"></generic-header>
+<generic-header ng-model="data"></generic-header>
 <div class="container">
   <tab-bar>
     <tabbar-tab section="overview" label="Overview"></tabbar-tab>
@@ -54,6 +54,22 @@
 		<hr/>
 		<br/>
 	</div>
+	<div ng-show="artists.length > 0">
+		<h3>Artists</h3>
+		<ul class="albums">
+			<li ng-repeat="t in artists">
+				<a href="/artists/{{t.id}}">
+					<responsive-cover ng-model="t.images"></responsive-cover>
+				</a>
+				<p>
+					<b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
+				</p>
+			</li>
+		</ul>
+		<hr/>
+		<br/>
+	</div>
+
 	<div ng-show="albums.length > 0">
 		<h3>Albums</h3>
 		<ul class="albums">

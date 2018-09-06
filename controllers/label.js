@@ -2,13 +2,19 @@
 
 	var module = angular.module('PlayerApp');
 
-	module.controller('AuthorController', function($scope, $rootScope, API, PlayQueue, $routeParams, Auth) {
-		$scope.artist = $routeParams.artist;
-		$scope.data = null;
+	module.controller('LabelController', function($scope, $rootScope, API, PlayQueue, $routeParams, Auth) {
+		$scope.identifier = $routeParams.identifier;
+		$scope.data = {
+			id: $scope.identifier,
+			name: $scope.identifier,
+			type: 'label',
+			images: []
+		}
 		$scope.discog = [];
 		$scope.albums = [];
 		$scope.singles = [];
 		$scope.appearson = [];
+		$scope.artists = []
 
 		$scope.currenttrack = PlayQueue.getCurrent();
 		$scope.isFollowing = false;
@@ -17,53 +23,19 @@
 			$scope.currenttrack = PlayQueue.getCurrent();
 		});
 
-		API.getArtist($scope.artist).then(function(artist) {
-			console.log('got artist', artist);
-			$scope.data = artist;
-			$scope.data.type = 'author'
-			let img = document.createElement('img');
-			img.crossOrigin = "Anonymous";
-			img.src = $scope.data.images && $scope.data.images.length > 0 ? $scope.data.images[0].url : ''
 
-			img.addEventListener('load', function() {
-	   			var vibrant = new Vibrant(img);
+        document.documentElement.style.setProperty('--vibrant-color','#88888888')
+			      
+		
 
-	   			var swatches = vibrant.swatches()
-	   			let i = 0;
-			    for (var swatch in swatches) {
-			        if (i == 1) {
-			        	if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
-				        	let hex = swatches[swatch].getHex()
-				            console.log(swatch, hex)
-				            document.documentElement.style.setProperty('--vibrant-color', hex + '88')
-				         	break;   
-				        }
-				    }
-			        i++
-			    }
-			});
-		});
-
-		API.getArtistTopTracks($scope.artist, Auth.getUserCountry()).then(function(toptracks) {
-			console.log('got artist', toptracks);
-			$scope.toptracks = toptracks.tracks;
-
+		API.getSearchResults('label:' + $scope.identifier, Auth.getUserCountry()).then(function(results) {
+			console.log('got genre', $scope.identifier);
+			$scope.toptracks = results.tracks.items;
+			let albums = results.albums
+			let artists = results.artists
 			var ids = $scope.toptracks.map(function(track) {
 				return track.id;
 			});
-
-			API.containsUserTracks(ids).then(function(results) {
-				results.forEach(function(result, index) {
-					$scope.toptracks[index].inYourMusic = result;
-				});
-			});
-		});
-
-		API.getArtistAlbums($scope.artist, Auth.getUserCountry()).then(function(albums) {
-			console.log('got artist albums', albums);
-			$scope.albums = [];
-			$scope.singles = [];
-			$scope.appearson = [];
 			albums.items.forEach(function(album) {
 				console.log(album);
 				if (album.album_type == 'album') {
@@ -76,11 +48,8 @@
 					$scope.appearson.push(album);
 				}
 			})
-		});
+			$scope.artists = artists.items
 
-		API.isFollowing($scope.artist, "artist").then(function(booleans) {
-			console.log("Got following status for artist: " + booleans[0]);
-			$scope.isFollowing = booleans[0];
 		});
 
 		$scope.playtoptrack = function(trackuri) {
