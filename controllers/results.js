@@ -2,22 +2,12 @@
 
 	var module = angular.module('PlayerApp');
 
-	module.controller('SearchResultsController', function($scope, API, $location, PlayQueue, $routeParams) {
+	module.controller('ResultsController', function($scope, API, $location, PlayQueue, $routeParams) {
 		$scope.query = $location.search().q || '';
-		$scope.type = $location.search().type || null;
-		$scope.tracks = [];
 
 		API.getSearchResults($scope.query).then(function(results) {
 			console.log('got search results', results);
-			if ($scope.type) {
-				$scope.objects = results[$scope.type + 's'].items;
-			}
-			$scope.tracks = results.tracks.items.slice(0, 5);
-			$scope.playlists = results.playlists.items.slice(0, 5);
-			$scope.artists = results.artists.items.slice(0, 5);
-			$scope.albums = results.albums.items.slice(0, 5);
-			$scope.shows = results.shows.items.slice(0, 5);
-			$scope.episodes = results.episodes.items.slice(0, 5);
+			$scope.objects = results[$scope.model + 's'].items;
 
 			// find out if they are in the user's collection
 			var ids = $scope.tracks.map(function(track) {

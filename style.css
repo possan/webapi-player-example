@@ -641,6 +641,12 @@ responsive-cover.responsive-cover-playlist {
 	background-color: #444;
 }
 
+button {
+	background: none;
+	border: none;
+	color: var(--color);
+}
+
 ::-webkit-scrollbar-track {
   background-color: #1c1c1f;
 }
@@ -660,4 +666,14 @@ responsive-cover.responsive-cover-playlist {
   background-color: #1c1c1f;
 }
 
+responsive-cover {
+	transition: transform 0.5;
+}
+responsive-cover:hover {
+	transform: scale(1.05);
+}
+responsive-cover:active {
+	transform: scale(0.90);
+
+}
 

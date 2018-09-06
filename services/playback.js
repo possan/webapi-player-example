@@ -84,10 +84,13 @@
 			},
 			pause: function() {
 				API.pausePlayback().then(function () {});
+				_playing = false;
+				$rootScope.$emit('playerchanged');
 			},
 			resume: function() {
-				
-				API.resulePlayback().then(function () {});
+				API.resumePlayback().then(function () {});
+				_playing = true;
+				$rootScope.$emit('playerchanged');
 			},
 			isPlaying: function() {
 				return _playing;

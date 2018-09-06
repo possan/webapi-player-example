@@ -37,6 +37,12 @@
 			});
 		});
 
+		API.findShows($scope.artist.name).then(function (results) {
+			$scope.shows = results.shows.items.filter((obj) => {
+				return obj.publisher.indexOf($scope.artist.name) !== -1
+			})
+		})
+
 		API.getArtistAlbums($scope.artist, Auth.getUserCountry()).then(function(albums) {
 			console.log('got artist albums', albums);
 			$scope.albums = [];
