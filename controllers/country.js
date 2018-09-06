@@ -2,12 +2,12 @@
 
 	var module = angular.module('PlayerApp');
 
-	module.controller('YearController', function($scope, $rootScope, API, PlayQueue, $routeParams, Auth) {
+	module.controller('CountryController', function($scope, $rootScope, API, PlayQueue, $routeParams, Auth) {
 		$scope.identifier = $routeParams.identifier;
 		$scope.data = {
 			id: $scope.identifier,
 			name: $scope.identifier,
-			type: 'year',
+			type: 'country',
 			images: []
 		}
 		$scope.discog = [];
@@ -28,7 +28,7 @@
 			      
 		
 
-		API.getSearchResults('year:' + $scope.identifier, Auth.getUserCountry()).then(function(results) {
+		API.getSearchResults('country:' + $scope.identifier, Auth.getUserCountry()).then(function(results) {
 			console.log('got year', $scope.identifier);
 			$scope.toptracks = results.tracks.items;
 			let albums = results.albums

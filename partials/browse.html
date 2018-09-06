@@ -11,7 +11,7 @@
   <div ng-show="featuredPlaylists.length > 0">
     <h3>{{message}}</h3>
     <ul class="playlists">
-      <li ng-repeat="t in featuredPlaylists.slice(0,5)">
+      <li ng-repeat="t in featuredPlaylists.slice(0,6)">
         <a href="/users/{{t.owner.id}}/playlists/{{t.id}}">
           <responsive-cover ng-model="t.images"></responsive-cover>
         </a>

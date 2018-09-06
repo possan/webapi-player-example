@@ -36,17 +36,17 @@
 			</table>
 		</div>
 	</div>
-	<br/>
-
-	<hr/>
+</div>
+<div class="container">
+	<p ng-repeat="c in data.copyrights" style="margin-top: 12pt; margin-bottom: 12pt; font-size: 11px">({{c.type}}) {{c.text}}</p>
 </div>
 
 <div class="container" ng-if="albums && albums.length > 0">
 	<h3>More by '{{data.artists[0].name}}'</h3>
 	<ul class="playlists">
-      <li ng-repeat="t in albums" style="padding: 0pt" >
+      <li ng-repeat="t in albums" style="margin-right: 51pt; margin-bottom: 22pt" >
         <a href="/albums/{{t.id}}" >
-          <responsive-cover ng-model="t.images"></responsive-cover>
+          <img src="{{t.images[0].url}}" width="200">
         </a>
         <p>
           <b><a href="/albums/{{t.id}}">{{t.name}}</a></b>

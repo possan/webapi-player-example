@@ -64,6 +64,7 @@ h3, summary {
 }
 
 h4 {
+	color: white;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
 	padding: 0;
@@ -549,7 +550,10 @@ table tr:hover {
 }
 
 table tr.playing {
-	background-color: #393b40;
+}
+
+.playing td, .playing td a {
+	color: var(--primary-color) !important;
 }
 
 table tr td {

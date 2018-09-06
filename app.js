@@ -78,6 +78,14 @@
 				templateUrl: 'partials/publisher.html',
 				controller: 'PublisherController'
 			}).
+			when('/years?/:identifier', {
+				templateUrl: 'partials/year.html',
+				controller: 'YearController'
+			}).
+			when('/country/:identifier', {
+				templateUrl: 'partials/country.html',
+				controller: 'CountryController'
+			}).
 			otherwise({
 				redirectTo: '/'
 			});

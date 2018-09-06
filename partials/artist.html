@@ -19,7 +19,7 @@
 				</thead>
 				<tbody>
 
-					<tr ng-repeat="t in toptracks.slice(0,5)" ng-class="{ playing: (t.uri == currenttrack) }">
+					<tr ng-repeat="t in toptracks.slice(0,5)" ng-dblclick="play(t.uri)"  ng-class="{ playing: (t.uri == currenttrack) }">
 						<td><img src="{{t.album.images[0].url}}" width="32"></td>
 						<td>{{$index + 1}}</td>
 						<td>

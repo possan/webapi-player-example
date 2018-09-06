@@ -9,7 +9,7 @@
 		<th></th>
 	</thead>
 	<tbody>
-		<tr ng-repeat="t in episodes" ng-class="{ playing: (t.track.uri == currenttrack) }" ng-context-menu="menuOptionsPlaylistTrack(t, $index)">
+		<tr ng-repeat="t in episodes" ng-dblclick="play(t.uri)"  ng-class="{ playing: (t.episode.uri == currenttrack) }" ng-context-menu="menuOptionsPlaylistTrack(t, $index)">
 			<td width="96" valign="top" style="padding-right: 20pt">
 				<div ng-if="t.episode.images && t.episodes.images.length > 0">
 					<img src="{{t.episode.images[0].url}}" width="96" />
@@ -18,8 +18,8 @@
 					<img src="{{data.images[0].url}}" width="96" />
 				</div>
 			</td>
-			<td>
-				<h3 ng-click="play(t.track.uri)">
+			<td ng-dblclick="play(t.uri)" >
+				<h3 ng-click="play(t.uri)">
 				{{t.name}}
 				</h3>
 				<p style="opacity: 0.5">{{t.description}}</p>

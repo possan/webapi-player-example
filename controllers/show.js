@@ -103,7 +103,7 @@
 
 		$scope.play = function(episodeuri) {
 			var episodeuris = $scope.episodes.map(function(episode) {
-				return episode.episode.uri;
+				return episode.uri;
 			});
 			PlayQueue.clear();
 			PlayQueue.enqueueList(episodeuris);
@@ -112,7 +112,7 @@
 
 		$scope.playall = function() {
 			var episodeuris = $scope.episodes.map(function(episode) {
-				return episode.episode.uri;
+				return episode.uri;
 			});
 			PlayQueue.clear();
 			PlayQueue.enqueueList(episodeuris);
