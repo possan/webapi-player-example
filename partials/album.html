@@ -16,7 +16,7 @@
 				<th>POPULARITY</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="t in tracks" ng-class="{ playing: (t.uri == currenttrack) }">
+				<tr ng-dblclick="play(t.uri)" ng-repeat="t in tracks" ng-class="{ playing: (t.uri == currenttrack) }">
 					<td>{{t.track_number}}</td>
 					<td>
 						<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>

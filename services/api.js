@@ -30,7 +30,7 @@
 		  	// Ready
 		  	player.addListener('ready', ({ device_id }) => {
 		  		window.currentSpotifyDeviceId = device_id
-
+				
 		  		console.log('Ready with Device ID', window.currentSpotifyDeviceId);
 		  	});
 
@@ -377,13 +377,16 @@
 
 			playTracks: function (uris) {
 				var ret = $q.defer();
-				$http.put(baseUrl + '/me/player/player/play?device_id=' + window.currentSpotifyDeviceId + '/tracks', {
+				$http({
+					method: 'PUT',
+					url: baseUrl + '/me/player/play?device_id=' + window.currentSpotifyDeviceId,
 					headers: {
+						'Content-Type': 'application/json',
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					},
-					body: JSON.stringify({
-						uris: [uris]
-					})
+					data: {
+						uris: uris
+					}
 				}).success(function(r) {
 					console.log('got album tracks', r);
 					ret.resolve(r);
@@ -466,7 +469,7 @@
 
 			getSearchResults: function(query) {
 				var ret = $q.defer();
-				$http.get(baseUrl + '/search?type=track,playlist&q=' + encodeURIComponent(query) + '&market=from_token', {
+				$http.get(baseUrl + '/search?type=track,playlist,album,artist,show,episode&q=' + encodeURIComponent(query) + '&market=from_token', {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}

@@ -10,6 +10,10 @@
 			console.log('got search results', results);
 			$scope.tracks = results.tracks.items;
 			$scope.playlists = results.playlists.items;
+			$scope.artists = results.artists.items;
+			$scope.albums = results.albums.items;
+			$scope.shows = results.shows.items;
+			$scope.episodes = results.episodes.items;
 
 			// find out if they are in the user's collection
 			var ids = $scope.tracks.map(function(track) {

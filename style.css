@@ -330,11 +330,15 @@ generic-header {
 }
 
 .mainview > .ng-scope {
+	
+
+}
+
+generic-header > div {
 	background: -moz-linear-gradient(top, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 20%); /* FF3.6-15 */
 background: var(--background-color), -webkit-linear-gradient(top, rgba(255,255,255,0.15) 0%,rgba(255,255,255,0) 10%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%,rgba(255,255,255,0) 8%), var(--background-color); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%,rgba(255,255,255,0) 100%), var(--background-color); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#40ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
-
 }
 .mainview a {
 	padding: 0pt;

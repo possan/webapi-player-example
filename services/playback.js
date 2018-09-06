@@ -66,13 +66,13 @@
 
 				API.playTracks([trackuri]).then(function(trackdata) {
 					console.log('playback got track', trackdata);
-					createAndPlayAudio(trackdata.preview_url, function() {
-						_trackdata = trackdata;
-						_progress = 0;
-						$rootScope.$emit('playerchanged');
-						$rootScope.$emit('trackprogress');
-						enableTick();
-					});
+
+					_trackdata = trackdata;
+					_progress = 0;
+					$rootScope.$emit('playerchanged');
+					$rootScope.$emit('trackprogress');
+					enableTick();
+					
 				});
 			},
 			stopPlaying: function() {
