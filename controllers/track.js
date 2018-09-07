@@ -10,7 +10,10 @@
 		$scope.num_discs = 0;
 		$scope.tracks = [];
 		$scope.similarTracks = []
-
+		$scope.showAll = false
+		$scope.toggleShowAll = function () {
+			$scope.showAll = !$scope.showAll
+		}
 		API.getTrack($scope.identifier).then(function(track) {
 			console.log('got track', track);
 			$scope.type = track.album_type
@@ -27,7 +30,7 @@
 			$scope.data.images = track.album.images
 			$scope.data.authors = track.album.authors
 			$scope.data.authorIds = track.artists.map(o => o.id).join(',')
-		
+
 			API.getAudioAnalysisForTrack($scope.identifier).then(function (features) {
 				$scope.data.features = features
 			})
@@ -53,6 +56,10 @@
 			        i++
 			    }
 			});
+			API.getAlbumTracks($scope.data.album.id).then(function (tracks) {
+				$scope.data.album.tracks = tracks.items
+		
+			})
 		});
 
 		$scope.currenttrack = PlayQueue.getCurrent();

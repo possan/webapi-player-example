@@ -21,11 +21,11 @@
 						<td>
 							<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
 						</td>
-						<td>
+						<td width="100%">
 							<a ng-click="play(t.uri)">{{t.name}}</a>
 						</td>
-						<td style="opacity: 0.5">{{t.duration_ms | displaytime}}</td>
-						<td>
+						<td style="opacity: 0.5 " width="10pt">{{t.duration_ms | displaytime}}</td>
+						<td width="10pt">
 							<div class="pop-meter">
 								<div class="pop-meter-background"></div>
 								<div class="pop-meter-overlay" style="width: {{ t.popularity }}%;"></div>

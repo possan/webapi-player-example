@@ -192,14 +192,16 @@
 				return ret.promise;
 			},
 
-			getPlaylist: function(username, playlist) {
+			getPlaylist: function(username, identifier) {
 				var ret = $q.defer();
-				$http.get(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists/' + encodeURIComponent(playlist), {
+				$http.get(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists/' + encodeURIComponent(identifier), {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
 				}).success(function(r) {
 					console.log('got playlists', r);
+					localStorage.setItem('spotify:playlist:' + identifier + ':snapshot:' + r.snapshot_id, JSON.stringify(r))
+					localStorage.setItem('spotify:playlist:' + identifier, JSON.stringify(r))
 					ret.resolve(r);
 				});
 				return ret.promise;
@@ -218,14 +220,33 @@
 				return ret.promise;
 			},
 
-			getPlaylistTracks: function(username, playlist) {
+			getPlaylistTracks: function(username, identifier, snapshot_id) {
 				var ret = $q.defer();
-				$http.get(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists/' + encodeURIComponent(playlist) + '/tracks', {
+				$http.get(baseUrl + '/users/' + encodeURIComponent(username) + '/playlists/' + encodeURIComponent(identifier) + '/tracks', {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
 				}).success(function(r) {
 					console.log('got playlist tracks', r);
+
+/*
+					var diff = arrayDiff({compress: true})
+
+					var old_revision = JSON.parse(localStorage.getItem('spotify:playlist:' + identifier + ':track'))
+
+					var oldTracks = []
+
+					if (old_revision) {
+						oldTracks = JSON.parse(old_revision).tracks.items
+					}
+
+					let difference = diff(oldTracks, r.tracks.items)
+
+					localStorage.setItem('spotify:playlist:' + identifier ':snapshot:' + snapshot_id + ':track', JSON.stringify(r))
+
+					localStorage.setItem('spotify:playlist:' + identifier ':track', JSON.stringify(r))*/
+
+
 					ret.resolve(r);
 				});
 				return ret.promise;
@@ -245,7 +266,7 @@
 				return ret.promise;
 			},
 
-			getTracksInPlaylistById: function(identifier) {
+			getTracksInPlaylistById: function(identifier, snapshot_id) {
 				var ret = $q.defer();
 				$http.get(baseUrl + '/playlists/' + encodeURIComponent(identifier) + '/tracks', {
 					headers: {

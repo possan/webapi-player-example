@@ -1,25 +1,23 @@
-<generic-header ng-model="data">
+<generic-header ng-model="data" playable="true">
 
 </generic-header>
 <div class="container">
 	<table class="tracks">
 		<thead>
-			<th>#</th>
 			<th></th>
 			<th>TRACK</th>
 			<th>TIME</th>
 			<th>POPULARITY</th>
 		</thead>
 		<tbody>
-			<tr ng-dblclick="play(t.uri)" ng-repeat="t in tracks" ng-class="{ playing: (t.uri == currenttrack) }">
-				<td>{{t.track_number}}</td>
+			<tr ng-dblclick="play(t.uri)" ng-if="(data.id === t.id) || showAll" ng-repeat="t in data.album.tracks" ng-class="{ playing: (t.uri == currenttrack), sidekick: data.id !== t.id }">
 				<td>
 					<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
 				</td>
-				<td>
+				<td width="100%">
 					<a ng-click="play(t.uri)">{{t.name}}</a>
 				</td>
-				<td style="opacity: 0.5">{{t.duration_ms | displaytime}}</td>
+				<td>{{t.duration_ms | displaytime}}</td>
 				<td>
 					<div class="pop-meter">
 						<div class="pop-meter-background"></div>
@@ -29,17 +27,20 @@
 			</tr>
 		</tbody>
 	</table>
-	<a style="float: right" class="button" href="/albums/{{data.album.id}}">Show album</a>
+	<a style="float: right" class="button" ng-click="toggleShowAll()" ng-if="showAll">Show all tracks</a>
+	<a style="float: right" class="button" ng-click="toggleShowAll()" ng-if="showAll">Show only current track</a>
 </div>
-<div class="container">
+<div class="container" style="display: none">
 	<details>
 		<summary>Show track analysis</summary>
 	</details>
 </div>
-
+<br>
 <div class="container">
-	<h3>Recommended tracks</h3>
-	<recommended-tracks tracks="{{data.id}}" artists="{{data.authorIds}}" genres="pop"></recommended-tracks>
+	<details>
+		<summary>Recommended tracks</summary>
+		<recommended-tracks tracks="{{data.id}}" artists="{{data.authorIds}}" genres="pop"></recommended-tracks>
+	</details>
 </div>
 
 <div class="container">

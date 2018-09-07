@@ -7,33 +7,34 @@
 		<th></th>
 		<th>TRACK</th>
 		<th>ARTIST</th>
-		<th>TIME</th>
 		<th>ALBUM</th>
 		<th>ADDED</th>
+		<th>TIME</th>
 		<th ng-if="data.collaborative">USER</th>
 	</thead>
 	<tbody>
-		<tr ng-repeat="t in tracks" ng-class="{ playing: (t.track.uri == currenttrack) }" ng-context-menu="menuOptionsPlaylistTrack(t, $index)">
-			<td ng-dblclick="play(t.track.uri)" >
+		<tr ng-repeat="t in tracks" ng-dblclick="play(t.track.uri)" ng-class="{ playing: (t.track.uri == currenttrack) }" ng-context-menu="menuOptionsPlaylistTrack(t, $index)">
+			<td>
 				<button ng-click="toggleFromYourMusic($index)"> {{ t.track.inYourMusic ? '-' : '+' }} </button>
 			</td>
-			<td ng-dblclick="play(t.track.uri)" >
-				<a >{{t.track.name}}</a>
+			<td>
+				<a href="/track/{{t.track.id}}">{{t.track.name}}</a>
 			</td>
-			<td ng-dblclick="play(t.track.uri)" >
+			<td>
 				<a href="/artists/{{t.track.artists[0].id}}">{{t.track.artists[0].name}}</a>
 			</td>
-			<td ng-dblclick="play(t.track.uri)" class="nowrap" style="opacity: 0.5">
-				{{ t.track.duration_ms | displaytime }}
-			</td>
-			<td ng-dblclick="play(t.track.uri)" >
+			
+			<td>
 				<a href="/albums/{{t.track.album.id}}">{{t.track.album.name}}</a>
 			</td>
-			<td ng-dblclick="play(t.track.uri)" class="nowrap" style="opacity: 0.5">
+			<td  class="nowrap">
 				{{t.added_at | timeago}}
 			</td>
-			<td ng-dblclick="play(t.track.uri)" class="nowrap" ng-if="data.collaborative">
+			<td  class="nowrap" ng-if="data.collaborative">
 				<a href="/users/{{t.added_by.id}}">{{t.added_by.id}}</a>
+			</td>
+			<td class="nowrap" style="text-align: right">
+				{{ t.track.duration_ms | displaytime }}
 			</td>
 		</tr>
 	</tbody>
