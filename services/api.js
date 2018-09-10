@@ -10,6 +10,7 @@
 	module.factory('API', function(Auth, $q, $http) {
 
 		var baseUrl = 'https://api.spotify.com/v1';
+		var baseUrl2 = 'https://api.spotify.com/v2';
 		
 		window.onSpotifyWebPlaybackSDKReady = () => {
 	   		const token = Auth.getAccessToken();
@@ -266,9 +267,52 @@
 				return ret.promise;
 			},
 
+			getEpisodeById: function(identifier) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/episodes/' + encodeURIComponent(identifier), {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got episode', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			addTracksToPlaylist(playlist_id, uris) {
+				var ret = $q.defer();
+				$http.post(
+					baseUrl + '/playlists/' + encodeURIComponent(playlist_id) + '/tracks',
+					{ uris : [ uris ] },
+					{
+						headers: {
+							'Authorization': 'Bearer ' + Auth.getAccessToken()
+						},
+					}
+				).success(function(r) {
+					console.log('added playlist tracks', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
 			getTracksInPlaylistById: function(identifier, snapshot_id) {
 				var ret = $q.defer();
 				$http.get(baseUrl + '/playlists/' + encodeURIComponent(identifier) + '/tracks', {
+					headers: {
+						'Authorization': 'Bearer ' + Auth.getAccessToken()
+					}
+				}).success(function(r) {
+					console.log('got playlist tracks', r);
+					ret.resolve(r);
+				});
+				return ret.promise;
+			},
+
+			getEpisodesInPlaylist: function(identifier, snapshot_id) {
+				var ret = $q.defer();
+				$http.get(baseUrl + '/playlists/' + encodeURIComponent(identifier) + '/episodes', {
 					headers: {
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}

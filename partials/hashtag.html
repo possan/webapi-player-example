@@ -1,0 +1,142 @@
+<generic-header ng-model="data"></generic-header>
+<div class="container" ng-show="type">
+	<div class="row" >	
+		<div class="row" ng-show="objects.length > 0" class="col-md-6">
+			<ul class="playlists">
+				<li class="searchresult" ng-repeat="p in objects">
+					<a href="/{{type}}s/{{p.id}}">
+						<responsive-cover ng-model="p.images" class="responsive-cover-playlist"></responsive-cover>
+					</a>
+					<p>
+						<a href="/{{type}}s/{{p.id}}">{{p.name}}</a>
+					</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="container" ng-show="!type">
+	<div class="row">
+		<div ng-show="playlists.length > 0" class="col-md-12">
+			<h4><a href="/search?q={{query}}&type=playlist">PLAYLISTS</a></h4>
+			<ul class="playlists">
+				<li class="searchresult" ng-repeat="p in playlists">
+					<a href="/users/{{p.owner.id}}/playlists/{{p.id}}">
+						<responsive-cover ng-model="p.images" class="responsive-cover-playlist"></responsive-cover>
+					</a>
+					<p>
+						<a href="/users/{{p.owner.id}}/playlists/{{p.id}}">{{p.name}}</a>
+					</p>
+				</li>
+			</ul>
+		</div>
+		<div ng-show="artists.length > 0" class="col-md-12">
+			<h4><a href="/search?q={{query}}&type=artist">ARTISTS</a></h4>
+			 <ul class="playlists" ng-show="artists.length > 0">
+			 	<li class="searchresult" ng-repeat="p in artists.slice(0, 5)">
+			    <a href="/artistts/{{p.id}}">
+			      <responsive-cover ng-model="p.images" class="responsive-cover-playlist"></responsive-cover>
+			    </a>
+			    <p>
+			      <a href="/users/{{p.owner.id}}/playlists/{{p.id}}">{{p.name}}</a>
+			    </p>
+			  </li>
+			  <hr/>
+			</ul>
+		</div>
+		<div class="col-md-12" ng-show="albums.length > 0">
+			<ul class="playlists" ng-show="albums.length > 0">
+				<h4><a href="/search?q={{query}}&type=album">ALBUMS</a></h4>
+			  <li class="searchresult" ng-repeat="p in albums.slice(0, 5)">
+			    <a href="/albums/{{p.id}}">
+			      <responsive-cover ng-model="p.images" class="responsive-cover-playlist"></responsive-cover>
+			    </a>
+			    <p>
+			      <a href="/albums/{{p.id}}">{{p.name}}</a>
+			    </p>
+			  </li>
+			  <hr/>
+			</ul>
+		</div>
+		<div class="col-md-12" ng-show="shows.length > 0">
+			<ul class="playlists" ng-show="shows.length > 0">
+				<h4><a href="/search?q={{query}}&type=show">SHOWS</a></h4>
+			  <li class="searchresult" ng-repeat="p in shows.slice(0, 5)">
+			    <a href="/shows/{{p.id}}">
+			      <responsive-cover ng-model="p.images" class="responsive-cover-playlist"></responsive-cover>
+			    </a>
+			    <p>
+			      <a href="/shows/{{p.id}}">{{p.name}}</a>
+			    </p>
+			  </li>
+			  <hr/>
+			</ul>
+		</div>
+		<div ng-if="shows > 0">
+		<h4><a href="/search?q={{query}}&type=episode">EPISODES</a></h4>
+		<table class="tracks">
+			<thead>
+				<th></th>
+				<th>EPISODE</th>
+				<th>SHOW</th>
+				<th>DURATION</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="t in episodes" ng-class="{ playing: (t.uri == currenttrack) }">
+					<td>
+						<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
+					</td>
+					<td>
+						<a ng-click="play(t.uri)">{{t.name}}</a>
+					</td>
+					<td>
+						<a href="/show/{{t.show.id}}">{{t.show.name}}</a>
+					</td>
+					<td class="nowrap">
+						{{ t.duration_ms | displaytime }}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+
+		<div ng-show="tracks.length > 0">
+		<h4>TRACKS</h4>
+		<table class="tracks">
+			<thead>
+				<th></th>
+				<th>SONG</th>
+				<th>ARTIST</th>
+				<th>ALBUM</th>
+				<th>TIME</th>
+				<th>POPULARITY</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="t in tracks" ng-class="{ playing: (t.uri == currenttrack) }">
+					<td>
+						<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
+					</td>
+					<td>
+						<a ng-click="play(t.uri)">{{t.name}}</a>
+					</td>
+					<td>
+						<a href="/artists/{{t.artists[0].id}}">{{t.artists[0].name}}</a>
+					</td>
+					<td>
+						<a href="/albums/{{t.album.id}}">{{t.album.name}}</a>
+					</td>
+					<td class="nowrap">
+						{{ t.duration_ms | displaytime }}
+					</td>
+					<td>
+						<div class="pop-meter">
+							<div class="pop-meter-background"></div>
+							<div class="pop-meter-overlay" style="width: {{ t.popularity }}%;"></div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</div>

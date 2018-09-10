@@ -50,7 +50,10 @@
 			});
 		});
 		promise = $scope.username ? API.getPlaylistTracks($scope.username, $scope.playlist) : API.getTracksInPlaylistById($scope.playlist)
-		
+	
+		API.getEpisodesInPlaylist($scope.playlist).then(results => {
+			debugger
+		})
 		promise.then(function(list) {
 			console.log('got playlist tracks', list);
 			var tot = 0;

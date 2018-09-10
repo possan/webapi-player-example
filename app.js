@@ -53,11 +53,19 @@
 				templateUrl: 'partials/searchresults.html',
 				controller: 'SearchResultsController'
 			}).
-			when('/app/:identifier', {
+			when('/apps?/:bundle', {
 				templateUrl: 'partials/app.html',
 				controller: 'HTMLAppController'
 			}).
 
+			when('/apps?/:bundle/:resource', {
+				templateUrl: 'partials/app.html',
+				controller: 'HTMLAppController'
+			}).
+			when('/apps?/:bundle/:resource/:identifier', {
+				templateUrl: 'partials/app.html',
+				controller: 'HTMLAppController'
+			}).
 			when('/category/:categoryid', {
 				templateUrl: 'partials/browsecategory.html',
 				controller: 'BrowseCategoryController'
@@ -86,6 +94,14 @@
 				templateUrl: 'partials/country.html',
 				controller: 'CountryController'
 			}).
+			when('/episodes?/:identifier', {
+				templateUrl: 'partials/episode.html',
+				controller: 'EpisodeController'
+			}).
+			when('/hashtags?/:hashtag', {
+				templateUrl: 'partials/hashtag.html',
+				controller: 'HashtagController'
+			}).
 			otherwise({
 				redirectTo: '/'
 			});
@@ -109,6 +125,8 @@
 				$location.replace();
 			});
 		}
+
+
 
 		window.addEventListener("message", function(event) {
 			console.log('got postmessage', event);
@@ -141,6 +159,8 @@
 				return '';
 			}
 		};
+
+		
 
 		$scope.focusInput = false;
 		$scope.menuOptions = function(playlist) {

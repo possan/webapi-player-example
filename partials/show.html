@@ -20,11 +20,13 @@
 			</td>
 			<td ng-dblclick="play(t.uri)" >
 				<h3 ng-click="play(t.uri)">
-				{{t.name}}
+				<a href="/episode/{{t.id}}">{{t.name}}</a>
 				</h3>
 				<p style="opacity: 0.5">{{t.description}}</p>
 			</td>
-			<td width="30%"></td>
+			<td width="30%">
+				<progress min="0" max="100" value="50" style="width: 100%"></progress>
+			</td>
 			<td width="200pt" valign="top">
 				<p style="opacity: 0.3">Published <a>{{t.release_date | timeago}}</a></p>
 			</td>

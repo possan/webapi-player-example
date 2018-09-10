@@ -70,15 +70,15 @@
 
 			var i, j, temparray, chunk = 20;
 			for (i = 0, j = ids.length; i < j; i += chunk) {
-					temparray = ids.slice(i, i + chunk);
-					var firstIndex = i;
-					(function(firstIndex){
-						API.containsUserTracks(temparray).then(function(results) {
-							results.forEach(function(result, index) {
-								$scope.episodes[firstIndex + index].episode.inYourMusic = result;
-							});
+				temparray = ids.slice(i, i + chunk);
+				var firstIndex = i;
+				(function(firstIndex){
+					API.containsUserTracks(temparray).then(function(results) {
+						results.forEach(function(result, index) {
+							$scope.episodes[firstIndex + index].episode.inYourMusic = result;
 						});
-					})(firstIndex);
+					});
+				})(firstIndex);
 			}
 		});
 

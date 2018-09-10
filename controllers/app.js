@@ -3,9 +3,10 @@
 	var module = angular.module('PlayerApp');
 
 	module.controller('HTMLAppController', function($scope, $rootScope, API, PlayQueue, $routeParams) {
-		$scope.src = 'http://' + $routeParams.identifier + '.buddhalow.net'
-		$scope.width = '100%'
-		$scope.height = '100%'
+		$scope.bundle = $routeParams.bundle
+		$scope.resource = $routeParams.resource
+		$scope.identifier = $routeParams.identifier
+		console.log("Route parameters", $routeParams)
 	
 	});
 

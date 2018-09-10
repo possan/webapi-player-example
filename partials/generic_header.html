@@ -10,7 +10,9 @@
 			<p ng-bind-html="data.description"></p>
 			<p ng-if="data.authors"  ng-repeat="author in data.authors">by <a href="/{{author.type}}s/{{author.id}}">{{author.name || author.id}}</a>
 			</p>
-			<p ng-if="data.album">from <a href="/albums/{{data.album.id}}">{{data.album.name}}</a> by  <span ng-if="data.album.authors"  ng-repeat="author in data.album.authors"><a href="/{{author.type}}s/{{author.id}}">{{author.name || author.id}}</span>
+			<p ng-if="data.album">from <a href="/albums/{{data.album.id}}">{{data.album.name}}</a> by  <span ng-if="data.album.authors"  ng-repeat="author in data.album.authors"><a href="/{{author.type}}s/{{author.id}}">{{author.name || author.id}}</a></span>
+			</p>
+			<p ng-if="data.show">from <a href="/show/{{data.show.id}}">{{data.show.name}}</a> by  <span ng-if="data.show.authors"  ng-repeat="author in data.show.authors"><a href="/publisher/{{author.id}}">{{author.name || author.id}}</span>
 			</p>
 			<div class="buttons">
 				<a ng-if="isPlayable" ng-click="playall()" class="button green">PLAY ALL</a>
