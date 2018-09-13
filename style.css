@@ -20,6 +20,11 @@ body {
 	overflow: hidden;
 }
 
+.tracks th {
+	text-transform: uppercase;
+	opacity: 0.6;
+	color: white;
+}
 div.scrollable {
 	overflow: auto;
 	width: 100%;
@@ -39,7 +44,18 @@ div.fullview {
 th {
 	opacity: 0.5;
 }
+.form-control {
+	color: white;
+	padding: 8pt;	
+	border: none;
+	border-radius: 5pt;
+	background-color: transparent;
+}
+.form-control:focus {
 
+	background-color: rgba(255, 255, 255, .1);
+	outline: none;
+}
 h1 {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;

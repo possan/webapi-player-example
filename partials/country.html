@@ -8,14 +8,14 @@
 <section tab-content section="overview" class="container">
 	<div class="row">
 		<div class="col-md-8">
-			<h3>Popular tracks</h3>
+			<h3>{{'popular-tracks' | locale}}</h3>
 			<table class="tracks">
 				<thead>
 					<th></th>
 					<th>#</th>
 					<th></th>
-					<th>SONG</th>
-					<th>TIME</th>
+					<th>{{'track' | locale}}</th>
+					<th>{{'time' | locale}}</th>
 				</thead>
 				<tbody>
 
@@ -31,31 +31,12 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="col-md-4">
-			<h3>Related artists</h3>
-				Related artists could not be loaded at this moment
-		</div>
 	</div>
 	<hr/>
 	<br/>
 
-	<div ng-show="shows.length > 0">
-		<h3>Shows featuring '{{data.name}}'</h3>
-		<ul class="playlists">
-			<li ng-repeat="t in shows">
-				<a href="/shows/{{t.id}}">
-					<responsive-cover ng-model="t.images"></responsive-cover>
-				</a>
-				<p>
-					<b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
-				</p>
-			</li>
-		</ul>
-		<hr/>
-		<br/>
-	</div>
 	<div ng-show="artists.length > 0">
-		<h3>Artists</h3>
+		<h3>{{'artists' | locale}}</h3>
 		<ul class="albums">
 			<li ng-repeat="t in artists">
 				<a href="/artists/{{t.id}}">
@@ -71,7 +52,7 @@
 	</div>
 
 	<div ng-show="albums.length > 0">
-		<h3>Albums</h3>
+		<h3>{{'albums' | locale}}</h3>
 		<ul class="albums">
 			<li ng-repeat="t in albums">
 				<a href="/albums/{{t.id}}">
@@ -87,7 +68,7 @@
 	</div>
 
 	<div ng-show="singles.length > 0">
-		<h3>Singles</h3>
+		<h3>{{'singles' | locale}}</h3>
 		<ul class="albums">
 			<li ng-repeat="t in singles">
 				<a href="/albums/{{t.id}}">
@@ -103,7 +84,7 @@
 	</div>
 
 	<div ng-show="appearson.length > 0">
-		<h3>Appears on</h3>
+		<h3>{{'appears-on' | locale}}</h3>
 		<ul class="albums">
 			<li ng-repeat="t in appearson">
 				<a href="/albums/{{t.id}}">

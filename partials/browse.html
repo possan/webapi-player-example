@@ -1,10 +1,10 @@
 <generic-header ng-model="data"></generic-header>
 <div class="container">
   <tab-bar>
-    <tabbar-tab section="overview" label="Overview"></tabbar-tab>
-    <tabbar-tab section="categories" label="Categories"></tabbar-tab>
-    <tabbar-tab section="newreleases" label="NewReleases"></tabbar-tab>
-    <tabbar-tab section="shows" label="Shows"></tabbar-tab>
+    <tabbar-tab section="overview" label="{{ 'overview' | locale}}"></tabbar-tab>
+    <tabbar-tab section="categories" label="{{ 'genres-and-themes' | locale }}"></tabbar-tab>
+    <tabbar-tab section="newreleases" label="{{ 'new-releases' | locale }}"></tabbar-tab>
+    <tabbar-tab section="shows" label="{{'shows' | locale}}"></tabbar-tab>
   </tab-bar>
 </div>
 <div class="container" tab-content section="overview">
@@ -23,7 +23,7 @@
     <hr/>
     <br/>
   </div>
-  <h3>Genres &amp; Moods</h3>
+  <h3>{{'genres-and-themes' | locale}}</h3>
   <div ng-show="genresMoods.length > 0">
     <ul class="genres">
       <li ng-repeat="t in genresMoods">

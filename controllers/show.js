@@ -23,7 +23,8 @@
 			console.log('got show', list);
 			$scope.name = list.name;
 			$scope.data = list;
-			$scope.data.description = $sce.trustAsHtml(list.description);
+			$scope.data.showDescription = $sce.trustAsHtml(list.description);
+			$scope.data.description = ''
 			$scope.data.authors = [{
 				id: $scope.data.publisher,
 				name: $scope.data.publisher,

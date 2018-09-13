@@ -12,17 +12,24 @@
 	<thead>
 		<th></th>
 		<th></th>
-		<th>{{ 'track' | locale }}</th>
-		<th>{{ 'artist' | locale }}</th>
-		<th>{{ 'album' | locale}}</th>
-		<th>{{ 'added' | locale }}</th>
-		<th>{{ 'time' | locale }}</th>
-		<th ng-if="data.collaborative">{{ 'user' | locale }}</th>
+		<th></th>
+		<th>TRACK</th>
+		<th>ARTIST</th>
+		<th>ALBUM</th>
+		<th>ADDED</th>
+		<th>TIME</th>
+		<th ng-if="data.collaborative">USER</th>
 	</thead>
 	<tbody>
-		<tr ng-repeat="t in tracks | filter: q" ng-dblclick="play(t.track.uri)" ng-class="{ playing: (t.track.uri == currenttrack) }" ng-context-menu="menuOptionsPlaylistTrack(t, $index)">
+		<tr ng-if="tracks.length < 1">
+			<td colspan="9">No results for '{{q}}'</td>
+		</tr>
+		<tr ng-repeat="t in tracks | filter:q" ng-dblclick="play(t.track.uri)" ng-class="{ playing: (t.track.uri == currenttrack) }" ng-context-menu="menuOptionsPlaylistTrack(t, $index)">
 			<td>
-				<img width="32" src="{{t.track.album.images[0].url}}">
+				<img width="64pt" src="{{t.track.album.images[0].url}}">
+			</td>
+			<td>
+				{{ $index + 1 }}
 			</td>
 			<td>
 				<button ng-click="toggleFromYourMusic($index)"> {{ t.track.inYourMusic ? '-' : '+' }} </button>

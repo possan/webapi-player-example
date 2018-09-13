@@ -2,8 +2,8 @@
 
 	var module = angular.module('PlayerApp');
 
-	module.controller('PlaylistController', function($scope, $rootScope, API, PlayQueue, $routeParams, Auth, $sce) {
-		$scope.playlist = $routeParams.playlist;
+	module.controller('ChartController', function($scope, $rootScope, API, PlayQueue, $routeParams, Auth, $sce) {
+		$scope.playlist = $routeParams.identifier;
 		$scope.username = $routeParams.username;
 		$scope.name = '';
 		$scope.tracks = [];
@@ -25,6 +25,7 @@
 			$scope.data = list;
 			$scope.username = list.owner.id
 			$scope.data.authors = [list.owner]
+			$scope.data.type = 'chart'
 			$scope.data.description = $sce.trustAsHtml(list.description);
 			let img = document.createElement('img')
 			img.crossOrigin = "Anonymous";

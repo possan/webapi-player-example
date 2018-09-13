@@ -201,8 +201,8 @@
 					}
 				}).success(function(r) {
 					console.log('got playlists', r);
-					localStorage.setItem('spotify:playlist:' + identifier + ':snapshot:' + r.snapshot_id, JSON.stringify(r))
-					localStorage.setItem('spotify:playlist:' + identifier, JSON.stringify(r))
+					//localStorage.setItem('spotify:playlist:' + identifier + ':snapshot:' + r.snapshot_id, JSON.stringify(r))
+					//localStorage.setItem('spotify:playlist:' + identifier, JSON.stringify(r))
 					ret.resolve(r);
 				});
 				return ret.promise;

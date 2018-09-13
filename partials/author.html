@@ -5,7 +5,7 @@
 	<thead>
 		<th>#</th>
 		<th></th>
-		<th>CHAPTER</th>
+		<th>{{ 'chapter' | locale}}</th>
 	</thead>
 	<tbody>
 
@@ -27,7 +27,7 @@
 <br/>
 
 <div ng-show="albums.length > 0">
-	<h3>Audiobooks</h3>
+	<h3>{{ 'audiobooks' | locale }}</h3>
 	<ul class="albums">
 		<li ng-repeat="t in albums">
 			<a href="/audiobooks/{{t.id}}">
@@ -43,7 +43,7 @@
 </div>
 
 <div ng-show="singles.length > 0">
-	<h3>Audiobooks</h3>
+	<h3>{{ 'singles' | locale }}</h3>
 	<ul class="albums">
 		<li ng-repeat="t in singles">
 			<a href="/audiobooks/{{t.id}}">
@@ -59,7 +59,7 @@
 </div>
 
 <div ng-show="appearson.length > 0">
-	<h3>Featured on</h3>
+	<h3>{{ 'featured-on' | locale }}</h3>
 	<ul class="albums">
 		<li ng-repeat="t in appearson">
 			<a href="/audiobooks/{{t.id}}">

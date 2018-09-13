@@ -5,7 +5,7 @@
 			restrict: 'E',
 			scope: {
 				section: '=section',
-				label: '=label'
+				label: '@'
 			},
 			compile: function (element, attributes) {
 			  	

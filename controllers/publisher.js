@@ -13,7 +13,7 @@
 
 		API.findShows($scope.query).then(function(results) {
 			console.log('got search results', results);
-			$scope.shows = results.shows.items;
+			$scope.shows = results.shows.items.filter(s => s.publisher.indexOf($scope.query) !== -1);
 			if ($scope.shows.length > 0) {
 				//$scope.data.images = $scope.shows[0].images
 			}

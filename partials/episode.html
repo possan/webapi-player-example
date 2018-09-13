@@ -5,10 +5,10 @@
 	<table class="tracks">
 		<thead>
 			<th></th>
-			<th>EPISDOE</th>
-			<th>Progress</th>
-			<th>TIME</th>
-			<th>Published</th>
+			<th>{{'episode' | locale}}</th>
+			<th></th>
+			<th>{{'time' | locale}}</th>
+			<th>{{'published' | locale}}</th>
 		</thead>
 		<tbody>
 			<tr ng-dblclick="play(t.uri)" ng-if="(data.id === t.id) || showAll" ng-repeat="t in tracks" ng-class="{ playing: (t.uri == currenttrack), sidekick: data.id !== t.id }">
@@ -32,7 +32,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<h3>Description</h3>
+			<h3>{{'description' | locale}}</h3>
 			<p>{{data.description}}</p>
 		</div>
 	</div>
@@ -41,7 +41,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<h3>More by '{{data.show.name}}'</h3>
+			<h3>{{'more-by' | locale:data.show.name}}</h3>
 			<ul class="playlists">
 		      <li ng-repeat="t in data.show.episodes" style="margin-right: 51pt; margin-bottom: 22pt" >
 		        <a href="/episodes/{{t.id}}" >

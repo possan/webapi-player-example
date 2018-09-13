@@ -18,7 +18,7 @@
 <div class="container" ng-show="!type">
 	<div class="row">
 		<div ng-show="playlists.length > 0" class="col-md-12">
-			<h4><a href="/search?q={{query}}&type=playlist">PLAYLISTS</a></h4>
+			<h4><a href="/search?q={{query}}&type=playlist">{{'playlists' | locale}}</a></h4>
 			<ul class="playlists">
 				<li class="searchresult" ng-repeat="p in playlists">
 					<a href="/users/{{p.owner.id}}/playlists/{{p.id}}">

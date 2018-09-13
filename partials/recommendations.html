@@ -1,11 +1,11 @@
 <table class="tracks" ng-if="recommendedTracks && recommendedTracks.length > 0">
 	<thead>
 		<th></th>
-		<th>TRACK</th>
-		<th>ARTIST</th>
-		<th>TIME</th>
-		<th>ALBUM</th>
-		<th>ADDED</th>
+		<th>{{ 'track' | locale }}</th>
+		<th>{{ 'artist' | locale }}</th>
+		<th>{{ 'time' | locale }}</th>
+		<th>{{ 'album' | locale )}</th>
+		<th>{{ 'added' | locale }}</th>
 		<th ng-if="data.collaborative">USER</th>
 	</thead>
 	<tbody>

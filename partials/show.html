@@ -1,41 +1,45 @@
 <generic-header ng-model="data" followable="true" playable="true"></generic-header>
-<div class="container">
-<h3>Episodes</h3>
-<table class="tracks episodes">
-	<thead>
-		<th></th>
-		<th></th>
-		<th></th>
-		<th></th>
-	</thead>
-	<tbody>
-		<tr ng-repeat="t in episodes" ng-dblclick="play(t.uri)"  ng-class="{ playing: (t.episode.uri == currenttrack) }" ng-context-menu="menuOptionsPlaylistTrack(t, $index)">
-			<td width="96" valign="top" style="padding-right: 20pt">
-				<div ng-if="t.episode.images && t.episodes.images.length > 0">
-					<img src="{{t.episode.images[0].url}}" width="96" />
-				</div>
-				<div ng-if="!(t.episode.images && t.episodes.images.length > 0)">
-					<img src="{{data.images[0].url}}" width="96" />
-				</div>
-			</td>
-			<td ng-dblclick="play(t.uri)" >
-				<h3 ng-click="play(t.uri)">
-				<a href="/episode/{{t.id}}">{{t.name}}</a>
-				</h3>
-				<p style="opacity: 0.5">{{t.description}}</p>
-			</td>
-			<td width="30%">
-				<progress min="0" max="100" value="50" style="width: 100%"></progress>
-			</td>
-			<td width="200pt" valign="top">
-				<p style="opacity: 0.3">Published <a>{{t.release_date | timeago}}</a></p>
-			</td>
-		</tr>
-	</tbody>
-</table>
-<br/>
 
-<hr/>
+<div class="container">
+	<h3 style="text-transform: uppercase">{{'about' | locale}}</h3>
+	<p>{{data.showDescription}}</p>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<input class="form-control" placeholder="Filter" type="search" style="width: 100%" ng-model="q">
+		</div>
+	</div>
+</div>
+<div class="container">
+	<table class="tracks episodes">
+		<thead>
+			<th></th>
+			<th>{{'episode' | locale}}</th>
+			<th>{{'listened' | locale}}</th>
+			<th>{{'duration' | locale}}</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="t in episodes | filter:q" ng-dblclick="play(t.uri)"  ng-class="{ playing: (t.episode.uri == currenttrack) }" ng-context-menu="menuOptionsPlaylistTrack(t, $index)">
+				
+				<td>
+					<img height="64" src="{{t.images[0].url}}">
+					
+				</td>
+				<td ng-dblclick="play(t.uri)">
+					<a href="/episode/{{t.id}}">{{t.name}}</a>
+					
+					<p style="opacity: 0.9">{{t.description.substr(0, 350)}}...</p>
+				</td>
+				<td width="130pt"></td>
+				<td width="130pt"><span style="opacity: 0.8;">{{t.release_date | timeago}}</span></td>
+				<td width="130pt"><span style="opacity: 0.8;">{{t.duration_ms | displaytime}}</span></td>
+			</tr>
+		</tbody>
+	</table>
+	<br/>
+
+	<hr/>
 </div>
 
 <!--

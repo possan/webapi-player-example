@@ -1,6 +1,6 @@
 <generic-header ng-model="data"></generic-header>
 <div class="container">
-  <h2>SHOWS</h2>
+  <h2>{{ 'shows' | locale}}</h2>
   <ul class="playlists shows" ng-show="shows.length > 0">
     <li class="searchresult" ng-repeat="p in shows">
       <a href="/show/{{p.id}}">

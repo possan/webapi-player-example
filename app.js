@@ -2,6 +2,47 @@
 
 	var app = angular.module('PlayerApp', ['ngRoute']);
 
+	app.factory('I18n', ['$q', '$http', function($q, $http) {
+		let locale = navigator.language
+
+		var lang = {}
+		try {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', '/lang/' + locale + '.json', false)
+			xhr.send(null)
+			lang = JSON.parse(xhr.responseText)
+		} catch (e) {
+
+		}
+		if (!lang) {
+			return {}
+		}
+		var i18n = {
+			t: function (input) {
+				let translatedString = lang[input]
+				if (!translatedString) {
+					translatedString = input
+				}
+				let args = Array.from(arguments).slice(1)
+				for (let i = 0; i < args.length; i++) {
+					translatedString = translatedString.replace('%' + i, args[i])
+				}
+				return translatedString
+			}
+		}
+		return i18n
+	}])
+	app.filter('trustThisUrl', ["$sce", function ($sce) {
+        return function (val) {
+            return $sce.trustAsResourceUrl(val);
+        };
+    }]);
+    app.filter('locale', ['I18n', function(I18n) {
+	  return function(input) {
+	    return I18n.t(input, Array.from(arguments).slice(1))
+	  };
+	}])
+
 	app.config(function($routeProvider, $locationProvider) {
 		$locationProvider.html5Mode(true)
 		$routeProvider.
@@ -101,6 +142,10 @@
 			when('/hashtags?/:hashtag', {
 				templateUrl: 'partials/hashtag.html',
 				controller: 'HashtagController'
+			}).
+			when('/charts?/:identifier', {
+				templateUrl: 'partials/chart.html',
+				controller: 'ChartController'
 			}).
 			otherwise({
 				redirectTo: '/'
@@ -213,10 +258,5 @@
 
 		checkUser();
 	});
-	app.filter('trustThisUrl', ["$sce", function ($sce) {
-        return function (val) {
-            return $sce.trustAsResourceUrl(val);
-        };
-    }]);
 
 })();
