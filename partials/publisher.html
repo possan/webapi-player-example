@@ -1,0 +1,17 @@
+<generic-header ng-model="data"></generic-header>
+<div class="container">
+  <h2>{{ 'shows' | locale}}</h2>
+  <ul class="playlists shows" ng-show="shows.length > 0">
+    <li class="searchresult" ng-repeat="p in shows">
+      <a href="/show/{{p.id}}">
+        <responsive-cover ng-model="p.images" class="responsive-cover-playlist"></responsiveplaylist-cover>
+      </a>
+      <p>
+        <a href="/show/{{p.id}}">{{p.name}}</a>
+      </p>
+    </li>
+    <hr/>
+  </ul>
+
+  <br/>
+</div>

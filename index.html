@@ -1,27 +1,53 @@
 <html ng-app="PlayerApp">
 	<head>
 		<title>Thirtify</title>
+		<base href="/">
 		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="grid12.css" />
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
+		<script src="https://sdk.scdn.co/spotify-player.js"></script>
+		<script src="bower_components/jquery/jquery.js"></script>
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/angular-route/angular-route.js"></script>
+		<script src="bower_components/vibrant/Vibrant.js"></script>
+		<script src="bower_components/moment/moment.js"></script>
+		<script src="bower_components/array-diff/array-diff.js"></script>
+		<script src="bower_components/underscore/underscore.js"></script>
 		<script src="app.js"></script>
 		<script src="services/auth.js"></script>
 		<script src="services/api.js"></script>
 		<script src="services/playback.js"></script>
 		<script src="services/playqueue.js"></script>
+		<script src="directives/app.js"></script>
 		<script src="directives/playlistcover.js"></script>
 		<script src="directives/responsivecover.js"></script>
 		<script src="directives/contextmenu.js"></script>
 		<script src="directives/focusme.js"></script>
+		<script src="directives/header.js"></script>
+		<script src="directives/tabcontent.js"></script>
+		<script src="directives/tab.js"></script>
+		<script src="directives/recommendations.js"></script>
 		<script src="filters/displaytime.js"></script>
 		<script src="filters/timeago.js"></script>
 		<script src="controllers/player.js"></script>
+		<script src="controllers/show.js"></script>
 		<script src="controllers/login.js"></script>
+		<script src="controllers/genre.js"></script>
+		<script src="controllers/chart.js"></script>
+		<script src="controllers/year.js"></script>
+		<script src="controllers/country.js"></script>
+		<script src="controllers/label.js"></script>
+		<script src="controllers/track.js"></script>
+		<script src="controllers/episode.js"></script>
+		<script src="controllers/hashtag.js"></script>
 		<script src="controllers/playlist.js"></script>
 		<script src="controllers/home.js"></script>
 		<script src="controllers/artist.js"></script>
+		<script src="controllers/app.js"></script>
 		<script src="controllers/album.js"></script>
+		<script src="controllers/audiobook.js"></script>
+		<script src="controllers/author.js"></script>
+		<script src="controllers/publisher.js"></script>
 		<script src="controllers/user.js"></script>
 		<script src="controllers/usertracks.js"></script>
 		<script src="controllers/playqueue.js"></script>
@@ -33,11 +59,17 @@
 		<div class="fullview playerview" ng-show="showplayer">
 			<div ng-controller="PlayerController">
 				<div class="topgroup">
-					<div class="searchbox">
-						<input type="text" ng-model="query" ng-change="loadsearch()" ng-keyup="loadsearch()" placeholder="Search..." />
+					<div class="buttons">
+						<button style="padding: 8pt" onclick="history.back()">&lt;</button>
+						<button style="padding: 8pt" href="#" onclick="history.forward()">&gt;</button>
+					</div>
+					<div class="searchbox" style="left: 60pt">
+						<form novalidate ng-submit="loadsearch()">
+							<input type="text" ng-model="query" placeholder="Search..." />
+						</form>
 					</div>
 					<div class="titlebox">
-						<a href="#/home">SAMPLE PLAYER APPLICATION</a>
+						<a href="/home">THIRTIFY</a>
 					</div>
 					<div class="userbox">
 						Signed in as <b><a href="#/users/{{profileUsername}}">{{profileUsername}}</a></b>
@@ -47,18 +79,18 @@
 				<div class="midgroup">
 					<div class="menuview">
 						<div class="list scrollable">
-							<b><a href="#/">MAIN</a></b>
+							<b><a href="/">MAIN</a></b>
 							<ul class="menuitems">
-								<li><a href="#/" ng-class="getClass('/')">Browse</a></li>
+								<li><a href="/" ng-class="getClass('/')">Browse</a></li>
 							</ul>
-							<b><a href="#/me">YOUR MUSIC</a></b>
+							<b><a href="/me">YOUR MUSIC</a></b>
 							<ul class="menuitems">
-								<li><a href="#/users/{{username}}/tracks" ng-class="getClass('/users/{{username}}/tracks')">Songs</a></li>
+								<li><a href="/users/{{username}}/tracks" ng-class="getClass('/users/{{username}}/tracks')">Songs</a></li>
 							</ul>
-							<b><a href="#/me">PLAYLISTS</a></b>
+							<b><a href="/me">PLAYLISTS</a></b>
 							<ul class="menuitems">
 								<li ng-repeat="pl in playlists track by pl.id" ng-context-menu="menuOptions(pl)" ng-class="getClass('/users/{{pl.username}}/playlists/{{pl.id}}')">
-									<a href="#/users/{{pl.username}}/playlists/{{pl.id}}" ng-if="!pl.editing">
+									<a href="/playlists/{{pl.id}}" ng-if="!pl.editing">
 										{{pl.name}}
 									</a>
 									<input focus-me="focusInput" ng-blur="playlistNameBlur(pl)" ng-if="pl.editing" class="edit" type="text" value="{{pl.name}}" name="title" ng-keyup="playlistNameKeyUp($event, pl)">
@@ -66,12 +98,12 @@
 							</ul>
 						</div>
 						<div class="preview">
-							<a href="#/albums/{{trackdata.album.id}}">
+							<a href="/albums/{{trackdata.album.id}}">
 								<responsive-cover ng-model="trackdata.album.images"></responsive-cover>
 							</a>
 							<p>
 								<b>{{trackdata.name}}</b>
-								<a href="#/artists/{{trackdata.artists[0].id}}">
+								<a href="/artists/{{trackdata.artists[0].id}}">
 									{{trackdata.artists[0].name}}
 								</a>
 							</p>

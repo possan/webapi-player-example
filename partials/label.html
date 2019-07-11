@@ -1,0 +1,160 @@
+<generic-header ng-model="data"></generic-header>
+<div class="container">
+  <tab-bar>
+    <tabbar-tab section="overview" label="Overview"></tabbar-tab>
+    <tabbar-tab section="tracks" label="Tracks"></tabbar-tab>
+    <tabbar-tab section="artists" label="Artists"></tabbar-tab>
+    <tabbar-tab section="albums" label="Albums"></tabbar-tab>
+    <tabbar-tab section="playlists" label="Playlists"></tabbar-tab>
+    <tabbar-tab section="about" label="About"></tabbar-tab>
+  </tab-bar>
+</div>
+<section tab-content section="overview" class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h3>{{'popular-tracks' | locale}} <a style="float: right" href="/label/{{data.id}}#tracks" class="button right">More</a></h3>
+			<table class="tracks">
+				<thead>
+					<th></th>
+					<th>#</th>
+					<th></th>
+					<th>SONG</th>
+					<th>TIME</th>
+				</thead>
+				<tbody>
+
+					<tr ng-repeat="t in toptracks.slice(0,5)" ng-class="{ playing: (t.uri == currenttrack) }">
+						<td><img src="{{t.album.images[0].url}}" width="32"></td>
+						<td>{{$index + 1}}</td>
+						<td>
+							<button ng-click="toggleFromYourMusic($index)" style="opacity: 0.5"> {{ t.inYourMusic ? '-' : '+' }} </button>
+						</td>
+						<td><a ng-click="playtoptrack(t.uri)">{{t.name}}</a></td>
+						<td style="opacity: 0.5">{{t.duration_ms | displaytime}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div ng-show="artists.length > 0">
+		<h3>{{'artists' | locale}} <a style="float: right" href="/label/{{data.id}}#artists" class="button right">Show all</a></h3>
+		<ul class="albums">
+			<li ng-repeat="t in artists.slice(0,6)">
+				<a href="/artists/{{t.id}}">
+					<responsive-cover ng-model="t.images"></responsive-cover>
+				</a>
+				<p>
+					<b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
+				</p>
+			</li>
+		</ul>
+		<hr/>
+		<br/>
+	</div>
+
+	<div ng-show="albums.length > 0">
+		<h3>{{'albums' | locale}} <a style="float: right" href="/label/{{data.id}}#albums" class="button right">Show all</a></h3>
+		<ul class="albums">
+			<li ng-repeat="t in albums.slice(0,6)">
+				<a href="/albums/{{t.id}}">
+					<responsive-cover ng-model="t.images"></responsive-cover>
+				</a>
+				<p>
+					<b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
+				</p>
+			</li>
+		</ul>
+		<hr/>
+		<br/>
+	</div>
+
+	<div ng-show="singles.length > 0">
+		<h3>{{'singles' | locale}} <a style="float: right" href="/label/{{data.id}}#singles" class="button right">Show all</a></h3>
+		<ul class="albums">
+			<li ng-repeat="t in singles.slice(0,6)">
+				<a href="/albums/{{t.id}}">
+					<responsive-cover ng-model="t.images"></responsive-cover>
+				</a>
+				<p>
+					<b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
+				</p>
+			</li>
+		</ul>
+		<hr/>
+		<br/>
+	</div>
+
+	<div ng-show="appearson.length > 0">
+		<h3>{{'appears-on' | locale}}</h3>
+		<ul class="albums">
+			<li ng-repeat="t in appearson.slice(6)">
+				<a href="/albums/{{t.id}}">
+					<responsive-cover ng-model="t.images"></responsive-cover>
+				</a>
+				<p>
+					<b><a href="/albums/{{t.id}}">{{t.name}}</a></p>
+				</p>
+			</li>
+		</ul>
+		<hr/>
+		<br/>
+	</div>
+</section>
+<section section="artists" class="container">
+	<div ng-show="artists.length > 0">
+		<ul class="albums">
+			<li ng-repeat="t in artists">
+				<a href="/artists/{{t.id}}">
+					<responsive-cover ng-model="t.images"></responsive-cover>
+				</a>
+				<p>
+					<b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
+				</p>
+			</li>
+		</ul>
+		<hr/>
+		<br/>
+	</div>
+</section>
+<section section="albums">
+	<div ng-show="albums.length > 0">
+		<ul class="albums">
+			<li ng-repeat="t in albums">
+				<a href="/albums/{{t.id}}">
+					<responsive-cover ng-model="t.images"></responsive-cover>
+				</a>
+				<p>
+					<b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
+				</p>
+			</li>
+		</ul>
+		<hr/>
+		<br/>
+	</div>
+</section>
+<!--
+
+<br/>
+
+<p>ID {{artist}}</p>
+
+<hr/>
+
+<h2>Missing functionality</h2>
+
+<p><a href="#">PLAY FIRST THING</a></p>
+
+<p><a href="#">FOLLOW/FOLLOWING</a></p>
+
+<p>Latest release</p>
+
+<p>Popular tracks</p>
+
+<p>Related artists</p>
+
+<p>Albums (list | covers)</p>
+
+<p>Singles (list | covers)</p>
+
+<p>Appears on (list | covers)</p>
+-->

@@ -17,10 +17,33 @@
 			$scope.currenttrack = PlayQueue.getCurrent();
 		});
 
+
 		API.getArtist($scope.artist).then(function(artist) {
 			console.log('got artist', artist);
 			$scope.data = artist;
-		});
+
+			let img = document.createElement('img');
+			img.crossOrigin = "Anonymous";
+			img.src = $scope.data.images && $scope.data.images.length > 0 ? $scope.data.images[0].url : ''
+
+			img.addEventListener('load', function() {
+	   			var vibrant = new Vibrant(img);
+
+	   			var swatches = vibrant.swatches()
+	   			let i = 0;
+			    for (var swatch in swatches) {
+			        if (i == 1) {
+			        	if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
+				        	let hex = swatches[swatch].getHex()
+				            console.log(swatch, hex)
+				            document.documentElement.style.setProperty('--vibrant-color', hex + '88')
+				         	break;   
+				        }
+				    }
+			        i++
+			    }
+			});
+		})
 
 		API.getArtistTopTracks($scope.artist, Auth.getUserCountry()).then(function(toptracks) {
 			console.log('got artist', toptracks);
@@ -36,6 +59,12 @@
 				});
 			});
 		});
+
+		API.findShows($scope.artist.name).then(function (results) {
+			$scope.shows = results.shows.items.filter((obj) => {
+				return obj.publisher.indexOf($scope.artist.name) !== -1
+			})
+		})
 
 		API.getArtistAlbums($scope.artist, Auth.getUserCountry()).then(function(albums) {
 			console.log('got artist albums', albums);

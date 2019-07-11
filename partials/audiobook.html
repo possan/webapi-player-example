@@ -1,0 +1,41 @@
+<generic-header ng-model="data" playable="true">
+
+</generic-header>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<input class="form-control" placeholder="Filter" type="search" style="width: 100%" ng-model="q">
+		</div>
+	</div>
+</div>
+<div class="container">
+<div class="discs">
+	<div ng-repeat="d in discs">
+		<p ng-show="num_discs > 1">
+			CD {{ d.disc_number }}
+		</p>
+		<table class="tracks">
+			<thead>
+				<th>#</th>
+				<th>{{ 'chapter' | locale }}</th>
+				<th>{{ 'time' | locale }}</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="t in tracks | filter:q" ng-class="{ playing: (t.uri == currenttrack) }">
+					<td style="opacity: 0.5">{{t.track_number}}</td>
+					
+					<td>
+						<a ng-click="play(t.uri)">{{t.name}}</a>
+					</td>
+					<td style="opacity: 0.5; text-align: right">{{t.duration_ms | displaytime}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="container">
+	<p ng-repeat="c in data.copyrights" style="margin-top: 12pt; margin-bottom: 12pt; font-size: 11px">({{c.type}}) {{c.text}}</p>
+</div>
+
+
