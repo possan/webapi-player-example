@@ -10,9 +10,15 @@ or clone the project and run it locally.
 Note that you will need a Spotify account (either free or premium) to log in to the site.
 
 ## How to Run
-You will need to run a server. The example is ready to work in the port 8000, so you can do:
+You will need to run a server. The example is ready to work in the port 8000 by running the following command :
+
+For Mac/Linux :
 
     $ python -m SimpleHTTPServer 8000
+
+For Windows :
+
+    $ python -m http.server 8000
 
 and open `http://localhost:8000` in a browser. (This requires python to be installed on your machine.)
 
