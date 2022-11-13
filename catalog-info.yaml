@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: Thirtify
+  annotations:
+    github.com/project-slug: Buddhalow/thirtify
+spec:
+  type: app
+  lifecycle: production
+  owner: staff

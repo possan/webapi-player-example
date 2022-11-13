@@ -16,11 +16,11 @@
 				<a ng-click="play(t.track.uri)">{{t.track.name}}</a>
 			</td>
 			<td>
-				<a href="#/artists/{{t.track.artists[0].id}}">{{t.track.artists[0].name}}</a>
+				<a href="/artists/{{t.track.artists[0].id}}">{{t.track.artists[0].name}}</a>
 			</td>
 			<td>{{t.track.duration_ms | displaytime}}</td>
 			<td>
-				<a href="#/albums/{{t.track.album.id}}">{{t.track.album.name}}</a>
+				<a href="/albums/{{t.track.album.id}}">{{t.track.album.name}}</a>
 			</td>
 			<td>
 				{{t.added_at | timeago}}

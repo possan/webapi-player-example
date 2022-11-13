@@ -1,55 +1,50 @@
-<header>
-	<playlist-cover ng-model="data" width="200"></playlist-cover>
-	<h4 ng-show="data.collaborative">COLLABORATIVE PLAYLIST</h4>
-	<h4 ng-hide="data.collaborative">PLAYLIST</h4>
-	<h1>{{data.name}}</h1>
-	<p ng-bind-html="playlistDescription"></p>
-	<div class="follower-count">{{data.followers.total | number}} followers</div>
-
-	<div class="buttons">
-		<a ng-click="playall()" class="button green">PLAY ALL</a>
-		<a ng-if="username !== profileUsername" ng-click="follow(isFollowing)" ng-mouseover="isFollowHovered=true" ng-mouseout="isFollowHovered=false" class="button button-add"><span>{{ isFollowing ? (isFollowHovered ? 'UNFOLLOW' : 'FOLLOWING') : 'FOLLOW' }}</span></a>
+<generic-header ng-model="data" followable="true" playable="true">
+</generic-header>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<input class="form-control" placeholder="Filter" type="search" style="width: 100%" ng-model="q">
+		</div>
 	</div>
-</header>
-
-<hr/>
-<p>Created by: <a href="#/users/{{data.owner.id}}">{{data.owner.id}}</a> &middot; {{data.tracks.total}} songs &middot; {{ total_duration | displaytime }}</p>
-<!-- p>{{data.followers.total}} Followers</p -->
-<hr/>
-<br/>
-
+</div>
+<div class="container">
 <table class="tracks">
 	<thead>
 		<th></th>
-		<th>TRACK</th>
-		<th>ARTIST</th>
-		<th>TIME</th>
-		<th>ALBUM</th>
-		<th>ADDED</th>
-		<th ng-if="data.collaborative">USER</th>
+		<th></th>
+		<th>{{ 'track' | locale }}</th>
+		<th>{{ 'artist' | locale }}</th>
+		<th>{{ 'album' | locale}}</th>
+		<th>{{ 'added' | locale }}</th>
+		<th>{{ 'time' | locale }}</th>
+		<th ng-if="data.collaborative">{{ 'user' | locale }}</th>
 	</thead>
 	<tbody>
-		<tr ng-repeat="t in tracks" ng-class="{ playing: (t.track.uri == currenttrack) }" ng-context-menu="menuOptionsPlaylistTrack(t, $index)">
+		<tr ng-repeat="t in tracks | filter: q" ng-dblclick="play(t.track.uri)" ng-class="{ playing: (t.track.uri == currenttrack) }" ng-context-menu="menuOptionsPlaylistTrack(t, $index)">
+			<td>
+				<img width="32" src="{{t.track.album.images[0].url}}">
+			</td>
 			<td>
 				<button ng-click="toggleFromYourMusic($index)"> {{ t.track.inYourMusic ? '-' : '+' }} </button>
 			</td>
 			<td>
-				<a ng-click="play(t.track.uri)">{{t.track.name}}</a>
+				<a href="/track/{{t.track.id}}">{{t.track.name}}</a>
 			</td>
 			<td>
-				<a href="#/artists/{{t.track.artists[0].id}}">{{t.track.artists[0].name}}</a>
+				<a href="/artists/{{t.track.artists[0].id}}">{{t.track.artists[0].name}}</a>
 			</td>
-			<td class="nowrap">
-				{{ t.track.duration_ms | displaytime }}
-			</td>
+			
 			<td>
-				<a href="#/albums/{{t.track.album.id}}">{{t.track.album.name}}</a>
+				<a href="/albums/{{t.track.album.id}}">{{t.track.album.name}}</a>
 			</td>
-			<td class="nowrap">
+			<td  class="nowrap">
 				{{t.added_at | timeago}}
 			</td>
-			<td class="nowrap" ng-if="data.collaborative">
-				<a href="#/users/{{t.added_by.id}}">{{t.added_by.id}}</a>
+			<td  class="nowrap" ng-if="data.collaborative">
+				<a href="/users/{{t.added_by.id}}">{{t.added_by.id}}</a>
+			</td>
+			<td class="nowrap" style="text-align: right">
+				{{ t.track.duration_ms | displaytime }}
 			</td>
 		</tr>
 	</tbody>
@@ -57,6 +52,7 @@
 <br/>
 
 <hr/>
+</div>
 
 <!--
 

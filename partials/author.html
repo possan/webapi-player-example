@@ -1,0 +1,102 @@
+<generic-header ng-model="data" followable="true"></generic-header>
+<div class="container">
+<h3>Popular chapters</h3>
+<table class="tracks">
+	<thead>
+		<th>#</th>
+		<th></th>
+		<th>{{ 'chapter' | locale}}</th>
+	</thead>
+	<tbody>
+
+		<tr ng-repeat="t in toptracks.slice(0,5)" ng-class="{ playing: (t.uri == currenttrack) }">
+			<td><img src="{{t.album.images[0].url}}" width="64"></td>
+			<td>{{$index + 1}}</td>
+			<td>
+				<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
+			</td>
+			<td>
+				<a ng-click="playtoptrack(t.uri)"><h3>{{t.name}}</h3></a>
+				<a href="/audiobooks/{{t.album.id}}">{{t.album.name}}</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<hr/>
+<br/>
+
+<div ng-show="albums.length > 0">
+	<h3>{{ 'audiobooks' | locale }}</h3>
+	<ul class="albums">
+		<li ng-repeat="t in albums">
+			<a href="/audiobooks/{{t.id}}">
+				<responsive-cover ng-model="t.images"></responsive-cover>
+			</a>
+			<p>
+				<b><a href="/audiobooks/{{t.id}}">{{t.name}}</a></b>
+			</p>
+		</li>
+	</ul>
+	<hr/>
+	<br/>
+</div>
+
+<div ng-show="singles.length > 0">
+	<h3>{{ 'singles' | locale }}</h3>
+	<ul class="albums">
+		<li ng-repeat="t in singles">
+			<a href="/audiobooks/{{t.id}}">
+				<responsive-cover ng-model="t.images"></responsive-cover>
+			</a>
+			<p>
+				<b><a href="/audiobooks/{{t.id}}">{{t.name}}</a></b>
+			</p>
+		</li>
+	</ul>
+	<hr/>
+	<br/>
+</div>
+
+<div ng-show="appearson.length > 0">
+	<h3>{{ 'featured-on' | locale }}</h3>
+	<ul class="albums">
+		<li ng-repeat="t in appearson">
+			<a href="/audiobooks/{{t.id}}">
+				<responsive-cover ng-model="t.images"></responsive-cover>
+			</a>
+			<p>
+				<b><a href="/albums/{{t.id}}">{{t.name}}</a></p>
+			</p>
+		</li>
+	</ul>
+	<hr/>
+	<br/>
+</div>
+</div>
+<!--
+
+<br/>
+
+<p>ID {{artist}}</p>
+
+<hr/>
+
+<h2>Missing functionality</h2>
+
+<p><a href="#">PLAY FIRST THING</a></p>
+
+<p><a href="#">FOLLOW/FOLLOWING</a></p>
+
+<p>Latest release</p>
+
+<p>Popular tracks</p>
+
+<p>Related artists</p>
+
+<p>Albums (list | covers)</p>
+
+<p>Singles (list | covers)</p>
+
+<p>Appears on (list | covers)</p>
+-->

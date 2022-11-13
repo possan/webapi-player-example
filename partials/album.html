@@ -1,68 +1,74 @@
-<header>
-	<div class="cover">
-		<responsive-cover ng-model="data.images"></responsive-cover>
-	</div>
+<generic-header ng-model="data">
 
-	<h4 ng-show="data.album_type == 'single'">Single</h4>
-	<h4 ng-show="data.album_type == 'album'">Album</h4>
-	<h4 ng-show="data.album_type == 'compilation'">Compilation</h4>
-	<h1>{{data.name}}</h1>
+</generic-header>
 
-	<div class="buttons">
-		<a ng-click="playall()" class="button green">PLAY ALL</a>
-	</div>
-</header>
-
-<hr/>
-<p>
-	By <a href="#/artists/{{data.artists[0].id}}">{{data.artists[0].name}}</a>
-	&middot;
-	{{release_year}}
-	&middot;
-	{{data.tracks.total}} Songs
-	&middot;
-	Total {{total_duration | displaytime}}
-</p>
-<hr/>
-<br/>
-
-<div class="discs">
-	<div ng-repeat="d in discs">
-		<p ng-show="num_discs > 1">
-			CD {{ d.disc_number }}
-		</p>
-		<table class="tracks">
-			<thead>
-				<th>#</th>
-				<th></th>
-				<th>TRACK</th>
-				<th>TIME</th>
-				<th>POPULARITY</th>
-			</thead>
-			<tbody>
-				<tr ng-repeat="t in tracks" ng-class="{ playing: (t.uri == currenttrack) }">
-					<td>{{t.track_number}}</td>
-					<td>
-						<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
-					</td>
-					<td>
-						<a ng-click="play(t.uri)">{{t.name}}</a>
-					</td>
-					<td>{{t.duration_ms | displaytime}}</td>
-					<td>
-						<div class="pop-meter">
-							<div class="pop-meter-background"></div>
-							<div class="pop-meter-overlay" style="width: {{ t.popularity }}%;"></div>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<input class="form-control" placeholder="Filter" type="search" style="width: 100%" ng-model="q">
+		</div>
 	</div>
 </div>
-<br/>
+<div class="container">
+	<div class="discs">
+		<div ng-repeat="d in discs">
+			<p ng-show="num_discs > 1">
+				CD {{ d.disc_number }}
+			</p>
+			<table class="tracks">
+				<thead>
+					<th>#</th>
+					<th></th>
+					<th>{{ 'track' | locale }}</th>
+					<th>{{ 'time' | locale }}</th>
+					<th>{{ 'popularity' | locale }}</th>
+				</thead>
+				<tbody>
+					<tr ng-dblclick="play(t.uri)" ng-repeat="t in tracks | filter:q" ng-class="{ playing: (t.uri == currenttrack) }">
+						<td>{{t.track_number}}</td>
+						<td>
+							<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
+						</td>
+						<td width="100%">
+							<a ng-click="play(t.uri)">{{t.name}}</a>
+						</td>
+						<td style="opacity: 0.5 " width="10pt">{{t.duration_ms | displaytime}}</td>
+						<td width="10pt">
+							<div class="pop-meter">
+								<div class="pop-meter-background"></div>
+								<div class="pop-meter-overlay" style="width: {{ t.popularity }}%;"></div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<p ng-repeat="c in data.copyrights" style="margin-top: 12pt; margin-bottom: 12pt; font-size: 11px">({{c.type}}) {{c.text}}</p>
+</div>
 
-<hr/>
+<div class="container" ng-if="albums && albums.length > 0">
+	<h3>{{ 'more-by' | locale:data.artists[0].name }}</h3>
+	<ul class="playlists">
+      <li ng-repeat="t in albums" style="margin-right: 51pt; margin-bottom: 22pt" >
+        <a href="/albums/{{t.id}}" >
+          <img src="{{t.images[0].url}}" width="200">
+        </a>
+        <p>
+          <b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
+        </p>
+      </li>
+    </ul>
+</div>
+
+<div class="container">
+	<details>
+		<summary>{{'recommended-tracks' | locale }}</summary>
+		<recommended-tracks tracks="{{data.id}}" artists="{{data.authorIds}}" genres="pop"></recommended-tracks>
+	</details>
+</div>
 
 <!--
 

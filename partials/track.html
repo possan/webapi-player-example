@@ -1,0 +1,97 @@
+<generic-header ng-model="data" playable="true">
+
+</generic-header>
+<div class="container">
+	<table class="tracks">
+		<thead>
+			<th></th>
+			<th>TRACK</th>
+			<th>TIME</th>
+			<th>POPULARITY</th>
+		</thead>
+		<tbody>
+			<tr ng-dblclick="play(t.uri)" ng-if="(data.id === t.id) || showAll" ng-repeat="t in data.album.tracks" ng-class="{ playing: (t.uri == currenttrack), sidekick: data.id !== t.id }">
+				<td>
+					<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
+				</td>
+				<td width="100%">
+					<a ng-click="play(t.uri)">{{t.name}}</a>
+				</td>
+				<td>{{t.duration_ms | displaytime}}</td>
+				<td>
+					<div class="pop-meter">
+						<div class="pop-meter-background"></div>
+						<div class="pop-meter-overlay" style="width: {{ t.popularity }}%;"></div>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<a style="float: right" class="button" ng-click="toggleShowAll()" ng-if="showAll">Show all tracks</a>
+	<a style="float: right" class="button" ng-click="toggleShowAll()" ng-if="showAll">Show only current track</a>
+</div>
+<div class="container" style="display: none">
+	<details>
+		<summary>Show track analysis</summary>
+	</details>
+</div>
+<br>
+<div class="container">
+	<details>
+		<summary>Recommended tracks</summary>
+		<recommended-tracks tracks="{{data.id}}" artists="{{data.authorIds}}" genres="pop"></recommended-tracks>
+	</details>
+</div>
+
+<div class="container">
+	<div class="discs">
+		<div ng-repeat="d in discs">
+			<p ng-show="num_discs > 1">
+				CD {{ d.disc_number }}
+			</p>
+			<table class="tracks">
+				<thead>
+					<th>#</th>
+					<th></th>
+					<th>TRACK</th>
+					<th>TIME</th>
+					<th>POPULARITY</th>
+				</thead>
+				<tbody>
+					<tr ng-dblclick="play(t.uri)" ng-repeat="t in similarTracks" ng-class="{ playing: (t.uri == currenttrack) }">
+						<td>{{t.track_number}}</td>
+						<td>
+							<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
+						</td>
+						<td>
+							<a ng-click="play(t.uri)">{{t.name}}</a>
+						</td>
+						<td style="opacity: 0.5">{{t.duration_ms | displaytime}}</td>
+						<td>
+							<div class="pop-meter">
+								<div class="pop-meter-background"></div>
+								<div class="pop-meter-overlay" style="width: {{ t.popularity }}%;"></div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br/>
+
+	<hr/>
+</div>
+<!--
+
+<p>(C) (P) info</p>
+
+<p>More by...</p>
+
+<hr/>
+
+<hr/>
+
+<p>POPULARITY</p>
+<p>{trackname} - {artists}</p>
+-->

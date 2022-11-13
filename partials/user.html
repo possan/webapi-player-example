@@ -1,30 +1,17 @@
-<header>
-	<div class="cover">
-		<responsive-cover ng-model="data.images"></responsive-cover>
-	</div>
-
-	<h4>USER</h4>
-	<h1>{{data.display_name}}</h1>
-	<div class="follower-count">{{data.followers.total | number}} followers</div>
-
-  <div class="buttons" ng-if="username !== profileUsername">
-    <a ng-click="follow(isFollowing)" ng-mouseover="isFollowHovered=true" ng-mouseout="isFollowHovered=false" class="button button-add"><span>{{ isFollowing ? (isFollowHovered ? 'UNFOLLOW' : 'FOLLOWING') : 'FOLLOW' }}</span></a>
-  </div>
-
-</header>
-
+<generic-header ng-model="data" followable="true"></generic-header>
+<div class="container">
 <div ng-show="userplaylists.length > 0">
   <h2>Public Playlists</h2>
-  <ul class="playlists">
-    <li ng-repeat="t in userplaylists">
-      <a href="#/users/{{t.owner.id}}/playlists/{{t.id}}">
+  <div class="row playlists ">
+    <div class="col-md-3" ng-repeat="t in userplaylists">
+      <a href="/playlists/{{t.id}}">
         <responsive-cover ng-model="t.images" class="responsive-cover-playlist"></responsive-cover>
       </a>
       <p>
-        <b><a href="#/users/{{t.owner.id}}/playlists/{{t.id}}">{{t.name}}</a></b>
+        <b><a href="/playlists/{{t.id}}">{{t.name}}</a></b>
       </p>
-    </li>
-  </ul>
+    </div>
+  </div>
   <hr/>
   <br/>
 </div>
@@ -32,7 +19,7 @@
 	<h2>There was an error retrieving playlists</h2>
 	<div>Please try again later</div>
 </div>
-
+</div>
 <!--
 <hr/>
 

@@ -1,0 +1,70 @@
+<generic-header ng-model="data" playable="true">
+
+</generic-header>
+<div class="container">
+	<table class="tracks">
+		<thead>
+			<th></th>
+			<th>{{'episode' | locale}}</th>
+			<th></th>
+			<th>{{'time' | locale}}</th>
+			<th>{{'published' | locale}}</th>
+		</thead>
+		<tbody>
+			<tr ng-dblclick="play(t.uri)" ng-if="(data.id === t.id) || showAll" ng-repeat="t in tracks" ng-class="{ playing: (t.uri == currenttrack), sidekick: data.id !== t.id }">
+				<td>
+					<button ng-click="toggleFromYourMusic($index)"> {{ t.inYourMusic ? '-' : '+' }} </button>
+				</td>
+				<td width="30%">
+					<a ng-click="play(t.uri)">{{t.name}}</a>
+				</td>
+				<td width="30%">
+					<progress min="0" max="100" value="50" style="width: 100%"></progress>
+				</td>
+				<td>{{t.duration_ms | displaytime}}</td>
+				<td>{{t.release_date | timeago}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<a style="float: right" class="button" ng-click="toggleShowAll()" ng-if="showAll">Show all tracks</a>
+	<a style="float: right" class="button" ng-click="toggleShowAll()" ng-if="showAll">Show only current track</a>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h3>{{'description' | locale}}</h3>
+			<p>{{data.description}}</p>
+		</div>
+	</div>
+</div>	
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h3>{{'more-by' | locale:data.show.name}}</h3>
+			<ul class="playlists">
+		      <li ng-repeat="t in data.show.episodes" style="margin-right: 51pt; margin-bottom: 22pt" >
+		        <a href="/episodes/{{t.id}}" >
+		          <img src="{{data.show.images[0].url}}" width="200">
+		        </a>
+		        <p>
+		          <b><a href="/episodes/{{t.id}}">{{t.name}}</a></b>
+		        </p>
+		      </li>
+		    </ul>
+ 		</div>
+  	</div>
+</div>
+<!--
+
+<p>(C) (P) info</p>
+
+<p>More by...</p>
+
+<hr/>
+
+<hr/>
+
+<p>POPULARITY</p>
+<p>{trackname} - {artists}</p>
+-->

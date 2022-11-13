@@ -1,0 +1,146 @@
+<generic-header ng-model="data"></generic-header>
+<div class="container">
+  <tab-bar>
+    <tabbar-tab section="overview" label="Overview"></tabbar-tab>
+    <tabbar-tab section="about" label="About"></tabbar-tab>
+  </tab-bar>
+</div>
+<section tab-content section="overview" class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<h3>Popular tracks</h3>
+			<table class="tracks">
+				<thead>
+					<th></th>
+					<th>#</th>
+					<th></th>
+					<th>SONG</th>
+					<th>TIME</th>
+				</thead>
+				<tbody>
+
+					<tr ng-repeat="t in toptracks.slice(0,5)" ng-class="{ playing: (t.uri == currenttrack) }">
+						<td><img src="{{t.album.images[0].url}}" width="32"></td>
+						<td>{{$index + 1}}</td>
+						<td>
+							<button ng-click="toggleFromYourMusic($index)" style="opacity: 0.5"> {{ t.inYourMusic ? '-' : '+' }} </button>
+						</td>
+						<td><a ng-click="playtoptrack(t.uri)">{{t.name}}</a></td>
+						<td style="opacity: 0.5">{{t.duration_ms | displaytime}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-4">
+			<h3>Related artists</h3>
+				Related artists could not be loaded at this moment
+		</div>
+	</div>
+	<hr/>
+	<br/>
+
+	<div ng-show="shows.length > 0">
+		<h3>Shows featuring '{{data.name}}'</h3>
+		<ul class="playlists">
+			<li ng-repeat="t in shows">
+				<a href="/shows/{{t.id}}">
+					<responsive-cover ng-model="t.images"></responsive-cover>
+				</a>
+				<p>
+					<b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
+				</p>
+			</li>
+		</ul>
+		<hr/>
+		<br/>
+	</div>
+	<div ng-show="artists.length > 0">
+		<h3>Artists</h3>
+		<ul class="albums">
+			<li ng-repeat="t in artists">
+				<a href="/artists/{{t.id}}">
+					<responsive-cover ng-model="t.images"></responsive-cover>
+				</a>
+				<p>
+					<b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
+				</p>
+			</li>
+		</ul>
+		<hr/>
+		<br/>
+	</div>
+
+	<div ng-show="albums.length > 0">
+		<h3>Albums</h3>
+		<ul class="albums">
+			<li ng-repeat="t in albums">
+				<a href="/albums/{{t.id}}">
+					<responsive-cover ng-model="t.images"></responsive-cover>
+				</a>
+				<p>
+					<b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
+				</p>
+			</li>
+		</ul>
+		<hr/>
+		<br/>
+	</div>
+
+	<div ng-show="singles.length > 0">
+		<h3>Singles</h3>
+		<ul class="albums">
+			<li ng-repeat="t in singles">
+				<a href="/albums/{{t.id}}">
+					<responsive-cover ng-model="t.images"></responsive-cover>
+				</a>
+				<p>
+					<b><a href="/albums/{{t.id}}">{{t.name}}</a></b>
+				</p>
+			</li>
+		</ul>
+		<hr/>
+		<br/>
+	</div>
+
+	<div ng-show="appearson.length > 0">
+		<h3>Appears on</h3>
+		<ul class="albums">
+			<li ng-repeat="t in appearson">
+				<a href="/albums/{{t.id}}">
+					<responsive-cover ng-model="t.images"></responsive-cover>
+				</a>
+				<p>
+					<b><a href="/albums/{{t.id}}">{{t.name}}</a></p>
+				</p>
+			</li>
+		</ul>
+		<hr/>
+		<br/>
+	</div>
+</section>
+<!--
+
+<br/>
+
+<p>ID {{artist}}</p>
+
+<hr/>
+
+<h2>Missing functionality</h2>
+
+<p><a href="#">PLAY FIRST THING</a></p>
+
+<p><a href="#">FOLLOW/FOLLOWING</a></p>
+
+<p>Latest release</p>
+
+<p>Popular tracks</p>
+
+<p>Related artists</p>
+
+<p>Albums (list | covers)</p>
+
+<p>Singles (list | covers)</p>
+
+<p>Appears on (list | covers)</p>
+-->

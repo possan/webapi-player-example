@@ -13,25 +13,60 @@
 		$scope.currenttrack = PlayQueue.getCurrent();
 		$scope.isFollowing = false;
 		$scope.isFollowHovered = false;
+		$scope.q = ''
 
 		$rootScope.$on('playqueuechanged', function() {
 			$scope.currenttrack = PlayQueue.getCurrent();
 		});
-
-		API.getPlaylist($scope.username, $scope.playlist).then(function(list) {
+		let promise = $scope.username ? API.getPlaylist($scope.username, $scope.playlist) : API.getPlaylistById($scope.playlist) 
+		promise.then(function(list) {
 			console.log('got playlist', list);
 			$scope.name = list.name;
 			$scope.data = list;
-			$scope.playlistDescription = $sce.trustAsHtml(list.description);
-		});
+			$scope.username = list.owner.id
+			$scope.data.authors = [list.owner]
+			$scope.data.description = $sce.trustAsHtml(list.description);
+			let img = document.createElement('img')
+			img.crossOrigin = "Anonymous";
+			img.src = $scope.data.images && $scope.data.images.length > 0 ? $scope.data.images[0].url : ''
+			img.addEventListener('load', function() {
+	   			var vibrant = new Vibrant(img);
 
-		API.getPlaylistTracks($scope.username, $scope.playlist).then(function(list) {
+	   			var swatches = vibrant.swatches()
+	   			let i = 0;
+
+			    for (var swatch in swatches) {
+			        if (i == 1) {
+			        	if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
+				        	let hex = swatches[swatch].getHex()
+				            console.log(swatch, hex)
+				            document.documentElement.style.setProperty('--vibrant-color', hex + '55')
+				            console.log(hex)
+	
+				         	break;   
+				        }
+				    }
+			        i++
+			    }
+			});
+		});
+		promise = $scope.username ? API.getPlaylistTracks($scope.username, $scope.playlist) : API.getTracksInPlaylistById($scope.playlist)
+	
+		API.getEpisodesInPlaylist($scope.playlist).then(results => {
+			debugger
+		})
+		promise.then(function(list) {
 			console.log('got playlist tracks', list);
 			var tot = 0;
 			list.items.forEach(function(track) {
 				tot += track.track.duration_ms;
 			});
 			$scope.tracks = list.items;
+			$scope.visibleTracks = $scope.tracks.filter(
+				o => {
+					
+				}
+			)
 			console.log('tot', tot);
 			$scope.total_duration = tot;
 
@@ -54,6 +89,8 @@
 			}
 		});
 
+		promise = $scope.username ? API.isFollowingPlaylist($scope.username, $scope.playlist) : API.isFollowingPlaylistById($scope.playlist)
+		
 		API.isFollowingPlaylist($scope.username, $scope.playlist).then(function(booleans) {
 			console.log("Got following status for playlist: " + booleans[0]);
 			$scope.isFollowing = booleans[0];
@@ -61,12 +98,14 @@
 
 		$scope.follow = function(isFollowing) {
 			if (isFollowing) {
-				API.unfollowPlaylist($scope.username, $scope.playlist).then(function() {
+				let promise = $scope.username ? API.unfollowPlaylist($scope.username, $scope.playlist) : API.unfollowPlaylistById($scope.playlist)
+				promise.then(function() {
 					$scope.isFollowing = false;
 					$rootScope.$emit('playlistsubscriptionchange');
 				});
 			} else {
-				API.followPlaylist($scope.username, $scope.playlist).then(function() {
+				let promise = $scope.username ? API.followPlaylist($scope.username, $scope.playlist) : API.followPlaylistById($scope.playlist)
+				promise.then(function () {
 					$scope.isFollowing = true;
 					$rootScope.$emit('playlistsubscriptionchange');
 				});
@@ -109,12 +148,17 @@
 					'Delete',
 					function ($itemScope) {
 						var position = $itemScope.$index;
-						API.removeTrackFromPlaylist(
+						let promise = $scope.username ? API.removeTrackFromPlaylist(
 							$scope.username,
 							$scope.playlist,
-							$itemScope.t.track, position).then(function() {
-								$scope.tracks.splice(position, 1);
-							});
+							$itemScope.t.track, position) :
+							API.removeTrackFromPlaylistById(
+								$scope.playlist,
+								$itemScope.t.track, position)
+
+						promise.then(function() {
+							$scope.tracks.splice(position, 1);
+						});
 					}]]
 			} else {
 				return null;
